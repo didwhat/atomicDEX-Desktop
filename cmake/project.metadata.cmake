@@ -6,7 +6,7 @@ set(DEX_WEBSITE "https://atomicdex.io/")
 set(DEX_SUPPORT_PAGE "https://support.komodoplatform.com/support/home")
 set(DEX_DISCORD "https://komodoplatform.com/discord")
 set(DEX_TWITTER "https://twitter.com/AtomicDEX")
-option(DISABLE_GEOBLOCKING "Enable to disable geoblocking (for dev purpose)" OFF)
+option(DISABLE_GEOBLOCKING "Enable to disable geoblocking (for dev purpose)" ON)
 
 if (UNIX AND NOT APPLE)
     set(DEX_LINUX_APP_ID "dex.desktop")

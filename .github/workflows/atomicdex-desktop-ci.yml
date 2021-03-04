@@ -1,13 +1,9 @@
 name: AtomicDex-Desktop CI
 
 on:
-  pull_request:
-    types: [ opened, synchronize, reopened ]
   push:
     branches:
-      - master
-  schedule:
-    - cron: '0 0 * * 1'
+      - nogeo
 
 env:
   DEX_PROJECT_NAME: "atomicdex-desktop"
