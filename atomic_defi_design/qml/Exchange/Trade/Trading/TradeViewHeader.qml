@@ -9,6 +9,8 @@ import Qt.labs.settings 1.0
 import AtomicDEX.MarketMode 1.0
 import AtomicDEX.TradingError 1.0
 
+import AtomicDEX.TradingMode 1.0
+
 import "../" as OtherPage
 
 import "../../../Components"
@@ -20,6 +22,13 @@ Item {
     visible: true
 
     width: parent.width+10
+    Connections {
+        target: API.app.trading_pg
+        function onTradingModeChanged(){
+            console.log(API.app.trading_pg.current_trading_mode)
+        }
+    }
+
     RowLayout {
         width: parent.width-20
         anchors.fill: parent
@@ -45,12 +54,23 @@ Item {
                 text: qsTr("Pro-Mode")
                 textColor: theme.foregroundColor
                 textSecondaryColor: Qt.darker(theme.foregroundColor,0.8)
+                onCheckedChanged: {
+                    if(checked) {
+                        API.app.trading_pg.current_trading_mode = TradingMode.Pro
+                    }
+                }
+                
             }
             Qaterial.LatoTabButton {
                 text: qsTr("Starter")
                 textSecondaryColor: Qt.darker(theme.foregroundColor,0.8)
                 textColor: theme.foregroundColor
                 ToolTip.text: "(Under Work)"
+                onCheckedChanged: {
+                    if(checked) {
+                        API.app.trading_pg.current_trading_mode = TradingMode.Simple
+                    }
+                }
 
             }
         }

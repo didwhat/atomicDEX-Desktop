@@ -13,6 +13,7 @@ import "../Exchange"
 import "../Settings"
 import "../Support"
 import "../Sidebar"
+import "../Fiat"
 
 Item {
     id: dashboard
@@ -27,6 +28,7 @@ Item {
     readonly property int idx_dashboard_support: 7
     readonly property int idx_dashboard_light_ui: 8
     readonly property int idx_dashboard_privacy_mode: 9
+    readonly property int idx_dashboard_fiat_ramp: 10
 
     //readonly property int idx_exchange_trade: 3
     readonly property int idx_exchange_trade: 0
@@ -155,6 +157,14 @@ Item {
             }
         }
 
+        Component {
+            id: fiat_ramp
+
+            FiatRamp {
+
+            }
+        }
+
         DefaultLoader {
             id: loader
 
@@ -171,6 +181,7 @@ Item {
                 case idx_dashboard_dapps: return dapps
                 case idx_dashboard_settings: return settings
                 case idx_dashboard_support: return support
+                case idx_dashboard_fiat_ramp: return fiat_ramp
                 default: return undefined
                 }
             }

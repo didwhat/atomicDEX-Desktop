@@ -16,50 +16,44 @@
 
 #pragma once
 
-//! STD
-#include <optional>
+//! Deps
+#include <nlohmann/json_fwd.hpp>
 
 //! Project Headers
-#include "atomicdex/utilities/cpprestsdk.utilities.hpp"
+#include "atomicdex/constants/qt.coins.enums.hpp"
+
+namespace mm2::api
+{
+    //! Only for erc 20
+    struct enable_request
+    {
+        std::string              coin_name;
+        std::vector<std::string> urls;
+        CoinType                 coin_type;
+        bool                     is_testnet{false};
+        const std::string        erc_swap_contract_address{"0x8500AFc0bc5214728082163326C2FF0C73f4a871"};
+        const std::string        erc_testnet_swap_contract_address{"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94"};
+        std::string              gas_station_url{"https://ethgasstation.info/json/ethgasAPI.json"};
+        std::string              type; ///< QRC-20 ?
+        bool                     with_tx_history{true};
+    };
+
+    void to_json(nlohmann::json& j, const enable_request& cfg);
+
+    struct enable_answer
+    {
+        std::string address;
+        std::string balance;
+        std::string result;
+        std::string raw_result;
+        int         rpc_result_code;
+    };
+
+    void from_json(const nlohmann::json& j, const enable_answer& cfg);
+} // namespace mm2::api
 
 namespace atomic_dex
 {
-    struct ohlc_request
-    {
-        std::string base_asset;
-        std::string quote_asset;
-    };
-
-    struct ohlc_contents
-    {
-        std::size_t close_time_timestamp;
-        std::string human_readeable_closing_time;
-        std::string open;
-        std::string high;
-        std::string low;
-        std::string close;
-        std::string volume;
-        std::string quote_volume;
-    };
-
-    struct ohlc_answer_success
-    {
-        using t_format        = std::string;
-        using t_ohlc_contents = std::vector<ohlc_contents>;
-        std::unordered_map<t_format, t_ohlc_contents> result;
-        nlohmann::json                                raw_result;
-    };
-
-    struct ohlc_answer
-    {
-        std::optional<ohlc_answer_success> result;
-        std::optional<std::string>         error;
-    };
-
-    void from_json(const nlohmann::json& j, ohlc_answer_success& answer);
-    void from_json(const nlohmann::json& j, ohlc_answer& answer);
-
-    ohlc_answer                          ohlc_answer_from_async_resp(web::http::http_response resp);
-    pplx::task<web::http::http_response> async_rpc_ohlc_get_data(ohlc_request&& request);
-
+    using t_enable_request = ::mm2::api::enable_request;
+    using t_enable_answer  = ::mm2::api::enable_answer;
 } // namespace atomic_dex
