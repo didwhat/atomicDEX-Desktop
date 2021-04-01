@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 
 import QtGraphicalEffects 1.0
 import QtCharts 2.3
+import Qaterial 1.0 as Qaterial
 
 import "../Components"
 import "../Constants"
@@ -13,6 +14,7 @@ ColumnLayout {
     id: portfolio
     Layout.fillWidth: true
     Layout.fillHeight: true
+    Layout.bottomMargin: 40
 
     readonly property int sort_by_name: 0
     readonly property int sort_by_value: 1
@@ -69,11 +71,325 @@ ColumnLayout {
         for(i = 0; i < chart.axes.length; ++i)
             chart.axes[i].visible = false
     }
+    Item {
+        Layout.fillWidth: true
+        height: 80
+        visible: false
+        FloatingBackground {
+            anchors.fill: parent
+            anchors.margins: 15
+            anchors.bottomMargin: 5
+            radius: 2
+        }
+
+    }
+    Item {
+        Layout.fillWidth: true
+        visible: false
+        Layout.preferredHeight: 450
+        RowLayout {
+            anchors.fill: parent
+            Item {}
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight:370
+                ChartView {
+                      width: 700
+                      height: 500
+                      theme: ChartView.ChartView.ChartThemeLight
+                      antialiasing: true
+                      legend.visible: false
+                      backgroundColor: 'transparent'
+                      anchors.centerIn: parent
+                      PieSeries {
+                          PieSlice {
+                              label: "XRP"; value: 10; color: Qaterial.Colors.yellow500;
+                               labelColor: 'white';labelVisible: false; labelFont: theme.textType.head5
+                               borderWidth: 3
+                               Behavior on explodeDistanceFactor {
+                                   NumberAnimation  {
+                                       duration: 150
+                                   }
+                               }
+
+                          }
+                          PieSlice { label: "USDT"; value: 15; color: Qaterial.Colors.lightBlue700;
+                              labelColor: 'white';labelVisible: false; labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                          }
+                          PieSlice { label: "BTC"; value: 20;labelVisible: false; color: Qaterial.Colors.deepOrange700;
+                              labelColor: 'white';labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                          }
+                          PieSlice { label: "Komodo"; value: 25.9; color: Qaterial.Colors.teal900;
+                              labelColor: 'white';labelVisible: false; labelFont: theme.textType.head5
+                              borderWidth: 1
+
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+
+                          }
+                          PieSlice { label: "SMC"; value: 10;  color: Qaterial.Colors.pink600;
+                              labelColor: 'white';labelVisible: false; labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           }
+                          PieSlice { label: "RVN"; value: 20; color: Qaterial.Colors.deepPurple400;
+                              labelColor: 'white';labelVisible: false; labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+
+                          }
+                      }
+
+                      PieSeries {
+                          id: pieSeries
+                          PieSlice {
+                              label: "XRP"; value: 10; color: Qaterial.Colors.yellow500;
+                               labelColor: 'white'; labelFont: theme.textType.head5
+                               borderWidth: 3
+                               Behavior on explodeDistanceFactor {
+                                   NumberAnimation  {
+                                       duration: 150
+                                   }
+                               }
+
+                            onHovered: {
+                                if(state){
+                                    exploded = true
+                                    explodeDistanceFactor = 0.2
+                                    borderColor= 'white'
+                                    labelVisible= true;
+                                }else {
+                                    exploded = false
+                                    labelVisible= false
+                                    explodeDistanceFactor = 0.0
+                                    borderColor =  'white'
+                                    borderWidth = 1
+                                }
+                            }
+                          }
+                          PieSlice { label: "USDT"; value: 15; color: Qaterial.Colors.lightBlue700;
+                              labelColor: 'white';labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           onHovered: {
+                               if(state){
+                                   exploded = true
+                                   explodeDistanceFactor = 0.2
+                                   borderColor= 'white'
+                                   labelVisible= true;
+                               }else {
+                                   exploded = false
+                                   labelVisible= false
+                                   explodeDistanceFactor = 0.0
+                                   borderColor =  'white'
+                                   borderWidth = 1
+                               }
+                           }
+                          }
+                          PieSlice { label: "BTC"; value: 20;color: Qaterial.Colors.deepOrange700;
+                              labelColor: 'white';labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           onHovered: {
+                               if(state){
+                                   exploded = true
+                                   explodeDistanceFactor = 0.2
+                                   borderColor= 'white'
+                                   labelVisible= true;
+                               }else {
+                                   exploded = false
+                                   labelVisible= false
+                                   explodeDistanceFactor = 0.0
+                                   borderColor =  'white'
+                                   borderWidth = 1
+                               }
+                           }
+                          }
+                          PieSlice { label: "KMD"; value: 25.9; color: Qaterial.Colors.teal500;
+                              labelColor: 'white'; labelFont: Qt.font({family:'lato', pixelSize: 28})
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           onHovered: {
+                               if(state){
+                                   exploded = true
+                                   borderColor= 'white'
+                                   borderWidth = 3
+                                   labelVisible= true;
+                               }else {
+                                   exploded = false
+                                   labelVisible= false
+                                   borderColor =  'white'
+                                   borderWidth = 1
+                               }
+                           }
+                          }
+                          PieSlice { label: "SMC"; value: 10;  color: Qaterial.Colors.pink600;
+                              labelColor: 'white'; labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           onHovered: {
+                               if(state){
+                                   exploded = true
+                                   explodeDistanceFactor = 0.2
+                                   borderColor= 'white'
+                                   labelVisible= true;
+                               }else {
+                                   exploded = false
+                                   labelVisible= false
+                                   explodeDistanceFactor = 0.0
+                                   borderColor =  'white'
+                                   borderWidth = 1
+                               }
+                           }}
+                          PieSlice { label: "RVN"; value: 20; color: Qaterial.Colors.deepPurple400;
+                              labelColor: 'white'; labelFont: theme.textType.head5
+                              borderWidth: 1
+                              Behavior on explodeDistanceFactor {
+                                  NumberAnimation  {
+                                      duration: 150
+                                  }
+                              }
+
+                           onHovered: {
+                               if(state){
+                                   exploded = true
+                                   explodeDistanceFactor = 0.2
+                                   borderColor= 'white'
+                                   labelVisible= true;
+                               }else {
+                                   exploded = false
+                                   labelVisible= false
+                                   explodeDistanceFactor = 0.0
+                                   borderColor =  'white'
+                                   borderWidth = 1
+                               }
+                           }
+                          }
+                      }
+
+                      Rectangle {
+                          anchors.centerIn: parent
+                          color: theme.backgroundColor
+                          width: 290
+                          height: 290
+                          radius: 300
+                          border.width: 2
+                          border.color: 'white'
+                          Column {
+                              anchors.centerIn: parent
+                              spacing: 5
+                              DefaultText {
+                                  anchors.horizontalCenter: parent.horizontalCenter
+                                  text_value: General.formatFiat("", API.app.portfolio_pg.balance_fiat_all, API.app.settings_pg.current_currency)
+                                  font: theme.textType.head4
+                                  color: Qt.lighter(Style.colorWhite4, currency_change_button.containsMouse ? Style.hoverLightMultiplier : 1.0)
+                                  privacy: true
+                                  Component.onCompleted: {
+                                      font.family = 'Latof'
+                                  }
+                              }
+                              DefaultText {
+                                  anchors.horizontalCenter: parent.horizontalCenter
+                                  text_value: "325.551 DOGE"
+                                  font: theme.textType.body1
+                                  color: Qt.lighter(Style.colorWhite4, 0.6)
+                                  privacy: true
+                                  Component.onCompleted: {
+                                      font.family = 'Latof'
+                                  }
+                              }
+                          }
+
+
+                      }
+                }
+            }
+            Item{}
+        }
+    }
+
+    Item {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        visible: false
+        FloatingBackground {
+            anchors.fill: parent
+            anchors.margins: 15
+            radius: 2
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 10
+                Item {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 70
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+        }
+
+    }
+    Item {
+        width: 1
+        height: 10
+    }
 
     // Top part
     Item {
         Layout.fillWidth: true
         height: 200
+        visible: true
 
         ColumnLayout {
             id: top_layout
@@ -168,7 +484,7 @@ ColumnLayout {
     // List header
     Item {
         Layout.alignment: Qt.AlignTop
-
+        visible: true
         Layout.fillWidth: true
 
         height: 50
@@ -252,6 +568,7 @@ ColumnLayout {
     // List
     DefaultListView {
         id: list
+        visible: true
         Layout.alignment: Qt.AlignTop
         Layout.fillWidth: true
         Layout.fillHeight: true

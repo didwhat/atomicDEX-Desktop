@@ -60,12 +60,11 @@ namespace
                                           "amount_rat":[[1,[1]],[1,[10000]]],
                                           "coin":"RICK"
                                         },
-                                        "taker_fee":"0.00012870012870012872",
-                                        "taker_fee_fraction":{
-                                          "denom":"7770",
-                                          "numer":"1"
+                                         "taker_fee": {
+                                           "coin": "MYCOIN1",
+                                           "amount": "0.02",
+                                           "amount_fraction": { "numer": "1", "denom": "7770" }
                                         },
-                                        "taker_rat":[[1,[1]],[1,[7770]]],
                                         "fee_to_send_taker_fee":{
                                           "amount":"0.0001",
                                           "amount_fraction":{
@@ -122,12 +121,16 @@ namespace
                                           "amount_rat":[[1,[1]],[1,[10000]]],
                                           "coin":"RICK"
                                         },
-                                        "taker_fee":"0.00012870012870012872",
-                                        "taker_fee_fraction":{
-                                          "denom":"7770",
-                                          "numer":"1"
+                                        "taker_fee": {
+                                          "amount":"0.0001",
+                                          "amount_fraction":{
+                                            "denom":"10000",
+                                            "numer":"1"
+                                          },
+                                          "amount_rat":[[1,[1]],[1,[10000]]],
+                                          "coin":"RICK"
                                         },
-                                        "taker_rat":[[1,[1]],[1,[7770]]],
+
                                         "fee_to_send_taker_fee":{
                                           "amount":"0.0001",
                                           "amount_fraction":{
@@ -166,13 +169,15 @@ namespace
                                           "denom":"50000000",
                                           "numer":"110681739"
                                         },
-                                        "volume_rat":[[1,[110681739]],[1,[50000000]]],
-                                        "taker_fee":"0.0028489508108108107",
-                                        "taker_fee_fraction":{
-                                          "denom":"1850000000",
-                                          "numer":"5270559"
+                                         "taker_fee": {
+                                          "amount":"0",
+                                          "amount_fraction":{
+                                            "denom":"1",
+                                            "numer":"0"
+                                          },
+                                          "amount_rat":[[0,[]],[1,[1]]],
+                                          "coin":"RICK"
                                         },
-                                        "taker_fee_rat":[[1,[5270559]],[1,[1850000000]]],
                                         "fee_to_send_taker_fee":{
                                           "amount":"0.00033219",
                                           "amount_fraction":{
@@ -215,7 +220,8 @@ namespace
                                       "rel": "MORTY",
                                       "swap_method": "buy",
                                       "userpass": "",
-                                      "volume": "1"
+                                      "volume": "1",
+                                      "price": "1"
                                     })"_json;
     const nlohmann::json g_preimage_request_buy_rick_nonexistent_real = R"(
                                     {
@@ -250,9 +256,7 @@ TEST_CASE("mm2::api::preimage_answer_success deserialization from buy")
     mm2::api::trade_preimage_answer_success answer;
     mm2::api::from_json(g_preimage_answer_success_buy, answer);
     CHECK(answer.taker_fee.has_value());
-    CHECK(answer.taker_fee_fraction.has_value());
     CHECK(answer.fee_to_send_taker_fee.has_value());
-    CHECK_FALSE(answer.volume.has_value());
 }
 
 TEST_SUITE("mm2::api::preimage_answer deserialization test suites")
@@ -263,7 +267,6 @@ TEST_SUITE("mm2::api::preimage_answer deserialization test suites")
         mm2::api::from_json(g_preimage_answer_setprice, answer);
         CHECK(answer.result.has_value());
         CHECK_FALSE(answer.error.has_value());
-        CHECK_FALSE(answer.result.value().volume.has_value());
         CHECK_FALSE(answer.result.value().fee_to_send_taker_fee.has_value());
     }
 
@@ -273,7 +276,6 @@ TEST_SUITE("mm2::api::preimage_answer deserialization test suites")
         mm2::api::from_json(g_preimage_answer_buy, answer);
         CHECK(answer.result.has_value());
         CHECK_FALSE(answer.error.has_value());
-        CHECK_FALSE(answer.result.value().volume.has_value());
         CHECK(answer.result.value().fee_to_send_taker_fee.has_value());
     }
 
@@ -283,7 +285,6 @@ TEST_SUITE("mm2::api::preimage_answer deserialization test suites")
         mm2::api::from_json(g_preimage_answer_sell_max, answer);
         CHECK(answer.result.has_value());
         CHECK_FALSE(answer.error.has_value());
-        CHECK(answer.result.value().volume.has_value());
         CHECK(answer.result.value().fee_to_send_taker_fee.has_value());
     }
 
@@ -293,7 +294,6 @@ TEST_SUITE("mm2::api::preimage_answer deserialization test suites")
         mm2::api::from_json(g_preimage_answer_setprice_erc, answer);
         CHECK(answer.result.has_value());
         CHECK_FALSE(answer.error.has_value());
-        CHECK_FALSE(answer.result.value().volume.has_value());
         CHECK_FALSE(answer.result.value().fee_to_send_taker_fee.has_value());
         CHECK_EQ(answer.result.value().base_coin_fee.coin, "ETH");
     }
@@ -343,7 +343,7 @@ SCENARIO("mm2::api::preimage scenario")
     //! Generic resp functor that will be used in every tests
     auto generic_resp_process = [&mm2, &batch]() {
         //! Process the actual request
-        const auto resp = ::mm2::api::async_rpc_batch_standalone(batch, mm2.get_mm2_client(), mm2.get_cancellation_token()).get();
+        const auto resp = mm2.get_mm2_client().async_rpc_batch_standalone(batch).get();
 
         //! Retrieve the body
         std::string body = TO_STD_STR(resp.extract_string(true).get());
@@ -375,7 +375,7 @@ SCENARIO("mm2::api::preimage scenario")
     GIVEN("Preparing a simple buy request RICK/MORTY")
     {
         //! Request values
-        atomic_dex::t_trade_preimage_request request{.base_coin = "RICK", .rel_coin = "MORTY", .swap_method = "buy", .volume = "1"};
+        atomic_dex::t_trade_preimage_request request{.base_coin = "RICK", .rel_coin = "MORTY", .swap_method = "buy", .volume = "1", .price = "1"};
 
         //! Transform request into json
         ::mm2::api::to_json(request_json, request);
