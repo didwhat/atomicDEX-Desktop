@@ -102,6 +102,7 @@
         <file>atomic_defi_design/assets/images/coins/ink.png</file>
         <file>atomic_defi_design/assets/images/coins/iota.png</file>
         <file>atomic_defi_design/assets/images/coins/iotx.png</file>
+        <file>atomic_defi_design/assets/images/coins/jrt.png</file>
         <file>atomic_defi_design/assets/images/coins/jst.png</file>
         <file>atomic_defi_design/assets/images/coins/jumblr.png</file>
         <file>atomic_defi_design/assets/images/coins/kmd.png</file>
@@ -164,7 +165,7 @@
         <file>atomic_defi_design/assets/images/coins/snt.png</file>
         <file>atomic_defi_design/assets/images/coins/snx.png</file>
         <file>atomic_defi_design/assets/images/coins/soulja.png</file>
-        <file>atomic_defi_design/assets/images/coins/sca.png</file>		
+        <file>atomic_defi_design/assets/images/coins/sca.png</file>
         <file>atomic_defi_design/assets/images/coins/space.png</file>
         <file>atomic_defi_design/assets/images/coins/spc.png</file>
         <file>atomic_defi_design/assets/images/coins/srm.png</file>
@@ -206,6 +207,7 @@
         <file>atomic_defi_design/assets/images/coins/yfii.png</file>
         <file>atomic_defi_design/assets/images/coins/zec.png</file>
         <file>atomic_defi_design/assets/images/coins/zer.png</file>
+        <file>atomic_defi_design/assets/images/coins/zet.png</file>
         <file>atomic_defi_design/assets/images/coins/zil.png</file>
         <file>atomic_defi_design/assets/images/coins/zilla.png</file>
         <file>atomic_defi_design/assets/images/coins/zrx.png</file>
@@ -456,5 +458,8 @@
         <file>atomic_defi_design/qml/Wallet/Wallet.qml</file>
         <file>atomic_defi_design/qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>atomic_defi_design/qml/Portfolio/PieItem.qml</file>
+        <file>atomic_defi_design/qml/Components/DexFadebehavior.qml</file>
+        <file>atomic_defi_design/qml/Portfolio/SmartChartView.qml</file>
     </qresource>
 </RCC>
