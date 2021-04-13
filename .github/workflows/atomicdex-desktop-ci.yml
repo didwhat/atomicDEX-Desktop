@@ -32,20 +32,10 @@ jobs:
             qt: '5.15.2'
             type: 'release'
 
-          - name: osx-qt-5-15-2
-            os: macos-latest
-            qt: '5.15.2'
-            type: 'release'
-
           - name: windows-10-qt-5-15-2
             os: windows-latest
             qt: '5.15.2'
             type: 'release'
-
-          #- name: osx-qt-5-15-2-dbg
-          #  os: macos-latest
-          #  qt: '5.15.2'
-          #  type: 'debug'
 
     steps:
       - uses: actions/checkout@v2
@@ -73,26 +63,6 @@ jobs:
           modules: 'qtcharts qtwidgets debug_info qtwebengine qtwebview'
           aqtversion: '==0.8'
           py7zrversion: '==0.6'
-
-      - name: Install QT (MacOS)
-        if: runner.os == 'macOS'
-        uses: KomodoPlatform/install-qt-action@v2.9.0
-        with:
-          version: ${{ matrix.qt }}
-          host: 'mac'
-          target: 'desktop'
-          #mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
-          mirror: https://qt-mirror.dannhauer.de/
-          #mirror: https://www.funet.fi/pub/mirrors/download.qt-project.org/
-          #mirror: https://ftp.fau.de/qtproject/
-          dir: '${{ github.workspace }}'
-          modules: 'qtcharts qtwidgets debug_info qtwebview qtwebengine'
-
-      - name: Install QT IFW (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          python3  -m aqt tool mac tools_ifw 4.0.1-202012091045 qt.tools.ifw.40 -b https://qt-mirror.dannhauer.de/ --outputdir ${{ github.workspace }}/Qt
-          echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.0/bin" >> $GITHUB_PATH
 
       - name: Install QT (Windows)
         if: runner.os == 'Windows'
@@ -149,17 +119,6 @@ jobs:
           setupOnly: true
           appendedCacheKey: ${{ hashFiles('vcpkg.json') }}
 
-      - name: Install deps (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
-
-      - name: Upload env variable for vpkg (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
-          echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
-
       - name: Build AtomicDEX (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -176,38 +135,6 @@ jobs:
 
           ./ci_tools_atomic_dex build release
           ./ci_tools_atomic_dex bundle release
-
-      - name: import code signing certificates (macos)
-        if: runner.os == 'macOS'
-        uses: Apple-Actions/import-codesign-certs@v1
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-
-      - name: import installer code signing certificates (macos)
-        if: runner.os == 'macOS'
-        uses: apple-actions/import-codesign-certs@v1
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          create-keychain: false
-          p12-file-base64: ${{ secrets.CERTIFICATES_INSTALLER_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-
-      - name: Build AtomicDEX (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          export MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
-          export INSTALLER_MAC_SIGN_IDENTITY="${{ secrets.INSTALLER_MAC_SIGN_IDENTITY }}"
-          export APPLE_ATOMICDEX_PASSWORD="${{ secrets.APPLE_ATOMICDEX_PASSWORD }}"
-          export APPLE_ID="${{ secrets.APPLE_ID }}"
-          export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
-          export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
-          cd ci_tools_atomic_dex
-          nimble build -y
-          ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX10.14.sdk --compiler=clang++
 
       - name: Build AtomicDEX (Windows)
         if: runner.os == 'Windows'
@@ -239,24 +166,6 @@ jobs:
           ls
           #python upload.py --sha `git rev-parse HEAD` -n "[Doctest Linux]" --include='${{ env.DEX_PROJECT_NAME }}-tests-result.xml' --framework=doctest --merge ".*"
           #echo "Uploading tests on Linux finished"
-
-      - name: Running Tests (MacOS)
-        working-directory: ci_tools_atomic_dex
-        if: runner.os == 'macOS' &&  'KomodoPlatform/atomicDEX-Desktop' == github.repository
-        run: |
-          export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
-          export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
-          export ATOMICDEX_PASSWORD=${{ secrets.ATOMICDEX_PASSWORD }}
-          export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
-          export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
-          echo "Running tests"
-          ./ci_tools_atomic_dex tests ${{ matrix.type }}
-          cd build-${{ matrix.type }}/bin/${{ env.DEX_PROJECT_NAME }}_tests.app/Contents/MacOS
-          cat ${{ env.DEX_PROJECT_NAME }}-tests-result.xml
-          #curl https://report.ci/upload.py --output upload.py
-          ls
-          #python upload.py --sha `git rev-parse HEAD` -n "[Doctest MacOS ${{ matrix.type }}]" --include='${{ env.DEX_PROJECT_NAME }}-tests-result.xml' --framework=doctest --merge ".*"
-          #echo "Uploading tests on OSX finished"
 
       - name: Running Tests (Windows)
         shell: powershell
@@ -304,27 +213,6 @@ jobs:
         with:
           name: ${{ env.artifact_name_appimage }}
           path: ./bundled/linux/${{ env.target_name_appimage }}
-
-      - name: Upload env variable for artifacts (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          ls ./bundled/osx/
-          echo "artifact_name_dmg=${{ env.DEX_PROJECT_NAME }}-${{ matrix.name }}-$(git rev-parse --short HEAD).dmg" >> $GITHUB_ENV
-          echo "artifact_name_installer=${{ env.DEX_PROJECT_NAME }}-installer-${{ matrix.name }}-$(git rev-parse --short HEAD).7z" >> $GITHUB_ENV
-
-      - name: Upload artifacts (MacOS dmg)
-        if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.artifact_name_dmg }}
-          path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}.dmg
-
-      - name: Upload artifacts (MacOS installer)
-        if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.artifact_name_installer }}
-          path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}_installer.7z
 
       - name: Upload env variable for artifacts (Windows)
         if: runner.os == 'Windows'
