@@ -512,8 +512,7 @@
       "https://bet.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "BOTS": {
     "coin": "BOTS",
@@ -536,8 +535,7 @@
       "https://bots.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "BUSD-ERC20": {
     "coin": "BUSD-ERC20",
@@ -759,8 +757,7 @@
       "https://crypto.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "DAI-BEP20": {
       "coin": "DAI-BEP20",
@@ -1256,8 +1253,7 @@
     ],
     "type": "Smart Chain",
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "IOTA-BEP20": {
       "coin": "IOTA-BEP20",
@@ -1314,8 +1310,7 @@
       "https://jumblr.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "KOIN": {
     "coin": "KOIN",
@@ -1441,8 +1436,7 @@
     ],
     "type": "Smart Chain",
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "NEAR-BEP20": {
       "coin": "NEAR-BEP20",
@@ -1859,8 +1853,7 @@
       "https://mgw.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "DEX": {
     "coin": "DEX",
@@ -1883,8 +1876,7 @@
       "https://dex.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "RICK": {
     "coin": "RICK",
@@ -1955,8 +1947,7 @@
       "https://pangea.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "QIAIR": {
     "coin": "QIAIR",
@@ -2003,8 +1994,7 @@
       "https://revs.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "SOULJA": {
     "coin": "SOULJA",
@@ -2178,8 +2168,7 @@
       "https://supernet.explorer.dexstats.info/"
     ],
     "active": false,
-    "currently_enabled": false,
-    "wallet_only": true
+    "currently_enabled": false
   },
   "SUSHI-BEP20": {
       "coin": "SUSHI-BEP20",
