@@ -143,20 +143,28 @@ InnerBackground {
 
                 }
             }
-            Rectangle {
-                id: verticalLine
-                height: parent.height-80
-                opacity: .7
-                visible: mouse_area.containsMouse  && mouse_area.mouseX>60
-                anchors.verticalCenterOffset: -4
-                anchors.verticalCenter: parent.verticalCenter
-                width: 3
-                radius: 4
+            Qaterial.ClipRRect {
+                width: parent.width-110
+                anchors.horizontalCenterOffset: 10
+                height: parent.height
                 
-                border.color: theme.accentColor
-                color: theme.foregroundColor
-                x: mouse_area.mouseX
+                anchors.horizontalCenter: parent.horizontalCenter
+                Rectangle {
+                    id: verticalLine
+                    height: parent.height-84
+                    opacity: .7
+                    visible: mouse_area.containsMouse  && mouse_area.mouseX>60
+                    anchors.verticalCenterOffset: -6
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 3
+                    radius: 4
+                    
+                    border.color: theme.accentColor
+                    color: theme.foregroundColor
+                    x: mouse_area.mouseX-80
+                }
             }
+            
             LineSeries {
                 id: areaLine3
                 color: theme.accentColor
@@ -188,7 +196,7 @@ InnerBackground {
                 hoverEnabled: true
                 onPositionChanged:  {
                     let mx = mouseX
-                    console.log(mx)
+                    //console.log(mx)
                     let point = Qt.point(mx, mouseY)
                     let p = chart_2.mapToValue(point, area)
                     let idx = API.app.portfolio_pg.get_neareast_point(Math.floor(p.x) / 1000);
