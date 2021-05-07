@@ -1590,6 +1590,11 @@
       "coingecko_id": "lynx",
       "electrum": [
         {
+          "url": "electrum.deliverypath.com:50002",
+          "protocol": "SSL",
+          "disable_cert_verification": false
+        },
+        {
           "url": "electrum.getlynx.io:50001",
           "protocol": "TCP"
         }
@@ -3393,7 +3398,7 @@
       }
     ],
     "explorer_url": [
-      "https://explorer.pbc.kmd.sh/"
+      "https://explorer.sfusd.kmd.sh/"
     ],
     "type": "UTXO",
     "active": false,
