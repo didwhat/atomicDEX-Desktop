@@ -28,7 +28,7 @@ jobs:
 
         include:
           - name: ubuntu-qt-5-15-2
-            os: ubuntu-latest
+            os: ubuntu-16.04
             qt: '5.15.2'
             type: 'release'
 
