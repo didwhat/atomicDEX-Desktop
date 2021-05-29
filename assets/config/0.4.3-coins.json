@@ -3112,6 +3112,10 @@
            "protocol": "TCP"
         },
         {
+           "url": "electrumx.mainnet.primecoin.org:50011",
+           "protocol": "TCP"
+        },
+        {
            "url": "electrumx.gemmer.primecoin.org:50011",
            "protocol": "TCP"
         }
