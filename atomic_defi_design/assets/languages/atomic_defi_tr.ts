@@ -2273,12 +2273,12 @@
 <context>
     <name>ProView</name>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="65"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="68"/>
         <source>Failed to place the order</source>
         <translation>Emir başarısız oldu</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="74"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="77"/>
         <source>Placed the order</source>
         <translation>Emir başarılı</translation>
     </message>
@@ -2288,57 +2288,57 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="233"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="235"/>
         <source>Trading Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="259"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="261"/>
         <source>Exchange Rates</source>
         <translation>Döviz kurları</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="265"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="268"/>
         <source>Orders</source>
         <translation>Emirler</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="271"/>
-        <source>history</source>
-        <translation>geçmiş</translation>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="275"/>
+        <source>History</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="337"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="343"/>
         <source>Order Book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="358"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="362"/>
         <source>Best Orders</source>
         <translation>En İyi Emirler</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="384"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="388"/>
         <source>Place Order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="427"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="431"/>
         <source>Buy</source>
         <translation>Al</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="462"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="466"/>
         <source>Sell</source>
         <translation>Sat</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="498"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="502"/>
         <source>Order Selected</source>
         <translation>Emir Seçildi</translation>
     </message>
     <message>
-        <location filename="../../qml/Exchange/Trade/ProView.qml" line="551"/>
+        <location filename="../../qml/Exchange/Trade/ProView.qml" line="555"/>
         <source>Start Swap</source>
         <translation>Takas Başlat</translation>
     </message>
@@ -3019,6 +3019,139 @@
     </message>
 </context>
 <context>
+    <name>SimpleView</name>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="56"/>
+        <source>Swap</source>
+        <translation type="unfinished">Takasla</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="64"/>
+        <source>Instant trading with best orders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="81"/>
+        <source>History.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="112"/>
+        <source>From</source>
+        <translation type="unfinished">Gönderen</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="279"/>
+        <source>To</source>
+        <translation type="unfinished">Alan</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="367"/>
+        <source>Pick an order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="679"/>
+        <source>Best Orders</source>
+        <translation type="unfinished">En İyi Emirler</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="696"/>
+        <source>Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="704"/>
+        <source>Available Quantity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="798"/>
+        <source> %1 is not enabled - Do you want to enable it to be able to select %2 best orders ?&lt;br&gt;&lt;a href=&apos;#&apos;&gt;Yes&lt;/a&gt; - &lt;a href=&apos;#no&apos;&gt;No&lt;/a&gt;</source>
+        <translation type="unfinished"> %1 etkin değil - En iyi %2 siparişini seçebilmesi için etkinleştirmek istiyor musunuz ? &lt;br&gt;&lt;a href=&apos;#&apos;&gt;Evet&lt;/a&gt; - &lt;a href=&apos;#no&apos;&gt;Hayır&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="442"/>
+        <source>Swap Now !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="126"/>
+        <source>Tradable: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="158"/>
+        <source>Minimum: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="158"/>
+        <source>Enter an amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="416"/>
+        <source>Price</source>
+        <translation type="unfinished">Fiyat</translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="459"/>
+        <source>You must select an order.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="462"/>
+        <source>You must enter an amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="465"/>
+        <source>Entered amount must be superior than 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="467"/>
+        <source>Entered amount is below the minimum required by this order: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="539"/>
+        <source>Total %1 fees: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="546"/>
+        <source>%2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="567"/>
+        <source>Select a ticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="601"/>
+        <source>Token name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="712"/>
+        <source>Available Quantity (in %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="720"/>
+        <source>Fiat Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/Exchange/Trade/SimpleView.qml" line="728"/>
+        <source>CEX Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SmartChartView</name>
     <message>
         <location filename="../../qml/Portfolio/SmartChartView.qml" line="125"/>
@@ -3388,42 +3521,42 @@ Network fees can vary greatly depending on your selected trading pair.</source>
 <context>
     <name>atomic_dex::wallet_page</name>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="67"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="68"/>
         <source>You do not have enough funds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="78"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="79"/>
         <source>%1 is not activated: click on the button to enable it or enable it manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="84"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="85"/>
         <source>You need to have %1 to pay the gas for %2 transactions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="308"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="309"/>
         <source>Checksum verification failed for %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="313"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="314"/>
         <source>Invalid checksum for %1. Click on the convert button to turn it into a mixed case address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="319"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="320"/>
         <source>Legacy address used for %1, click on the convert button to convert it to a Cashaddress.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="325"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="326"/>
         <source>%1 address must be prefixed with 0x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="330"/>
+        <location filename="../../../src/core/atomicdex/pages/qt.wallet.page.cpp" line="331"/>
         <source>%1 address length is invalid, please use a valid address.</source>
         <translation type="unfinished"></translation>
     </message>
