@@ -164,8 +164,6 @@ ColumnLayout
                     {
                         if (text === "")
                             API.app.trading_pg.volume = 0
-                        else if (parseFloat(text) < parseFloat(API.app.trading_pg.min_trade_vol))
-                            return
                         else
                         {
                             API.app.trading_pg.volume = text
@@ -296,7 +294,7 @@ ColumnLayout
 
                 Text    // Amount In Fiat
                 {
-                    enabled: _toValue.text
+                    enabled: parseFloat(_toValue.text) > 0
                     anchors.top: _toValue.bottom
                     anchors.topMargin: 4
                     anchors.left: _toValue.left
@@ -448,6 +446,39 @@ ColumnLayout
                         id: _confirmSwapModal
                         sourceComponent: ConfirmTradeModal {}
                     }
+
+                    Connections 
+                    {
+                        target: exchange_trade
+                        function onBuy_sell_rpc_busyChanged() 
+                        {
+                            if (buy_sell_rpc_busy)
+                                return
+
+                            const response = General.clone(buy_sell_last_rpc_data)
+
+                            if (response.error_code) 
+                            {
+                                _confirmSwapModal.close()
+
+                                toast.show(qsTr("Failed to place the order"),
+                                        General.time_toast_important_error,
+                                        response.error_message)
+
+                                return
+                }
+                            else if (response.result && response.result.uuid) 
+                            {
+                                // Make sure there is information
+                                _confirmSwapModal.close()
+
+                                toast.show(qsTr("Placed the order"), General.time_toast_basic_info,
+                                        General.prettifyJSON(response.result), false)
+
+                                General.prevent_coin_disabling.restart()
+                            }
+                        }
+                    }
                 }
 
                 Image // Alert
@@ -464,8 +495,8 @@ ColumnLayout
                         let fromValue = parseFloat(_fromValue.text)
                         if (fromValue === 0)
                             return qsTr("Entered amount must be superior than 0.")
-                        if (API.app.trading_pg.last_trading_error === TradingError.VolumeIsLowerThanTheMinimum)
-                            return qsTr("Entered amount is below the minimum required by this order: %1").arg(parseFloat(selectedOrder.base_min_volume))
+                        if (API.app.trading_pg.last_trading_error == TradingError.VolumeIsLowerThanTheMinimum)
+                            return qsTr("Entered amount is below the minimum required by this order: %1").arg(selectedOrder.base_min_volume)
                         
                         return ""
                     }
