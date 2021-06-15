@@ -646,6 +646,8 @@ namespace atomic_dex
         this->m_fees             = QVariantMap();
         this->m_cex_price        = "0";
         this->m_post_clear_forms = true;
+        this->set_selected_order_status(SelectedOrderStatus::None);
+        this->reset_fees();
         emit cexPriceChanged();
         emit invalidCexPriceChanged();
         emit cexPriceReversedChanged();
@@ -725,11 +727,11 @@ namespace atomic_dex
                     {
                         auto       available_quantity       = m_preffered_order->at("base_max_volume").get<std::string>();
                         t_float_50 available_quantity_order = safe_float(available_quantity);
-                        /*SPDLOG_INFO(
-                            "available_quantity_order: {}, max_volume: {}", utils::format_float(safe_float(available_quantity)),
-                            get_max_volume().toStdString());*/
-                        if (available_quantity_order < safe_float(max_taker_vol) &&
-                            !m_preffered_order->at("capped").get<bool>())
+                        SPDLOG_INFO(
+                            "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}",
+                            utils::format_float(safe_float(available_quantity)),
+                            get_max_volume().toStdString(), max_taker_vol);
+                        if (available_quantity_order < safe_float(max_taker_vol) && !m_preffered_order->at("capped").get<bool>())
                         {
                             SPDLOG_INFO(
                                 "Available quantity in selected order is less than my max tradeable amount, capping it to the order: {}\nmax_vol_str: {}",
@@ -834,26 +836,8 @@ namespace atomic_dex
                 {
                     SPDLOG_INFO("checking if {} > {}", std_volume, max_volume.toStdString());
                     this->set_volume(get_max_volume());
-                    // m_volume = max_volume;
-                    // hit      = true;
                 }
             }
-            /*else if (safe_float(std_volume) < safe_float(get_min_trade_vol().toStdString()))
-            {
-                auto min_volume = QString::fromStdString(utils::adjust_precision(this->get_min_trade_vol().toStdString()));
-                if (!min_volume.isEmpty() && min_volume != "0")
-                {
-                    SPDLOG_INFO("checking if {} < {}", std_volume, min_volume.toStdString());
-                    m_volume = min_volume;
-                    hit      = true;
-                }
-            }*/
-            /*if (hit)
-            {
-                emit volumeChanged();
-                SPDLOG_INFO("volume is: [{}]", m_volume.toStdString());
-                this->determine_total_amount();
-            }*/
         }
     }
 
@@ -1032,10 +1016,18 @@ namespace atomic_dex
                 {
                     available_quantity = m_preffered_order->at("base_max_volume").get<std::string>();
                 }
-
-                this->set_volume(QString::fromStdString(utils::format_float(safe_float(available_quantity))));
+                if (this->m_current_trading_mode == TradingModeGadget::Pro)
+                {
+                    this->set_volume(QString::fromStdString(utils::format_float(safe_float(available_quantity))));
+                }
+                else if (this->m_current_trading_mode == TradingModeGadget::Simple && m_preffered_order->contains("initial_input_volume"))
+                {
+                    SPDLOG_INFO("From simple view, using initial_input_volume from selection to use.");
+                    this->set_volume(QString::fromStdString(m_preffered_order->at("initial_input_volume").get<std::string>()));
+                }
                 this->get_orderbook_wrapper()->refresh_best_orders();
                 this->determine_fees();
+                emit preferredOrderChangeFinished();
             }
         }
     }
@@ -1110,11 +1102,11 @@ namespace atomic_dex
     void
     trading_page::determine_fees()
     {
-        if (is_preimage_busy())
+        /*if (is_preimage_busy())
         {
             SPDLOG_INFO("determine_fees busy - skipping.");
             return;
-        }
+        }*/
         if (!this->m_system_manager.has_system<mm2_service>())
         {
             SPDLOG_WARN("MM2 Service not available, cannot determine fees - skipping");
@@ -1147,10 +1139,10 @@ namespace atomic_dex
             {
                 auto           answers = nlohmann::json::parse(body);
                 nlohmann::json answer  = answers[0];
-                // SPDLOG_INFO("preimage answer: {}", answer.dump(0));
                 auto trade_preimage_answer = ::mm2::api::rpc_process_answer_batch<t_trade_preimage_answer>(answer, "trade_preimage");
                 if (trade_preimage_answer.result.has_value())
                 {
+                    SPDLOG_INFO("preimage answer received");
                     auto        success_answer = trade_preimage_answer.result.value();
                     QVariantMap fees;
 
@@ -1510,5 +1502,22 @@ namespace atomic_dex
     trading_page::get_raw_preffered_order() const
     {
         return m_preffered_order;
+    }
+
+    SelectedOrderStatus
+    trading_page::get_selected_order_status() const
+    {
+        return m_selected_order_status;
+    }
+
+    void
+    trading_page::set_selected_order_status(SelectedOrderStatus order_status)
+    {
+        if (m_selected_order_status != order_status)
+        {
+            m_selected_order_status = order_status;
+            SPDLOG_DEBUG("Set selected order status to: {}", QMetaEnum::fromType<SelectedOrderStatus>().valueToKey(order_status));
+            emit selectedOrderStatusChanged();
+        }
     }
 } // namespace atomic_dex

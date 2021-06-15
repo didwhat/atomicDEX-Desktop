@@ -31,6 +31,8 @@ import "Orders/" as OrdersView
 
 import "./" as Here
 
+import "SimpleView" as SimpleView
+
 Item {
     id: exchange_trade
     readonly property string total_amount: API.app.trading_pg.total_amount
@@ -160,21 +162,20 @@ Item {
             API.app.trading_pg.place_sell_order(nota, confs)
         else
             API.app.trading_pg.place_buy_order(nota, confs)
+
+        orderPlaced()
     }
+
+    signal orderPlaced()
 
     readonly property bool buy_sell_rpc_busy: API.app.trading_pg.buy_sell_rpc_busy
     readonly property var buy_sell_last_rpc_data: API.app.trading_pg.buy_sell_last_rpc_data
 
-
-    ProView {
-        id: form
-        enabled: API.app.trading_pg.current_trading_mode == TradingMode.Pro
-        visible: enabled
-    }
-
-    SimpleView {
-        enabled: API.app.trading_pg.current_trading_mode == TradingMode.Simple
-        visible: enabled
+    Loader
+    {
+        id: _viewLoader
+        anchors.fill: parent
+        source: API.app.trading_pg.current_trading_mode == TradingMode.Pro ? "ProView.qml" : "SimpleView/Main.qml"
     }
 
     TradeViewHeader {
