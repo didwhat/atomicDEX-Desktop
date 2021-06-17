@@ -17,11 +17,13 @@ ClipRRect // Trade Card
 {
     property string selectedTicker: left_ticker
     property var    selectedOrder:  undefined
+    property bool best: false
 
-    onSelectedTickerChanged: { selectedOrder = undefined; setPair(true, selectedTicker); _fromValue.text = "" }
+    onSelectedTickerChanged: { selectedOrder = undefined; setPair(true, selectedTicker); _fromValue.field.text = "" }
     onSelectedOrderChanged:
     {
-        if (typeof selectedOrder !== 'undefined') API.app.trading_pg.orderbook.select_best_order(selectedOrder.uuid)
+        if (typeof selectedOrder !== 'undefined' && selectedOrder.from_best_order) API.app.trading_pg.orderbook.select_best_order(selectedOrder.uuid)
+        else if (typeof selectedOrder !== 'undefined') API.app.trading_pg.preffered_order = selectedOrder
         else API.app.trading_pg.reset_order()
 
         API.app.trading_pg.determine_fees()
@@ -30,7 +32,7 @@ ClipRRect // Trade Card
     Component.onDestruction: selectedOrder = undefined
 
     id: _tradeCard
-    width: 380
+    width: bestOrderSimplified.visible? 600 : 380
     height: col.height+15
     radius: 20
 
@@ -52,10 +54,53 @@ ClipRRect // Trade Card
         {
             if (typeof selectedOrder === 'undefined')
                 return
-            if (parseFloat(_fromValue.text) > API.app.trading_pg.max_volume)
-                _fromValue.text = API.app.trading_pg.max_volume
+            if (parseFloat(_fromValue.field.text) > API.app.trading_pg.max_volume)
+                _fromValue.field.text = API.app.trading_pg.max_volume
         }
 
+    }
+
+    Connections
+    {
+        target: API.app.trading_pg.orderbook.bids
+
+        function onBetterOrderDetected(newOrder)
+        {
+            // We shoould rename SelectedOrderStatus enum to OrderbookNotification.
+            if (API.app.trading_pg.selected_order_status == SelectedOrderStatus.BetterPriceAvailable)
+            {
+                // Price changed and we can still afford the volume.
+                if (parseFloat(newOrder.base_max_volume) <= selectedOrder.base_max_volume && parseFloat(newOrder.rel_max_volume) >= API.app.trading_pg.total_amount)
+                {
+                    console.log("Updating forms with better price");
+                    Qaterial.SnackbarManager.show(
+                    {
+                        expandable: true,
+                        text: qsTr("Better price found: %1. Updating forms.")
+                                    .arg(parseFloat(newOrder.price).toFixed(8)),
+                        timeout: Qaterial.Style.snackbar.longDisplayTime
+                    })
+                    selectedOrder = newOrder
+                }
+                else
+                {
+                    console.log("Asking user if he want a better price but lower volume");
+                    Qaterial.SnackbarManager.show(
+                    {
+                        expandable: true,
+                        action: "Update",
+                        text: qsTr("Better price (%1) found but received quantity (%2) is lower than your current one (%3). Click here to update the selected order.")
+                                    .arg(parseFloat(newOrder.price).toFixed(8))
+                                    .arg(parseFloat(newOrder.rel_max_volume).toFixed(8))
+                                    .arg(API.app.trading_pg.total_amount),
+                        onAccept: function() { selectedOrder = newOrder },
+                        onClose:  function() { selectedOrder = undefined },
+                        maximumLineCount: 2,
+                        timeout: 10000
+                    })
+                }
+            }
+        }
     }
 
     ModalLoader
@@ -106,6 +151,7 @@ ClipRRect // Trade Card
         ColumnLayout // Content
         {
             width: parent.width
+            
             anchors.horizontalCenter: parent.horizontalCenter
 
             DefaultRectangle // From
@@ -161,57 +207,53 @@ ClipRRect // Trade Card
                     }
                 }
 
-                TextField // Amount
+                AmountField // Amount
                 {
                     id: _fromValue
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 19
                     anchors.left: parent.left
-                    anchors.leftMargin: 6
-                    placeholderText: typeof selectedOrder !== 'undefined' ? qsTr("Minimum: %1").arg(API.app.trading_pg.min_trade_vol) : qsTr("Enter an amount")
-                    font.pixelSize: Style.textSizeSmall5
-                    background: Rectangle { color: theme.backgroundColor }
-                    validator: RegExpValidator { regExp: /(0|([1-9][0-9]*))(\.[0-9]{1,8})?/ }
-                    onTextChanged:
+                    anchors.leftMargin: 2
+                    field.placeholderText: typeof selectedOrder !== 'undefined' ? qsTr("Minimum: %1").arg(API.app.trading_pg.min_trade_vol) : qsTr("Enter an amount")
+                    field.font.pixelSize: Style.textSizeSmall5
+                    field.background: Rectangle { color: theme.backgroundColor }
+                    field.onTextChanged:
                     {
-                        if (text === "")
+                        if (field.text === "")
                             API.app.trading_pg.volume = 0
                         else
                         {
-                            API.app.trading_pg.volume = text
-                            text = API.app.trading_pg.volume
+                            API.app.trading_pg.volume = field.text
+                            field.text = API.app.trading_pg.volume
                         }
                         API.app.trading_pg.determine_fees()
+                        API.app.trading_pg.orderbook.refresh_best_orders()
                     }
-                    onFocusChanged:
+                    field.onFocusChanged:
                     {
-                        if (!focus && parseFloat(text) < parseFloat(API.app.trading_pg.min_trade_vol))
+                        if (!focus && parseFloat(field.text) < parseFloat(API.app.trading_pg.min_trade_vol))
                         {
-                            text = API.app.trading_pg.min_trade_vol
+                            field.text = API.app.trading_pg.min_trade_vol
                         }
                     }
                 }
 
                 Text    // Amount In Fiat
                 {
-                    enabled: _fromValue.text
+                    enabled: _fromValue.field.text
                     anchors.top: _fromValue.bottom
                     anchors.left: _fromValue.left
-                    anchors.leftMargin: 15
+                    anchors.leftMargin: 23
                     font.pixelSize: Style.textSizeSmall1
-                    Component.onCompleted: color = _fromValue.placeholderTextColor
-                    text: enabled ? General.getFiatText(_fromValue.text, selectedTicker) : ""
-                }
-
-                DefaultText
-                {
-                    color: _fromValue.color
+                    color: theme.buttonColorTextDisabled
+                    text: enabled ? General.getFiatText(_fromValue.field.text, selectedTicker) : ""
                 }
 
                 Rectangle // Select ticker button
                 {
+                    id: _selectTickerBut
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 12
+                    anchors.bottomMargin: 19
                     anchors.right: parent.right
                     anchors.rightMargin: 20
                     width: _selectedTickerIcon.width + _selectedTickerText.width + _selectedTickerArrow.width + 29.5
@@ -271,6 +313,35 @@ ClipRRect // Trade Card
                         function onLoaded() { coinsListModalLoader.item.selectedTickerChanged.connect(function() { _tradeCard.selectedTicker = coinsListModalLoader.item.selectedTicker }) }
                     }
                 }
+
+                DexRectangle // MAX Button
+                {
+                    anchors.right: _selectTickerBut.left
+                    anchors.rightMargin: 5
+                    anchors.verticalCenter: _selectTickerBut.verticalCenter
+                    border.width: 0
+
+                    width: 40
+                    height: 20
+
+                    DefaultMouseArea
+                    {
+                        id: _maxButMouseArea
+                        anchors.fill: parent
+                        onClicked: _fromValue.field.text = API.app.trading_pg.max_volume
+                        hoverEnabled: true
+                    }
+
+                    DexLabel
+                    {
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: _maxButMouseArea.containsMouse ? 
+                                    _maxButMouseArea.pressed ? "#173948" : "#204c61"
+                               : theme.accentColor
+                        anchors.fill: parent
+                        text: qsTr("MAX")
+                    }
+                }
             }
 
             DefaultRectangle // To
@@ -280,6 +351,7 @@ ClipRRect // Trade Card
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 15
                 radius: 20
+                visible: !bestOrderSimplified.visible
 
                 DefaultText
                 {
@@ -300,7 +372,7 @@ ClipRRect // Trade Card
                     anchors.leftMargin: 18
                     text: enabled ? API.app.trading_pg.total_amount : "0"
                     font.pixelSize: Style.textSizeSmall5
-                    Component.onCompleted: color = _fromValue.placeholderTextColor
+                    color: theme.buttonColorTextDisabled
                 }
 
                 Text    // Amount In Fiat
@@ -311,14 +383,15 @@ ClipRRect // Trade Card
                     anchors.left: _toValue.left
                     anchors.leftMargin: 3
                     font.pixelSize: Style.textSizeSmall1
-                    Component.onCompleted: color = _fromValue.placeholderTextColor
-                    text: enabled ? General.getFiatText(_toValue.text, selectedOrder.coin) : ""
+                    color: theme.buttonColorTextDisabled
+                    text: enabled ? General.getFiatText(_toValue.text, _tradeCard.selectedOrder.coin?? "") : ""
                 }
 
-                DefaultRectangle // Shows best order coin
+                DexRectangle // Shows best order coin
                 {
+                    id: _selectBestOrderButton
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 12
+                    anchors.bottomMargin: 23
                     anchors.right: parent.right
                     anchors.rightMargin: 20
                     width: _bestOrderIcon.enabled ? _bestOrderIcon.width + _bestOrderTickerText.width + _bestOrderArrow.width + 29.5 : 110
@@ -332,9 +405,13 @@ ClipRRect // Trade Card
                     {
                         id: _bestOrdersMouseArea
                         anchors.fill: parent
-                        onClicked: _bestOrdersModalLoader.open()
+                        onClicked: {
+                            _tradeCard.best = true//_bestOrdersModalLoader.open()
+                            //API.app.trading_pg.orderbook.refresh_best_orders()
+                        }
+
                         hoverEnabled: true
-                        enabled: parseFloat(_fromValue.text) > 0
+                        enabled: parseFloat(_fromValue.field.text) > 0
                     }
 
                     DefaultImage // Button with icon (a best order is currently selected)
@@ -390,20 +467,6 @@ ClipRRect // Trade Card
                         id: _bestOrdersModalLoader
                         sourceComponent: BestOrdersModal {}
                     }
-
-                    Connections
-                    {
-                        target: _bestOrdersModalLoader
-                        function onLoaded()
-                        {
-                            _bestOrdersModalLoader.item.currentLeftToken = selectedTicker
-                            _bestOrdersModalLoader.item.selectedOrderChanged.connect(function()
-                            {
-                                _tradeCard.selectedOrder = _bestOrdersModalLoader.item.selectedOrder
-                                _bestOrdersModalLoader.close()
-                            })
-                        }
-                    }
                 }
             }
 
@@ -417,7 +480,7 @@ ClipRRect // Trade Card
                 Layout.fillWidth: true
 
                 enabled: typeof selectedOrder !== 'undefined'
-                visible: enabled
+                visible: enabled & !bestOrderSimplified.visible
 
                 DefaultText
                 {
@@ -443,6 +506,7 @@ ClipRRect // Trade Card
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: _tradeCard.width - 30
                 Layout.preferredHeight: 40
+                visible: !bestOrderSimplified.visible
 
                 DefaultButton
                 {
@@ -482,7 +546,7 @@ ClipRRect // Trade Card
                             else if (response.result && response.result.uuid)
                             {
                                 selectedOrder = undefined
-                                _fromValue.text = "0"
+                                _fromValue.field.text = "0"
 
                                 // Make sure there is information
                                 _confirmSwapModal.close()
@@ -502,7 +566,7 @@ ClipRRect // Trade Card
 
                     function getAlert()
                     {
-                        if (_fromValue.text === "" || parseFloat(_fromValue.text) === 0)
+                        if (_fromValue.field.text === "" || parseFloat(_fromValue.field.text) === 0)
                             return qsTr("Entered amount must be superior than 0.")
                         if (typeof selectedOrder === 'undefined')
                             return qsTr("You must select an order.")
@@ -546,6 +610,37 @@ ClipRRect // Trade Card
                 }
             }
         }
+        Item {
+            id: bestOrderSimplified
+            width: parent.width
+            height: 300
+            visible: _tradeCard.best 
+            SubBestOrder {
+                tradeCard: _tradeCard
+                onSelectedOrderChanged: {
+                    _tradeCard.selectedOrder = selectedOrder
+                }
+                onBestChanged: {
+                    if(!best) {
+                        _tradeCard.best = false
+                    }
+                }
+                anchors.fill: parent
+                anchors.rightMargin: 10
+                anchors.leftMargin: 20
+                anchors.bottomMargin: 10
+                visible: _tradeCard.width == 600
+            } 
+            BusyIndicator
+            {
+                width: 200
+                height: 200
+                visible: API.app.trading_pg.orderbook.best_orders_busy
+                running: visible
+                anchors.centerIn: parent
+            }
+
+        }
 
 
         DefaultRectangle // Swap Info - Details
@@ -556,7 +651,7 @@ ClipRRect // Trade Card
             height: 60
 
             enabled: !_swapAlert.visible
-            visible: enabled
+            visible: enabled & !bestOrderSimplified.visible
 
             radius: 25
 
@@ -599,6 +694,26 @@ ClipRRect // Trade Card
                         font.pixelSize: Style.textSizeSmall3
                     }
                 }
+            }
+        }
+    }
+    Row {
+        anchors.rightMargin: 15
+        anchors.right: parent.right
+        y: 12
+        Qaterial.AppBarButton {
+            icon.source: Qaterial.Icons.refresh
+            visible: _tradeCard.best
+            enabled: !API.app.trading_pg.orderbook.best_orders_busy
+            onClicked: {
+                API.app.trading_pg.orderbook.refresh_best_orders()
+            }
+        }
+        Qaterial.AppBarButton {
+            icon.source: Qaterial.Icons.close
+            visible: _tradeCard.best
+            onClicked: {
+                _tradeCard.best = false
             }
         }
     }

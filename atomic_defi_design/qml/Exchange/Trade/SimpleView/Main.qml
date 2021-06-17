@@ -35,10 +35,9 @@ Item {
     }
     Column
     {
-        width: 380
-        y: 100
-        spacing: 40
-        anchors.verticalCenter: parent.verticalCenter
+        width: root.currentSubPage===subPages.Trade? simple_trade.best? 600 : 380 : 380
+        y: 120
+        spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
 
         InnerBackground // Sub-pages Tabs Selector
@@ -78,6 +77,8 @@ Item {
                         duration: 150
                     }
                 }
+                show_shadow: false
+                light_gradient.visible: false
 
                 border.width: 2
                 border.color: 'transparent'
@@ -99,6 +100,7 @@ Item {
                     Layout.fillHeight: true
                     text: qsTr("Trade")
                     font.pixelSize: Style.textSize
+                    color: children[1].containsMouse? currentSubPage === subPages.Trade? theme.foregroundColor : theme.accentColor : theme.foregroundColor
                     DexMouseArea
                     {
                         anchors.fill: parent
@@ -116,6 +118,7 @@ Item {
                     Layout.fillHeight: true
                     text: qsTr("Orders")
                     font.pixelSize: Style.textSize
+                    color: children[1].containsMouse? currentSubPage === subPages.Orders? theme.foregroundColor : theme.accentColor : theme.foregroundColor
                     DexMouseArea
                     {
                         anchors.fill: parent
@@ -133,6 +136,7 @@ Item {
                     Layout.fillHeight: true
                     text: qsTr("History")
                     font.pixelSize: Style.textSize
+                    color: children[1].containsMouse? currentSubPage === subPages.History? theme.foregroundColor : theme.accentColor : theme.foregroundColor
                     DexMouseArea
                     {
                         anchors.fill: parent
@@ -144,45 +148,58 @@ Item {
             
         }
 
-        DexRectangle {
-            height: simple_trade.height
-            width: parent.width
-            radius: 20
-            color: theme.dexBoxBackgroundColor
-            visible: root.currentSubPage===subPages.Trade
-            sizeAnimationDuration: 250
-            sizeAnimation: true
-            Trade
-            {
-                id: simple_trade
-                width: parent.width
-                visible: parent.height>200
+        SwipeView {
+            id: _swipeSimplifiedView
+            currentIndex: root.currentSubPage
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 600
+            height: 650
+            clip: true
+            interactive: false
+            Item {
+                DexRectangle {
+                    id: subTradePage
+                    height: simple_trade.height
+                    width: simple_trade.best? 600 : 380
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    radius: 20
+                    color: theme.dexBoxBackgroundColor
+                    sizeAnimationDuration: 250
+                    sizeAnimation: true
+                    Trade
+                    {
+                        id: simple_trade
+                        width: parent.width
+                    }
+                }
             }
-        }
-        
-        DexRectangle {
-            width: parent.width
-            height: visible? 500 : 0
-            radius: 20
-            color: theme.dexBoxBackgroundColor
-            visible: root.currentSubPage===subPages.Orders
-            sizeAnimationDuration: 100
-            sizeAnimation: true
-            SubOrders {
-                id: orders_view
+            Item {
+                DexRectangle {
+                    width: 380
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: 500 
+                    radius: 20
+                    color: theme.dexBoxBackgroundColor
+                    SubOrders {
+                        id: orders_view
+                    }
+                }
             }
-        }
-        DexRectangle {
-            width: parent.width
-            height: visible? 500 : 0
-            radius: 20
-            color: theme.dexBoxBackgroundColor
-            visible: root.currentSubPage===subPages.History
-            sizeAnimationDuration: 100
-            sizeAnimation: true
-            SubHistory {
-                id: history_view
+            Item {
+                DexRectangle {
+                    width: 380
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: 500 
+                    radius: 20
+                    color: theme.dexBoxBackgroundColor
+                    SubHistory {
+                        id: history_view
+                    }
+                }
             }
+            
+            
+            
         }
     }
     ModalLoader {

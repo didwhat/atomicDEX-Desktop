@@ -93,7 +93,7 @@ namespace atomic_dex
         if (to_change)
         {
             this->get_orderbook_wrapper()->clear_orderbook();
-            this->clear_forms();
+            this->clear_forms("set_current_orderbook");
         }
 
         emit mm2MinTradeVolChanged();
@@ -218,7 +218,7 @@ namespace atomic_dex
                 this->set_buy_sell_last_rpc_data(error_json);
             }
             this->set_buy_sell_rpc_busy(false);
-            this->clear_forms();
+            this->clear_forms("place_buy_order");
         };
 
         //! Async call
@@ -238,7 +238,7 @@ namespace atomic_dex
                         auto error_json = QJsonObject({{"error_code", 500}, {"error_message", e.what()}});
                         this->set_buy_sell_last_rpc_data(error_json);
                         this->set_buy_sell_rpc_busy(false);
-                        this->clear_forms();
+                        this->clear_forms("place_buy_order");
                     }
                 });
     }
@@ -365,7 +365,7 @@ namespace atomic_dex
                 auto error_json = QJsonObject({{"error_code", resp.status_code()}, {"error_message", QString::fromStdString(body)}});
                 this->set_buy_sell_last_rpc_data(error_json);
             }
-            this->clear_forms();
+            this->clear_forms("place_sell_order");
             this->set_buy_sell_rpc_busy(false);
         };
 
@@ -386,7 +386,7 @@ namespace atomic_dex
                         auto error_json = QJsonObject({{"error_code", 500}, {"error_message", e.what()}});
                         this->set_buy_sell_last_rpc_data(error_json);
                         this->set_buy_sell_rpc_busy(false);
-                        this->clear_forms();
+                        this->clear_forms("place_sell_order");
                     }
                 });
     }
@@ -565,7 +565,7 @@ namespace atomic_dex
         {
             this->m_market_mode = market_mode;
             SPDLOG_INFO("switching market_mode, new mode: {}", m_market_mode == MarketMode::Buy ? "buy" : "sell");
-            this->clear_forms();
+            this->clear_forms("set_market_mode");
             auto* market_selector_mdl = get_market_pairs_mdl();
             set_current_orderbook(market_selector_mdl->get_left_selected_coin(), market_selector_mdl->get_right_selected_coin());
             emit marketModeChanged();
@@ -625,21 +625,33 @@ namespace atomic_dex
     }
 
     void
-    trading_page::clear_forms()
+    trading_page::clear_forms(QString from)
     {
         if (!this->m_system_manager.has_system<mm2_service>())
         {
             SPDLOG_WARN("MM2 service not available, required to clear forms - skipping");
             return;
         }
-        SPDLOG_INFO("clearing forms");
+        SPDLOG_INFO("clearing forms : {}", from.toStdString());
         // this->set_min_trade_vol("0");
-        this->set_max_volume("0");
-        m_minimal_trading_amount = "0";
-        emit minTradeVolChanged();
 
-        this->set_price("0");
-        this->set_volume("0");
+        if (m_preffered_order.has_value() && m_current_trading_mode == TradingModeGadget::Simple &&
+            m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
+        {
+            SPDLOG_INFO("Simple view cancel order, keeping important data");
+            this->set_volume(QString::fromStdString(m_preffered_order->at("initial_input_volume").get<std::string>()));
+            const auto max_taker_vol = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject()["decimal"].toString();
+            this->set_max_volume(max_taker_vol);
+            this->set_price("0");
+        }
+        else
+        {
+            this->set_price("0");
+            this->set_max_volume("0");
+            m_minimal_trading_amount = "0";
+            emit minTradeVolChanged();
+            this->set_volume("0");
+        }
         this->set_total_amount("0");
         this->set_trading_error(TradingError::None);
         this->m_preffered_order  = std::nullopt;
@@ -728,8 +740,7 @@ namespace atomic_dex
                         auto       available_quantity       = m_preffered_order->at("base_max_volume").get<std::string>();
                         t_float_50 available_quantity_order = safe_float(available_quantity);
                         SPDLOG_INFO(
-                            "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}",
-                            utils::format_float(safe_float(available_quantity)),
+                            "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}", utils::format_float(safe_float(available_quantity)),
                             get_max_volume().toStdString(), max_taker_vol);
                         if (available_quantity_order < safe_float(max_taker_vol) && !m_preffered_order->at("capped").get<bool>())
                         {
@@ -904,7 +915,7 @@ namespace atomic_dex
     {
         if (m_current_trading_mode != trading_mode)
         {
-            this->clear_forms();
+            this->clear_forms("set_current_trading_mode");
             this->set_market_mode(MarketMode::Sell);
             m_current_trading_mode = trading_mode;
             entity_registry_.template ctx<QSettings>().setValue("DefaultTradingMode", m_current_trading_mode);
@@ -1137,9 +1148,9 @@ namespace atomic_dex
             std::string body = TO_STD_STR(resp.extract_string(true).get());
             if (resp.status_code() == 200)
             {
-                auto           answers = nlohmann::json::parse(body);
-                nlohmann::json answer  = answers[0];
-                auto trade_preimage_answer = ::mm2::api::rpc_process_answer_batch<t_trade_preimage_answer>(answer, "trade_preimage");
+                auto           answers               = nlohmann::json::parse(body);
+                nlohmann::json answer                = answers[0];
+                auto           trade_preimage_answer = ::mm2::api::rpc_process_answer_batch<t_trade_preimage_answer>(answer, "trade_preimage");
                 if (trade_preimage_answer.result.has_value())
                 {
                     SPDLOG_INFO("preimage answer received");
@@ -1424,7 +1435,7 @@ namespace atomic_dex
     void
     trading_page::reset_order()
     {
-        this->clear_forms();
+        this->clear_forms("reset_order");
     }
 
     bool
