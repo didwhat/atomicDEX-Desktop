@@ -82,7 +82,7 @@ Item {
 
                 border.width: 2
                 border.color: 'transparent'
-                height: parent.height-6
+                height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
                 width: (parent.width / 3) 
                 radius: 40
@@ -160,7 +160,7 @@ Item {
                 DexRectangle {
                     id: subTradePage
                     height: simple_trade.height
-                    width: simple_trade.best? 600 : 380
+                    width: simple_trade.best? 600 : simple_trade.coinSelection? 450 : 380
                     anchors.horizontalCenter: parent.horizontalCenter
                     radius: 20
                     color: theme.dexBoxBackgroundColor
