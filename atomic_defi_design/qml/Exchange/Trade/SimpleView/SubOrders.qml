@@ -66,7 +66,6 @@ Item {
                 x: 320
                 icon.source: _subOrdersRoot.displayFilter? Qaterial.Icons.close : Qaterial.Icons.filter
                 onClicked: {
-                   console.log("clicked")
                     _subOrdersRoot.displayFilter = !_subOrdersRoot.displayFilter
                 }
             }
@@ -211,7 +210,6 @@ Item {
                         spacing: 10
                         DexAppButton {
                             height: 35
-                            width: 120 
                             anchors.verticalCenter: parent.verticalCenter
                             text: qsTr("Cancel")
                             onClicked: {
@@ -220,7 +218,6 @@ Item {
                         }
                         DexAppButton {
                             height: 35
-                            width: 130 
                             anchors.verticalCenter: parent.verticalCenter
                             backgroundColor: Qaterial.Colors.lightGreen700
                             text: qsTr("Apply filter")

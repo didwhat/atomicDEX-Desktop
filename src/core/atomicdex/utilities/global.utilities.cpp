@@ -6,6 +6,7 @@
 #if defined(_WIN32)
 #    define NOMINMAX
 #    include <Windows.h>
+#    include <stdlib.h>
 #endif
 
 //! Qt Headers
@@ -91,8 +92,10 @@ namespace atomic_dex::utils
     get_atomic_dex_data_folder()
     {
         fs::path appdata_path;
+
 #if defined(_WIN32) || defined(WIN32)
-        appdata_path = fs::path(std::getenv("APPDATA")) / DEX_APPDATA_FOLDER;
+        std::wstring out = _wgetenv(L"APPDATA");
+        appdata_path = fs::path(utils::u8string(out)) / DEX_APPDATA_FOLDER;
 #elif defined(__APPLE__)
         appdata_path = fs::path(std::getenv("HOME")) / "Library" / "Application Support" / DEX_APPDATA_FOLDER;
 #else
@@ -111,18 +114,20 @@ namespace atomic_dex::utils
     std::string
     to_utf8(const wchar_t* w)
     {
-#if defined(_WIN32)
         std::string  output;
+#if defined(_WIN32)
+
         const size_t size = WideCharToMultiByte(CP_UTF8, 0, w, -1, nullptr, 0, nullptr, nullptr);
         if (size == 0)
             return output;
         output.resize(size - 1);
         WideCharToMultiByte(CP_UTF8, 0, w, -1, output.data(), static_cast<int>(size) - 1, nullptr, nullptr);
-        return output;
 #else
         std::wstring out = w;
-        return wstring_to_utf8(out);
+        output = wstring_to_utf8(out);
 #endif
+        SPDLOG_INFO("to_utf8: {}", output);
+        return output;
     }
 
 
@@ -130,7 +135,11 @@ namespace atomic_dex::utils
     std::string
     u8string(const std::wstring& p)
     {
+#if defined(_WIN32)
+        return to_utf8(p.c_str());
+#else
         return wstring_to_utf8(p);
+#endif
     }
 
     std::string
@@ -149,7 +158,7 @@ namespace atomic_dex::utils
         {
             SPDLOG_DEBUG("value type is wchar_t");
 #if defined(_WIN32)
-            return to_utf8(p.native());
+            return to_utf8(p.c_str());
 #else
             return wstring_to_utf8(p.wstring());
 #endif
