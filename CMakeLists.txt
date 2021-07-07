@@ -64,10 +64,10 @@ if (APPLE)
             URL http://195.201.0.6/dev/mm2-41c6ce130-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/dev/mm2-41c6ce130-Windows_NT-Release.zip)
+            URL http://195.201.0.6/dev/mm2-41c6ce130-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/dev/mm2-41c6ce130-Linux-Release.zip)
+            URL http://195.201.0.6/dev/mm2-41c6ce130-Windows_NT-Release.zip)
 endif ()
 
 #FetchContent_Declare(qmaterial URL https://github.com/KomodoPlatform/Qaterial/archive/last-clang-working-2.zip)
