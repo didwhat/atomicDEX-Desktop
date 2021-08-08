@@ -167,6 +167,18 @@ Item {
                                 text: qsTr("Show only coins with balance")
                                 checked: portfolio_coins.with_balance
                                 onCheckedChanged: portfolio_coins.with_balance = checked
+
+                                DexLabel
+                                {
+                                    anchors.left: parent.right
+                                    anchors.leftMargin: 5
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.verticalCenterOffset: 1
+
+                                    font.pixelSize: 12
+
+                                    text: qsTr("(%1/%2)").arg(coinsList.innerList.count).arg(portfolio_mdl.length)
+                                }
                             }
                         }
                         DexTextField {
@@ -185,16 +197,20 @@ Item {
 
                             placeholderText: qsTr("Search")
 
-                            onTextChanged: {
-                                portfolio_coins.setFilterFixedString(text)
-                            }
+                            onTextChanged: portfolio_coins.setFilterFixedString(text)
+                            Component.onDestruction: portfolio_coins.setFilterFixedString("")
 
                             width: 120
                         }
                     }
                 }
             }
-            TableDex {}
+
+            TableDex
+            {
+                id: coinsList
+            }
+
             Item {
                 width: 1
                 height: 10
