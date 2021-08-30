@@ -21,26 +21,24 @@ jobs:
       fail-fast: false
       matrix:
         name: [
-            ubuntu-qt-5-15-2,
-            osx-qt-5-15-2,
-            windows-10-qt-5-15-2
+            ubuntu-qt-5-15-2
         ]
 
         include:
           - name: ubuntu-qt-5-15-2
-            os: ubuntu-18.04
+            os: ubuntu-latest
             qt: '5.15.2'
             type: 'release'
 
-          - name: osx-qt-5-15-2
-            os: macos-latest
-            qt: '5.15.2'
-            type: 'release'
+          #- name: osx-qt-5-15-2
+          #  os: macos-latest
+          #  qt: '5.15.2'
+          #  type: 'release'
 
-          - name: windows-10-qt-5-15-2
-            os: windows-latest
-            qt: '5.15.2'
-            type: 'release'
+          #- name: windows-10-qt-5-15-2
+          #  os: windows-latest
+          #  qt: '5.15.2'
+          #  type: 'release'
 
           #- name: osx-qt-5-15-2-dbg
           #  os: macos-latest
