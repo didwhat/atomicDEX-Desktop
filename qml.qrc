@@ -103,6 +103,7 @@
         <file>atomic_defi_design/assets/images/coins/gleec.png</file>
         <file>atomic_defi_design/assets/images/coins/gno.png</file>
         <file>atomic_defi_design/assets/images/coins/grs.png</file>
+        <file>atomic_defi_design/assets/images/coins/grms.png</file>
         <file>atomic_defi_design/assets/images/coins/hex.png</file>
         <file>atomic_defi_design/assets/images/coins/hlc.png</file>
         <file>atomic_defi_design/assets/images/coins/hodl.png</file>
@@ -548,6 +549,7 @@
         <file>atomic_defi_design/qml/Portfolio/PieItem.qml</file>
         <file>atomic_defi_design/qml/Portfolio/SmartChartView.qml</file>
         <file>atomic_defi_design/qml/Portfolio/TableDex.qml</file>
+        <file>atomic_defi_design/qml/Portfolio/AssetsList.qml</file>
         <file>atomic_defi_design/qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
