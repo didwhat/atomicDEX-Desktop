@@ -31,7 +31,7 @@ jobs:
             type: 'release'
 
           - name: osx-qt-5-15-2
-            os: macos-11
+            os: macos-latest
             qt: '5.15.2'
             type: 'release'
 
