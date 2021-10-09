@@ -33,6 +33,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "AAVE-PLG20": {
+    "coin": "AAVE-PLG20",
+    "name": "Aave",
+    "coinpaprika_id": "aave-new",
+    "coingecko_id": "aave",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "ABY": {
     "coin": "ABY",
     "name": "ArtByte",
@@ -514,6 +529,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "BAND-PLG20": {
+    "coin": "BAND-PLG20",
+    "name": "Band Protocol",
+    "coinpaprika_id": "band-band-protocol",
+    "coingecko_id": "band-protocol",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "BIDR-BEP20": {
     "coin": "BIDR-BEP20",
     "name": "BIDR",
@@ -625,6 +655,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "BNT-PLG20": {
+    "coin": "BNT-PLG20",
+    "name": "Bancor",
+    "coinpaprika_id": "bnt-bancor",
+    "coingecko_id": "bancor",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -850,7 +895,7 @@
   },
   "BUSD-MVR20": {
     "coin": "BUSD-MVR20",
-    "name": "Binance USD Moonriver",
+    "name": "Binance USD",
     "coinpaprika_id": "busd-binance-usd",
     "coingecko_id": "binance-usd",
     "nodes": [
@@ -865,7 +910,7 @@
   },
   "BUSD-ERC20": {
     "coin": "BUSD-ERC20",
-    "name": "Binance USD Ethereum",
+    "name": "Binance USD",
     "coinpaprika_id": "busd-binance-usd",
     "coingecko_id": "binance-usd",
     "nodes": [
@@ -882,7 +927,7 @@
   },
   "BUSD-BEP20": {
     "coin": "BUSD-BEP20",
-    "name": "Binance USD Binance",
+    "name": "Binance USD",
     "coinpaprika_id": "busd-binance-usd",
     "coingecko_id": "binance-usd",
     "nodes": [
@@ -894,6 +939,21 @@
       "https://bscscan.com/"
     ],
     "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "BUSD-PLG20": {
+    "coin": "BUSD-PLG20",
+    "name": "Binance USD",
+    "coinpaprika_id": "busd-binance-usd",
+    "coingecko_id": "binance-usd",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -1058,6 +1118,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "COMP-PLG20": {
+    "coin": "COMP-PLG20",
+    "name": "Compound",
+    "coinpaprika_id": "comp-compoundd",
+    "coingecko_id": "compound-governance-token",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "CRYPTO": {
     "coin": "CRYPTO",
     "name": "CRYPTO",
@@ -1115,6 +1190,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "DAI-PLG20": {
+    "coin": "DAI-PLG20",
+    "name": "Dai",
+    "coinpaprika_id": "dai-dai",
+    "coingecko_id": "dai",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -1933,6 +2023,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "IOTX-PLG20": {
+    "coin": "IOTX-PLG20",
+    "name": "IoTeX",
+    "coinpaprika_id": "iotx-iotex",
+    "coingecko_id": "iotex",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "JSTR": {
     "coin": "JSTR",
     "name": "Ropsten test ERC20",
@@ -2412,6 +2517,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "PAX-PLG20": {
+    "coin": "PAX-PLG20",
+    "name": "Paxos Standard",
+    "coinpaprika_id": "pax-paxos-standard-token",
+    "coingecko_id": "paxos-standard",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "PAXG-BEP20": {
     "coin": "PAXG-BEP20",
     "name": "PAX Gold",
@@ -2443,6 +2563,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "PAXG-PLG20": {
+    "coin": "PAXG-PLG20",
+    "name": "PAX Gold",
+    "coinpaprika_id": "paxg-pax-gold",
+    "coingecko_id": "pax-gold",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -2656,7 +2791,7 @@
   },
   "USDC-MVR20": {
     "coin": "USDC-MVR20",
-    "name": "USD Coin Moonriver",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2671,7 +2806,7 @@
   },
   "USDC-FTM20": {
     "coin": "USDC-FTM20",
-    "name": "USD Coin Fantom",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2686,7 +2821,7 @@
   },
   "USDC-BEP20": {
     "coin": "USDC-BEP20",
-    "name": "USD Coin Binance",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2703,7 +2838,7 @@
   },
   "USDC-ERC20": {
     "coin": "USDC-ERC20",
-    "name": "USD Coin Ethereum",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2720,7 +2855,7 @@
   },
   "USDC-KRC20": {
     "coin": "USDC-KRC20",
-    "name": "USD Coin KuCoin Chain",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2735,7 +2870,7 @@
   },
   "USDC-HCO20": {
     "coin": "USDC-HCO20",
-    "name": "USD Coin HecoChain",
+    "name": "USD Coin",
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
@@ -2748,9 +2883,24 @@
     "active": false,
     "currently_enabled": false
   },
+  "USDC-PLG20": {
+    "coin": "USDC-PLG20",
+    "name": "USD Coin",
+    "coinpaprika_id": "usdc-usd-coin",
+    "coingecko_id": "usd-coin",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "USDT-MVR20": {
     "coin": "USDT-MVR20",
-    "name": "Tether Moonriver",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2765,7 +2915,7 @@
   },
   "USDT-HCO20": {
     "coin": "USDT-HCO20",
-    "name": "Tether HecoChain",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2780,7 +2930,7 @@
   },
   "USDT-KRC20": {
     "coin": "USDT-KRC20",
-    "name": "Tether KuCoin Chain",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2795,7 +2945,7 @@
   },
   "USDT-ARB20": {
     "coin": "USDT-ARB20",
-    "name": "Tether Arbitrum",
+    "name": "Tether",
     "wallet_only": true,
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
@@ -2811,7 +2961,7 @@
   },
   "USDT-AVX20": {
     "coin": "USDT-AVX20",
-    "name": "Tether Avalanche",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2826,7 +2976,7 @@
   },
   "USDT-PLG20": {
     "coin": "USDT-PLG20",
-    "name": "Tether Polygon",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2841,7 +2991,7 @@
   },
   "USDT-BEP20": {
     "coin": "USDT-BEP20",
-    "name": "Tether Binance",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2858,7 +3008,7 @@
   },
   "USDT-ERC20": {
     "coin": "USDT-ERC20",
-    "name": "Tether Ethereum",
+    "name": "Tether",
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
@@ -2939,6 +3089,21 @@
       "https://bscscan.com/"
     ],
     "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "BAT-PLG20": {
+    "coin": "BAT-PLG20",
+    "name": "Basic Attention Token",
+    "coinpaprika_id": "bat-basic-attention-token",
+    "coingecko_id": "basic-attention-token",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -3044,6 +3209,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "LINK-PLG20": {
+    "coin": "LINK-PLG20",
+    "name": "Chainlink",
+    "coinpaprika_id": "link-chainlink",
+    "coingecko_id": "chainlink",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -3512,6 +3692,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "SUSHI-PLG20": {
+    "coin": "SUSHI-PLG20",
+    "name": "Sushi",
+    "coinpaprika_id": "sushi-sushi",
+    "coingecko_id": "sushi",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "VITE-BEP20": {
     "coin": "VITE-BEP20",
     "name": "Vite",
@@ -3917,6 +4112,21 @@
     "active": false,
     "currently_enabled": false
   },
+  "SNX-PLG20": {
+    "coin": "SNX-PLG20",
+    "name": "Synthetix",
+    "coinpaprika_id": "snx-synthetix-network-token",
+    "coingecko_id": "havven",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "SPACE": {
     "coin": "SPACE",
     "name": "Spacecoin",
@@ -4087,6 +4297,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "TUSD-PLG20": {
+    "coin": "TUSD-PLG20",
+    "name": "TrueUSD",
+    "coinpaprika_id": "tusd-trueusd",
+    "coingecko_id": "true-usd",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -4872,8 +5097,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "CEL": {
-    "coin": "CEL",
+  "CEL-ERC20": {
+    "coin": "CEL-ERC20",
     "name": "Celsius",
     "coinpaprika_id": "cel-celsius",
     "coingecko_id": "celsius-degree-token",
@@ -4886,6 +5111,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "CEL-PLG20": {
+    "coin": "CEL-PLG20",
+    "name": "Celsius",
+    "coinpaprika_id": "cel-celsius",
+    "coingecko_id": "celsius-degree-token",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -4906,8 +5146,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "CHSB": {
-    "coin": "CHSB",
+  "CHSB-ERC20": {
+    "coin": "CHSB-ERC20",
     "name": "SwissBorg",
     "coinpaprika_id": "chsb-swissborg",
     "coingecko_id": "swissborg",
@@ -4923,8 +5163,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "CHZ": {
-    "coin": "CHZ",
+  "CHSB-PLG20": {
+    "coin": "CHSB-PLG20",
+    "name": "SwissBorg",
+    "coinpaprika_id": "chsb-swissborg",
+    "coingecko_id": "swissborg",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "CHZ-ERC20": {
+    "coin": "CHZ-ERC20",
     "name": "chiliZ",
     "coinpaprika_id": "chz-chiliz",
     "coingecko_id": "chiliz",
@@ -4940,9 +5195,24 @@
     "active": false,
     "currently_enabled": false
   },
-  "CRO": {
-    "coin": "CRO",
-    "name": "Crypto.com Coin",
+  "CHZ-PLG20": {
+    "coin": "CHZ-PLG20",
+    "name": "chiliZ",
+    "coinpaprika_id": "chz-chiliz",
+    "coingecko_id": "chiliz",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "CRO-ERC20": {
+    "coin": "CRO-ERC20",
+    "name": "Crypto.com",
     "coinpaprika_id": "cro-cryptocom-chain",
     "coingecko_id": "crypto-com-chain",
     "nodes": [
@@ -4957,8 +5227,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "CRV": {
-    "coin": "CRV",
+  "CRO-PLG20": {
+    "coin": "CRO-PLG20",
+    "name": "Crypto.com",
+    "coinpaprika_id": "cro-cryptocom-chain",
+    "coingecko_id": "crypto-com-chain",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "CRV-ERC20": {
+    "coin": "CRV-ERC20",
     "name": "Curve DAO Token",
     "coinpaprika_id": "crv-curve-dao-token",
     "coingecko_id": "curve-dao-token",
@@ -4971,6 +5256,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "CRV-PLG20": {
+    "coin": "CRV-PLG20",
+    "name": "Curve DAO Token",
+    "coinpaprika_id": "crv-curve-dao-token",
+    "coingecko_id": "curve-dao-token",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5042,9 +5342,9 @@
     "active": false,
     "currently_enabled": false
   },
-  "ENJ": {
-    "coin": "ENJ",
-    "name": "EnjinCoin",
+  "ENJ-ERC20": {
+    "coin": "ENJ-ERC20",
+    "name": "Enjin Coin",
     "coinpaprika_id": "enj-enjin-coin",
     "coingecko_id": "enjincoin",
     "nodes": [
@@ -5059,9 +5359,24 @@
     "active": false,
     "currently_enabled": false
   },
-  "EURS": {
-    "coin": "EURS",
-    "name": "STASIS EURS Token",
+  "ENJ-PLG20": {
+    "coin": "ENJ-PLG20",
+    "name": "Enjin Coin",
+    "coinpaprika_id": "enj-enjin-coin",
+    "coingecko_id": "enjincoin",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "EURS-ERC20": {
+    "coin": "EURS-ERC20",
+    "name": "STASIS EURO",
     "coinpaprika_id": "eurs-stasis-eurs",
     "coingecko_id": "stasis-eurs",
     "nodes": [
@@ -5076,8 +5391,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "GNO": {
-    "coin": "GNO",
+  "EURS-PLG20": {
+    "coin": "EURS-PLG20",
+    "name": "STASIS EURO",
+    "coinpaprika_id": "eurs-stasis-eurs",
+    "coingecko_id": "stasis-eurs",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "GNO-ERC20": {
+    "coin": "GNO-ERC20",
     "name": "Gnosis",
     "coinpaprika_id": "gno-gnosis",
     "coingecko_id": "gnosis",
@@ -5093,8 +5423,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "HEX": {
-    "coin": "HEX",
+  "GNO-PLG20": {
+    "coin": "GNO-PLG20",
+    "name": "Gnosis",
+    "coinpaprika_id": "gno-gnosis",
+    "coingecko_id": "gnosis",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "HEX-ERC20": {
+    "coin": "HEX-ERC20",
     "name": "HEX",
     "coinpaprika_id": "hex-hex",
     "coingecko_id": "hex",
@@ -5110,9 +5455,24 @@
     "active": false,
     "currently_enabled": false
   },
-  "HOT": {
-    "coin": "HOT",
-    "name": "HoloToken",
+  "HEX-PLG20": {
+    "coin": "HEX-PLG20",
+    "name": "HEX",
+    "coinpaprika_id": "hex-hex",
+    "coingecko_id": "hex",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "HOT-ERC20": {
+    "coin": "HOT-ERC20",
+    "name": "Holo",
     "coinpaprika_id": "hot-holo",
     "coingecko_id": "holotoken",
     "nodes": [
@@ -5124,6 +5484,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "HOT-PLG20": {
+    "coin": "HOT-PLG20",
+    "name": "Holo",
+    "coinpaprika_id": "hot-holo",
+    "coingecko_id": "holotoken",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5159,8 +5534,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "HUSD": {
-    "coin": "HUSD",
+  "HUSD-ERC20": {
+    "coin": "HUSD-ERC20",
     "name": "HUSD",
     "coinpaprika_id": "husd-husd",
     "coingecko_id": "husd",
@@ -5176,9 +5551,24 @@
     "active": false,
     "currently_enabled": false
   },
-  "LEO": {
-    "coin": "LEO",
-    "name": "Bitfinex LEO Token",
+  "HUSD-PLG20": {
+    "coin": "HUSD-PLG20",
+    "name": "HUSD",
+    "coinpaprika_id": "husd-husd",
+    "coingecko_id": "husd",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "LEO-ERC20": {
+    "coin": "LEO-ERC20",
+    "name": "LEO Token",
     "coinpaprika_id": "leo-leo-token",
     "coingecko_id": "leo-token",
     "nodes": [
@@ -5193,8 +5583,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "LRC": {
-    "coin": "LRC",
+  "LEO-PLG20": {
+    "coin": "LEO-PLG20",
+    "name": "LEO Token",
+    "coinpaprika_id": "leo-leo-token",
+    "coingecko_id": "leo-token",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "LRC-ERC20": {
+    "coin": "LRC-ERC20",
     "name": "Loopring",
     "coinpaprika_id": "lrc-loopring",
     "coingecko_id": "loopring",
@@ -5210,8 +5615,23 @@
     "active": false,
     "currently_enabled": false
   },
-  "MANA": {
-    "coin": "MANA",
+  "LRC-PLG20": {
+    "coin": "LRC-PLG20",
+    "name": "Loopring",
+    "coinpaprika_id": "lrc-loopring",
+    "coingecko_id": "loopring",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "MANA-ERC20": {
+    "coin": "MANA-ERC20",
     "name": "Decentraland",
     "coinpaprika_id": "mana-decentraland",
     "coingecko_id": "decentraland",
@@ -5224,6 +5644,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "MANA-PLG20": {
+    "coin": "MANA-PLG20",
+    "name": "Decentraland",
+    "coinpaprika_id": "mana-decentraland",
+    "coingecko_id": "decentraland",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5278,9 +5713,9 @@
     "active": false,
     "currently_enabled": false
   },
-  "POWR": {
-    "coin": "POWR",
-    "name": "PowerLedger",
+  "POWR-ERC20": {
+    "coin": "POWR-ERC20",
+    "name": "Power Ledger",
     "coinpaprika_id": "powr-power-ledger",
     "coingecko_id": "power-ledger",
     "nodes": [
@@ -5292,6 +5727,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "POWR-PLG20": {
+    "coin": "POWR-PLG20",
+    "name": "Power Ledger",
+    "coinpaprika_id": "powr-power-ledger",
+    "coingecko_id": "power-ledger",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5363,9 +5813,9 @@
     "active": false,
     "currently_enabled": false
   },
-  "RLC": {
-    "coin": "RLC",
-    "name": "RLC",
+  "RLC-ERC20": {
+    "coin": "RLC-ERC20",
+    "name": "iExec RLC",
     "coinpaprika_id": "rlc-iexec-rlc",
     "coingecko_id": "iexec-rlc",
     "nodes": [
@@ -5377,6 +5827,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "RLC-PLG20": {
+    "coin": "RLC-PLG20",
+    "name": "iExec RLC",
+    "coinpaprika_id": "rlc-iexec-rlc",
+    "coingecko_id": "iexec-rlc",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5465,8 +5930,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "SRM": {
-    "coin": "SRM",
+  "SRM-ERC20": {
+    "coin": "SRM-ERC20",
     "name": "Serum",
     "coinpaprika_id": "srm-serum",
     "coingecko_id": "serum",
@@ -5479,6 +5944,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "SRM-PLG20": {
+    "coin": "SRM-PLG20",
+    "name": "Serum",
+    "coinpaprika_id": "srm-serum",
+    "coingecko_id": "serum",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5565,9 +6045,9 @@
     "active": false,
     "currently_enabled": false
   },
-  "UBT": {
-    "coin": "UBT",
-    "name": "UniBright",
+  "UBT-ERC20": {
+    "coin": "UBT-ERC20",
+    "name": "Unibright",
     "coinpaprika_id": "ubt-unibright",
     "coingecko_id": "unibright",
     "nodes": [
@@ -5582,9 +6062,24 @@
     "active": false,
     "currently_enabled": false
   },
-  "UMA": {
-    "coin": "UMA",
-    "name": "UMA Voting Token v1",
+  "UBT-PLG20": {
+    "coin": "UBT-PLG20",
+    "name": "Unibright",
+    "coinpaprika_id": "ubt-unibright",
+    "coingecko_id": "unibright",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
+  "UMA-ERC20": {
+    "coin": "UMA-ERC20",
+    "name": "UMA",
     "coinpaprika_id": "uma-uma",
     "coingecko_id": "uma",
     "nodes": [
@@ -5596,6 +6091,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "UMA-PLG20": {
+    "coin": "UMA-PLG20",
+    "name": "UMA",
+    "coinpaprika_id": "uma-uma",
+    "coingecko_id": "uma",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5630,6 +6140,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "UNI-PLG20": {
+    "coin": "UNI-PLG20",
+    "name": "Uniswap",
+    "coinpaprika_id": "uni-uniswap",
+    "coingecko_id": "uniswap",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5708,8 +6233,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "VGX": {
-    "coin": "VGX",
+  "VGX-ERC20": {
+    "coin": "VGX-ERC20",
     "name": "Voyager",
     "coinpaprika_id": "ethos-ethos",
     "coingecko_id": "ethos",
@@ -5722,6 +6247,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "VGX-PLG20": {
+    "coin": "VGX-PLG20",
+    "name": "Voyager",
+    "coinpaprika_id": "ethos-ethos",
+    "coingecko_id": "ethos",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
@@ -5759,9 +6299,9 @@
     "active": false,
     "currently_enabled": false
   },
-  "ZRX": {
-    "coin": "ZRX",
-    "name": "ZRX",
+  "ZRX-ERC20": {
+    "coin": "ZRX-ERC20",
+    "name": "0x",
     "coinpaprika_id": "zrx-0x",
     "coingecko_id": "0x",
     "nodes": [
@@ -5773,6 +6313,21 @@
       "https://etherscan.io/"
     ],
     "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "ZRX-PLG20": {
+    "coin": "ZRX-PLG20",
+    "name": "0x",
+    "coinpaprika_id": "zrx-0x",
+    "coingecko_id": "0x",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
     "active": false,
     "currently_enabled": false
   },
