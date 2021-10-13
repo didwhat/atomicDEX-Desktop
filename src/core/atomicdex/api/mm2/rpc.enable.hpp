@@ -80,7 +80,7 @@ namespace mm2::api
         const std::string        bnb_fallback_swap_contract_address{bnb_swap_contract_address};
         const std::string        bnb_testnet_fallback_swap_contract_address{bnb_testnet_swap_contract_address};
         std::string              gas_station_url{"https://ethgasstation.info/json/ethgasAPI.json"};
-        std::string              matic_gas_station_url{"https://gasstation-mainnet.matic.network/"};
+        //std::string              matic_gas_station_url{"https://gasstation-mainnet.matic.network/"};
         std::string              testnet_matic_gas_station_url{"https://gasstation-mumbai.matic.today/"};
         std::string              type; ///< QRC-20 ?
         bool                     with_tx_history{true};
