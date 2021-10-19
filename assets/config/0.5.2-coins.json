@@ -1108,7 +1108,7 @@
     "coin": "BTE",
     "name": "Bitweb",
     "type": "UTXO",
-    "coingecko_id": "bitweb",
+    "coingecko_id": "test-coin",
     "coinpaprika_id": "bte-bitweb",
     "electrum": [
       {
