@@ -4071,8 +4071,8 @@
     "active": false,
     "currently_enabled": false
   },
-  "SMTF": {
-    "coin": "SMTF",
+  "SMTF-OLD": {
+    "coin": "SMTF-OLD",
     "name": "SmartFi",
     "coinpaprika_id": "test-coin",
     "coingecko_id": "test-coin",
@@ -4088,6 +4088,23 @@
     "active": false,
     "currently_enabled": false
   },
+  "SMTF-v2": {
+    "coin": "SMTF-v2",
+    "name": "SmartFi",
+    "coinpaprika_id": "test-coin",
+    "coingecko_id": "test-coin",
+    "nodes": [
+      "http://bsc1.cipig.net:8655",
+      "http://bsc2.cipig.net:8655",
+      "http://bsc3.cipig.net:8655"
+    ],
+    "explorer_url": [
+      "https://bscscan.com/"
+    ],
+    "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },  
   "SOULJA": {
     "coin": "SOULJA",
     "name": "SouljaCoin",
@@ -5538,7 +5555,7 @@
         "ws_url": "electrum3.cipig.net:30058"
       }
     ],
-    "explorer_tx_url": "transaction/",
+    "explorer_tx_url": "transactions/",
     "explorer_url": [
       "https://explorer.zcha.in/"
     ],
