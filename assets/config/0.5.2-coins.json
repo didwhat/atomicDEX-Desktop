@@ -4501,8 +4501,8 @@
       "active": false,
       "currently_enabled": false
   },
-  "SMTF-OLD": {
-    "coin": "SMTF-OLD",
+  "SMTF": {
+    "coin": "SMTF",
     "name": "SmartFi",
     "coinpaprika_id": "test-coin",
     "coingecko_id": "test-coin",
