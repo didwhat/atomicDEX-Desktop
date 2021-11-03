@@ -1462,7 +1462,8 @@
       ],
       "type": "Arbitrum",
       "active": false,
-      "currently_enabled": false
+      "currently_enabled": false,
+      "wallet_only": true
   },
   "CLC": {
     "coin": "CLC",
@@ -4983,40 +4984,6 @@
     "active": false,
     "currently_enabled": false
   },
-  "MTSLA-ERC20": {
-      "coin": "MTSLA-ERC20",
-      "name": "Mirrored Tesla",
-      "coinpaprika_id": "test-coin",
-      "coingecko_id": "mirrored-tesla",
-      "nodes": [
-        "http://eth1.cipig.net:8555",
-        "http://eth2.cipig.net:8555",
-        "http://eth3.cipig.net:8555"
-      ],
-      "explorer_url": [
-        "https://etherscan.io/"
-      ],
-      "type": "ERC-20",
-      "active": false,
-      "currently_enabled": false
-  },
-  "MTSLA-BEP20": {
-      "coin": "MTSLA-BEP20",
-      "name": "Mirrored Tesla",
-      "coinpaprika_id": "test-coin",
-      "coingecko_id": "mirrored-tesla",
-      "nodes": [
-        "http://bsc1.cipig.net:8655",
-        "http://bsc2.cipig.net:8655",
-        "http://bsc3.cipig.net:8655"
-      ],
-      "explorer_url": [
-        "https://bscscan.com/"
-      ],
-      "type": "BEP-20",
-      "active": false,
-      "currently_enabled": false
-  },
   "NAV": {
     "coin": "NAV",
     "name": "NavCoin",
@@ -6782,6 +6749,21 @@
     "type": "ERC-20",
     "active": false,
     "currently_enabled": false
+  },
+  "CRV-AVX20": {
+      "coin": "CRV-AVX20",
+      "name": "Curve DAO Token",
+      "coinpaprika_id": "crv-curve-dao-token",
+      "coingecko_id": "curve-dao-token",
+      "nodes": [
+        "https://api.avax.network/ext/bc/C/rpc"
+      ],
+      "explorer_url": [
+        "https://cchain.explorer.avax.network/"
+      ],
+      "type": "AVX-20",
+      "active": false,
+      "currently_enabled": false
   },
   "CRV-FTM20": {
       "coin": "CRV-FTM20",
