@@ -350,6 +350,7 @@
       "name": "Pirate",
       "coinpaprika_id": "arrr-pirate",
       "coingecko_id": "pirate-chain",
+      "nomics_id": "ARRR",
       "nodes": [
         "http://bsc1.cipig.net:8655",
         "http://bsc2.cipig.net:8655",
@@ -1182,6 +1183,7 @@
       "name": "BTU Protocol",
       "coinpaprika_id": "btu-btu-protocol",
       "coingecko_id": "btu-protocol",
+      "nomics_id": "BTU",
       "nodes": [
         "http://eth1.cipig.net:8555",
         "http://eth2.cipig.net:8555",
@@ -1199,6 +1201,7 @@
       "name": "BTU Protocol",
       "coinpaprika_id": "btu-btu-protocol",
       "coingecko_id": "btu-protocol",
+      "nomics_id": "BTU",
       "nodes": [
         "https://polygon-rpc.com"
       ],
@@ -3354,6 +3357,7 @@
     "name": "Million",
     "coinpaprika_id": "mm-million",
     "coingecko_id": "million",
+    "nomics_id": "MM4",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -3371,6 +3375,7 @@
       "name": "Million",
       "coinpaprika_id": "mm-million",
       "coingecko_id": "million",
+      "nomics_id": "MM4",
       "nodes": [
         "https://api.avax.network/ext/bc/C/rpc"
       ],
@@ -3386,6 +3391,7 @@
       "name": "Million",
       "coinpaprika_id": "mm-million",
       "coingecko_id": "million",
+      "nomics_id": "MM4",
       "nodes": [
         "http://bsc1.cipig.net:8655",
         "http://bsc2.cipig.net:8655",
@@ -3403,6 +3409,7 @@
       "name": "Million",
       "coinpaprika_id": "mm-million",
       "coingecko_id": "million",
+      "nomics_id": "MM4",
       "nodes": [
         "https://rpc.moonriver.moonbeam.network"
       ],
@@ -3418,6 +3425,7 @@
       "name": "Million",
       "coinpaprika_id": "mm-million",
       "coingecko_id": "million",
+      "nomics_id": "MM4",
       "nodes": [
         "https://polygon-rpc.com"
       ],
@@ -3657,6 +3665,7 @@
     "coin": "KCS",
     "coingecko_id": "kucoin-shares",
     "coinpaprika_id": "kcs-kucoin-token",
+    "nomics_id": "KCS",
     "currently_enabled": false,
     "nodes": [
       "https://rpc-mainnet.kcc.network"
@@ -3671,7 +3680,8 @@
     "active": false,
     "coin": "MOVR",
     "coingecko_id": "moonriver",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "movr-moonriver",
+    "nomics_id": "MOVR",
     "currently_enabled": false,
     "nodes": [
       "https://rpc.moonriver.moonbeam.network"
@@ -5325,6 +5335,7 @@
       "name": "Nexo",
       "coinpaprika_id": "nexo-nexo",
       "coingecko_id": "nexo",
+      "nomics_id": "NEXO",
       "nodes": [
         "http://eth1.cipig.net:8555",
         "http://eth2.cipig.net:8555",
@@ -5342,6 +5353,7 @@
       "name": "Nexo",
       "coinpaprika_id": "nexo-nexo",
       "coingecko_id": "nexo",
+      "nomics_id": "NEXO",
       "nodes": [
         "https://polygon-rpc.com"
       ],
@@ -6912,6 +6924,7 @@
     "name": "Celsius",
     "coinpaprika_id": "cel-celsius",
     "coingecko_id": "celsius-degree-token",
+    "nomics_id": "CEL",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -6929,6 +6942,7 @@
     "name": "Celsius",
     "coinpaprika_id": "cel-celsius",
     "coingecko_id": "celsius-degree-token",
+    "nomics_id": "CEL",
     "nodes": [
       "https://polygon-rpc.com"
     ],
@@ -7025,6 +7039,7 @@
     "name": "Crypto.com",
     "coinpaprika_id": "cro-cryptocom-chain",
     "coingecko_id": "crypto-com-chain",
+    "nomics_id": "CRO",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -7042,6 +7057,7 @@
     "name": "Crypto.com",
     "coinpaprika_id": "cro-cryptocom-chain",
     "coingecko_id": "crypto-com-chain",
+    "nomics_id": "CRO",
     "nodes": [
       "https://polygon-rpc.com"
     ],
@@ -7283,6 +7299,7 @@
     "name": "HEX",
     "coinpaprika_id": "hex-hex",
     "coingecko_id": "hex",
+    "nomics_id": "HEX",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -7300,6 +7317,7 @@
     "name": "HEX",
     "coinpaprika_id": "hex-hex",
     "coingecko_id": "hex",
+    "nomics_id": "HEX",
     "nodes": [
       "https://polygon-rpc.com"
     ],
@@ -7347,6 +7365,7 @@
     "coin": "HT",
     "coingecko_id": "huobi-token",
     "coinpaprika_id": "ht-huobi-token",
+    "nomics_id": "HT",
     "currently_enabled": false,
     "nodes": [
       "https://http-mainnet.hecochain.com"
@@ -7359,9 +7378,10 @@
   },
   "HT-ERC20": {
     "coin": "HT-ERC20",
-    "name": "HuobiToken Ethereum",
+    "name": "Huobi Token",
     "coinpaprika_id": "ht-huobi-token",
     "coingecko_id": "huobi-token",
+    "nomics_id": "HT",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -7573,6 +7593,7 @@
     "name": "Power Ledger",
     "coinpaprika_id": "powr-power-ledger",
     "coingecko_id": "power-ledger",
+    "nomics_id": "POWR",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -7590,6 +7611,7 @@
     "name": "Power Ledger",
     "coinpaprika_id": "powr-power-ledger",
     "coingecko_id": "power-ledger",
+    "nomics_id": "POWR",
     "nodes": [
       "https://polygon-rpc.com"
     ],
