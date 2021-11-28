@@ -1411,7 +1411,7 @@
     "name": "CAD Coin",
     "forex_id": "CAD",
     "coinpaprika_id": "cadc-cad-coin",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "cad-coin",
     "nomics_id": "CADC",
     "nodes": [
       "http://eth1.cipig.net:8555",
@@ -1430,7 +1430,7 @@
     "name": "CAD Coin",
     "forex_id": "CAD",
     "coinpaprika_id": "cadc-cad-coin",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "cad-coin",
     "nomics_id": "CADC",
     "nodes": [
       "https://polygon-rpc.com"
@@ -1585,6 +1585,7 @@
     "name": "Collider Coin",
     "coinpaprika_id": "clc-collider-coin",
     "coingecko_id": "test-coin",
+    "nomics_id": "CLC2",
     "electrum": [
       {
         "url": "electrumx.cryptocollider.com:10001"
@@ -5136,6 +5137,7 @@
     "name": "SmartFi",
     "coinpaprika_id": "smtf-smartfi",
     "coingecko_id": "test-coin",
+    "nomics_id": "SMTF",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -5295,6 +5297,7 @@
     "type": "UTXO",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "sca-scalaris",
+    "nomics_id": "SCA2",
     "electrum": [
       {
         "url": "electrum1.scalaris.info:10001"
@@ -5949,6 +5952,7 @@
     "name": "QuarkChain",
     "coinpaprika_id": "qkc-quarkchain",
     "coingecko_id": "quark-chain",
+    "nomics_id": "QKC",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -5966,6 +5970,7 @@
     "name": "QuarkChain",
     "coinpaprika_id": "qkc-quarkchain",
     "coingecko_id": "quark-chain",
+    "nomics_id": "QKC",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
