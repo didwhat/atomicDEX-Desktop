@@ -141,7 +141,7 @@ Item
             DefaultText
             {
                 Layout.preferredWidth: (parent.width / 100) * 33
-                text: parseFloat(General.formatDouble(price, General.amountPrecision, true)).toFixed(6)
+                text: parseFloat(General.formatDouble(price, General.amountPrecision, true)).toFixed(8)
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 10
                 color: isAsk ? Dex.CurrentTheme.noColor : Dex.CurrentTheme.okColor
