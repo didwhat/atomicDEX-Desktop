@@ -167,7 +167,7 @@ Item
                 rightPadding: (is_mine) && (mouse_are.containsMouse || cancel_button.containsMouse) ? 30 : 0
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 10
-                text: parseFloat(total).toFixed(5)
+                text: parseFloat(total).toFixed(4)
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignRight
 
