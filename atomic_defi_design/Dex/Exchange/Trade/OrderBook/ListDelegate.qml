@@ -153,7 +153,7 @@ Item
             DefaultText
             {
                 Layout.preferredWidth: (parent.width / 100) * 30
-                text: parseFloat(quantity).toFixed(6)
+                text: parseFloat(quantity).toFixed(5)
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 10
                 elide: Text.ElideRight
@@ -167,7 +167,7 @@ Item
                 rightPadding: (is_mine) && (mouse_are.containsMouse || cancel_button.containsMouse) ? 30 : 0
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 10
-                text: parseFloat(total).toFixed(6)
+                text: parseFloat(total).toFixed(5)
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignRight
 
