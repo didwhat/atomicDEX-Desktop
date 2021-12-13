@@ -142,7 +142,7 @@ Item
             DefaultText
             {
                 Layout.preferredWidth: (parent.width / 100) * 33
-                text: { new BigNumber(price).toFixed(10) }
+                text: { new BigNumber(price).toFixed(8) }
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
                 color: isAsk ? Dex.CurrentTheme.noColor : Dex.CurrentTheme.okColor
@@ -154,7 +154,7 @@ Item
             DefaultText
             {
                 Layout.preferredWidth: (parent.width / 100) * 33
-                text: { new BigNumber(quantity).toFixed(8) }
+                text: { new BigNumber(quantity).toFixed(6) }
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
                 elide: Text.ElideRight
@@ -168,7 +168,7 @@ Item
                 rightPadding: (is_mine) && (mouse_are.containsMouse || cancel_button.containsMouse) ? 30 : 0
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
-                text: { new BigNumber(total).toFixed(8) }
+                text: { new BigNumber(total).toFixed(6) }
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignRight
 
