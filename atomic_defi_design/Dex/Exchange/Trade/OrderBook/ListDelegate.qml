@@ -153,7 +153,7 @@ Item
             // Quantity
             DefaultText
             {
-                Layout.preferredWidth: (parent.width / 100) * 33
+                Layout.preferredWidth: (parent.width / 100) * 30
                 text: { new BigNumber(quantity).toFixed(6) }
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
@@ -164,7 +164,7 @@ Item
             // Total
             DefaultText
             {
-                Layout.preferredWidth: (parent.width / 100) * 33
+                Layout.preferredWidth: (parent.width / 100) * 30
                 rightPadding: (is_mine) && (mouse_are.containsMouse || cancel_button.containsMouse) ? 30 : 0
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
