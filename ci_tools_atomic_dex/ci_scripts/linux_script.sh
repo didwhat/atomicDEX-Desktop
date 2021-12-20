@@ -62,7 +62,8 @@ sudo make -j3 install
 cd ..
 
 ## tar
-wget https://ftp.gnu.org/gnu/tar/tar-1.32.tar.gz
+#wget https://ftp.gnu.org/gnu/tar/tar-1.32.tar.gz
+wget http://ftp.vim.org/ftp/gnu/tar/tar-1.32.tar.gz
 tar xvf tar-1.32.tar.gz
 cd tar-1.32
 export FORCE_UNSAFE_CONFIGURE=1
