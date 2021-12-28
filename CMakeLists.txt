@@ -64,7 +64,7 @@ if (APPLE)
             URL http://195.201.0.6/zombie_orders_fix/mm2-c460a698e-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/zombie_orders_fix/mm2-c460a698e-Linux-Release.zip)
+            URL http://195.201.0.6/polygon-logs-block-range/mm2-708f4ae6c-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
             URL http://195.201.0.6/zombie_orders_fix/mm2-c460a698e-Windows_NT-Release.zip)
