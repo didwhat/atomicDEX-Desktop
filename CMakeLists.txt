@@ -61,13 +61,13 @@ endif ()
 ##! We fetch our dependencies
 if (APPLE)
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/zombie_orders_fix/mm2-c460a698e-Darwin-Release.zip)
+            URL http://195.201.0.6/mm2.1/mm2-4199b05fe-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/polygon-logs-block-range/mm2-708f4ae6c-Linux-Release.zip)
+            URL http://195.201.0.6/mm2.1/mm2-4199b05fe-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/zombie_orders_fix/mm2-c460a698e-Windows_NT-Release.zip)
+            URL http://195.201.0.6/mm2.1/mm2-4199b05fe-Windows_NT-Release.zip)
 endif ()
 
 #FetchContent_Declare(qmaterial URL https://github.com/KomodoPlatform/Qaterial/archive/last-clang-working-2.zip)
