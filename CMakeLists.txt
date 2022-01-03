@@ -64,7 +64,7 @@ if (APPLE)
             URL https://github.com/KomodoPlatform/atomicDEX-API/releases/download/beta-2.1.5182/mm2-0fea16d6b-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL https://github.com/KomodoPlatform/atomicDEX-API/releases/download/beta-2.1.5182/mm2-0fea16d6b-Linux-Release.zip)
+            URL http://195.201.0.6/hotfix-unknown-destination-address/mm2-5d53019a2-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
             URL https://github.com/KomodoPlatform/atomicDEX-API/releases/download/beta-2.1.5182/mm2-0fea16d6b-Windows_NT-Release.zip)
