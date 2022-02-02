@@ -1274,9 +1274,10 @@
   },
   "BTT-BEP20": {
     "coin": "BTT-BEP20",
-    "name": "BitTorrent",
+    "name": "BitTorrent (OLD)",
     "coinpaprika_id": "btt-bittorrent",
-    "coingecko_id": "bittorrent-2",
+    "coingecko_id": "bittorrent-old",
+    "nomics_id": "BITTORRENT",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -2698,7 +2699,7 @@
   "FJCB": {
     "coin": "FJCB",
     "name": "FJCB Fujicoin",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "fjcb-fjcb-fujicoin",
     "coingecko_id": "test-coin",
     "nomics_id": "FJCB",
     "nodes": [
@@ -5932,7 +5933,7 @@
         "url": "electrumx3.monacoin.nl:50001"
       },
       {
-        "url": "electrumx1.monacoin.ninja:50001"
+        "url": "103.125.218.246:50001"
       },
       {
         "url": "electrumx.tamami-foundation.org:50001"
