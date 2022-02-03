@@ -5214,6 +5214,22 @@
     "active": false,
     "currently_enabled": false
   },
+  "PGX-PLG20": {
+    "coin": "PGX-PLG20",
+    "name": "Pegaxy Stone",
+    "coinpaprika_id": "test-coin",
+    "coingecko_id": "pegaxy-stone",
+    "nomics_id": "PGX",
+    "nodes": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer_url": [
+      "https://polygonscan.com/"
+    ],
+    "type": "Matic",
+    "active": false,
+    "currently_enabled": false
+  },
   "PIC": {
     "coin": "PIC",
     "name": "Picacoin",
