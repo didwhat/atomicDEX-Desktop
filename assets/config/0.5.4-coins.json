@@ -1345,7 +1345,7 @@
     "coinpaprika_id": "busd-binance-usd",
     "coingecko_id": "binance-usd",
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -1885,7 +1885,7 @@
     "coinpaprika_id": "dai-dai",
     "coingecko_id": "dai",
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -3988,7 +3988,7 @@
     "coingecko_id": "million",
     "nomics_id": "MM4",
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -4276,7 +4276,7 @@
     "nomics_id": "MOVR",
     "currently_enabled": false,
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -4555,7 +4555,7 @@
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -4702,7 +4702,7 @@
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
-      "https://rpc.moonriver.moonbeam.network"
+      "https://rpc.api.moonriver.moonbeam.network"
     ],
     "explorer_url": [
       "https://blockscout.moonriver.moonbeam.network/"
@@ -5902,7 +5902,7 @@
       "coingecko_id": "sushi",
       "nomics_id": "SUSHI",
       "nodes": [
-        "https://rpc.moonriver.moonbeam.network"
+        "https://rpc.api.moonriver.moonbeam.network"
       ],
       "explorer_url": [
         "https://blockscout.moonriver.moonbeam.network/"
