@@ -4257,6 +4257,22 @@
     "type": "Moonriver",
     "name": "Moonriver"
   },
+  "GLMR": {
+    "active": false,
+    "coin": "GLMR",
+    "coingecko_id": "moonbeam",
+    "coinpaprika_id": "glmr-moonbeam",
+    "nomics_id": "GLMR",
+    "currently_enabled": false,
+    "nodes": [
+      "https://rpc.api.moonbeam.network"
+    ],
+    "explorer_url": [
+      "https://moonscan.io/"
+    ],
+    "type": "Moonbeam",
+    "name": "Moonbeam"
+  },
   "ETH": {
     "active": false,
     "coin": "ETH",
@@ -4652,6 +4668,7 @@
     "name": "USD Inflation Coin",
     "coinpaprika_id": "test-coin",
     "coingecko_id": "test-coin",
+    "nomics_id": "USDI",
     "electrum": [
       {
         "url": "usdi1.blackcoin.nl:10002",
@@ -9623,6 +9640,31 @@
       "https://bscscan.com/"
     ],
     "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },
+    "IC": {
+    "coin": "IC",
+    "name": "Ignition",
+    "coingecko_id": "ignition",
+    "coinpaprika_id": "ic-ignition",
+    "nomics_id": "IC",
+    "electrum": [
+      {
+        "url": "electrum1.ignitioncoin.org:10001",
+        "protocol": "TCP"
+      },
+      {
+        "url": "electrum2.ignitioncoin.org:10001",
+        "protocol": "TCP"
+      }
+    ],
+    "explorer_url": [
+      "https://chainz.cryptoid.info/ic/"
+    ],
+    "explorer_tx_url": "tx.dws?",
+    "explorer_address_url": "address.dws?",
+    "type": "UTXO",
     "active": false,
     "currently_enabled": false
   }
