@@ -1658,7 +1658,6 @@
     "name": "Collider Coin",
     "coinpaprika_id": "clc-collider-coin",
     "coingecko_id": "test-coin",
-    "nomics_id": "CLC2",
     "electrum": [
       {
         "url": "electrumx.cryptocollider.com:10001"
@@ -2075,7 +2074,6 @@
     "name": "Diminutive Coin",
     "coinpaprika_id": "dimi-diminutive-coin",
     "coingecko_id": "test-coin",
-    "nomics_id": "DIMI",
     "electrum": [
       {
         "url": "electrumx1.diminutivecoin.com:50012",
@@ -3839,7 +3837,6 @@
     "name": "Marmara Credit Loops",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "mcl-marmara-credit-loops",
-    "nomics_id": "MCL",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10023",
@@ -5462,7 +5459,6 @@
       "name": "PRUX",
       "coinpaprika_id": "prux-prux-coin",
       "coingecko_id": "test-coin",
-      "nomics_id": "PRUX",
       "electrum": [
       {
         "url": "txserver.live:50002",
@@ -5746,7 +5742,6 @@
     "name": "Chips",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "chips-chips",
-    "nomics_id": "CHIPS6",
     "electrum": [
       {
         "url": "electrum3.cipig.net:10053",
@@ -5975,7 +5970,6 @@
     "name": "Verus Coin",
     "coingecko_id": "verus-coin",
     "coinpaprika_id": "vrsc-verus-coin",
-    "nomics_id": "VRSC",
     "electrum": [
       {
         "url": "el0.verus.io:17486",
@@ -6843,8 +6837,7 @@
     "coin": "THC",
     "name": "HempCoin",
     "coinpaprika_id": "thc-hempcoin",
-    "coingecko_id": "hempcoin-thc",
-    "nomics_id": "THC",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "1.eu.thc.electrum.dexstats.info:10020"
