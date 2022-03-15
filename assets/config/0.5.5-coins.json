@@ -7431,6 +7431,7 @@
     "active": false,
     "coinpaprika_id": "xrg-ergon",
     "coingecko_id": "test-coin",
+    "nomics_id": "XRG",
     "currently_enabled": false,
     "electrum": [
       {
