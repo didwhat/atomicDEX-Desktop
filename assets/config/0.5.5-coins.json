@@ -2752,6 +2752,7 @@
     "name": "Fujicoin",
     "coinpaprika_id": "fjc-fujicoin",
     "coingecko_id": "test-coin",
+    "nomics_id": "FJC",
     "electrum": [
       {
         "url": "electrumx1.fujicoin.org:50001",
