@@ -6882,8 +6882,7 @@
     "coin": "TKL",
     "name": "Tokel",
     "coinpaprika_id": "tkl-tokel",
-    "coingecko_id": "tokel",
-    "nomics_id": "TKL2",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "1.eu.tokel.electrum.dexstats.info:10077"
