@@ -982,7 +982,7 @@ namespace atomic_dex
             //! electrum
             auto               coin_info = mm2_system.get_coin_info(ticker);
             t_electrum_request electrum_req{
-                .coin_name = coin_info.ticker, .servers = coin_info.electrum_urls.value(), .coin_type = coin_info.coin_type, .with_tx_history = false};
+                .coin_name = coin_info.ticker, .servers = coin_info.electrum_urls.value(), .coin_type = coin_info.coin_type, .with_tx_history = true};
             if (is_segwit)
             {
                 electrum_req.address_format                   = nlohmann::json::object();
