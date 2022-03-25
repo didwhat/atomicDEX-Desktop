@@ -17,8 +17,6 @@ brew install autoconf \
             llvm \
             gnu-getopt
 
-ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
-
 pip3 install yq
 export CC=clang
 export CXX=clang++
