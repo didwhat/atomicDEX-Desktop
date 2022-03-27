@@ -261,7 +261,7 @@
     "coin": "ABY",
     "name": "ArtByte",
     "coinpaprika_id": "aby-artbyte",
-    "coingecko_id": "artbyte",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "elec-seeder-one.artbytecoin.org:50012",
