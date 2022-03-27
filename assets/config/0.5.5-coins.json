@@ -6948,8 +6948,7 @@
     "coin": "THC-BEP20",
     "name": "HempCoin",
     "coinpaprika_id": "thc-hempcoin",
-    "coingecko_id": "hempcoin-thc",
-    "nomics_id": "THC",
+    "coingecko_id": "test-coin",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
