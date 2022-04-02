@@ -6335,7 +6335,6 @@
     "name": "Namecoin",
     "coinpaprika_id": "nmc-namecoin",
     "coingecko_id": "namecoin",
-    "nomics_id": "NMC",
     "electrum": [
       {
         "url": "82.119.233.36:50001"
@@ -6636,7 +6635,6 @@
     "name": "Raptoreum",
     "coinpaprika_id": "rtm-raptoreum",
     "coingecko_id": "raptoreum",
-    "nomics_id": "RTM",
     "electrum": [
       {
         "url": "209.151.151.21:50001",
