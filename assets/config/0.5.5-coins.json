@@ -7814,9 +7814,8 @@
   "ZER": {
     "coin": "ZER",
     "name": "Zero",
-    "coinpaprika_id": "zer-zero",
+    "coinpaprika_id": "test-coin",
     "coingecko_id": "zero",
-    "nomics_id": "ZER",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10065"
