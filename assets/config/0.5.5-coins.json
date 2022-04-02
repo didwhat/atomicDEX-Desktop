@@ -496,7 +496,6 @@
     "name": "Auroracoin",
     "coinpaprika_id": "aur-auroracoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "AUR",
     "electrum": [
       {
         "url": "electrumx.aur.ewmcx.info:50002",
@@ -2884,9 +2883,8 @@
   "FTC": {
     "coin": "FTC",
     "name": "Feathercoin",
-    "coinpaprika_id": "ftc-feathercoin",
+    "coinpaprika_id": "test-coin",
     "coingecko_id": "feathercoin",
-    "nomics_id": "FTC",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10054",
