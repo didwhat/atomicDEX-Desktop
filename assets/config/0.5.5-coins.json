@@ -5368,7 +5368,6 @@
     "name": "Nyancoin",
     "coinpaprika_id": "nyan-nyancoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "NYAN",
     "electrum": [
       {
         "url": "txserver.live:50022",
@@ -6176,9 +6175,8 @@
   "MONA": {
     "coin": "MONA",
     "name": "MonaCoin",
-    "coinpaprika_id": "mona-monacoin",
+    "coinpaprika_id": "test-coin",
     "coingecko_id": "monacoin",
-    "nomics_id": "MONA",
     "electrum": [
       {
         "url": "electrumx3.monacoin.nl:50001"
