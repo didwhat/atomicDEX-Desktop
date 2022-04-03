@@ -7449,7 +7449,6 @@
     "name": "Myriad",
     "coinpaprika_id": "xmy-myriad",
     "coingecko_id": "test-coin",
-    "nomics_id": "XMY",
     "electrum": [
       {
         "url": "lenoir.ecoincore.com:10891",
