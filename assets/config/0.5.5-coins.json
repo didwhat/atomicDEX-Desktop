@@ -7831,7 +7831,6 @@
     "name": "Zetacoin (OLD)",
     "coinpaprika_id": "zet-zetacoin",
     "coingecko_id": "zetacoin",
-    "nomics_id": "ZET",
     "electrum": [
       {
         "url": "failover.zet.ewmci.xyz:50002",
@@ -7857,7 +7856,6 @@
     "name": "Zetacoin",
     "coinpaprika_id": "zet-zetacoin",
     "coingecko_id": "zetacoin",
-    "nomics_id": "ZET",
     "electrum": [
       {
         "url": "207.180.252.200:50011",
