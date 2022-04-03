@@ -3575,7 +3575,6 @@
     "name": "Litecoin Cash",
     "coinpaprika_id": "lcc-litecoin-cash",
     "coingecko_id": "litecoin-cash",
-    "nomics_id": "LCC",
     "electrum": [
       {
         "url": "188.166.117.139:50001"
