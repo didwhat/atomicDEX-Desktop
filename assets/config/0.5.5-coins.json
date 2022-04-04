@@ -4540,8 +4540,7 @@
     "coin": "UNO",
     "name": "Unobtanium",
     "coinpaprika_id": "uno-unobtanium",
-    "coingecko_id": "unobtanium",
-    "nomics_id": "UNO",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "uno-main.coinmunity.gold:50002",
