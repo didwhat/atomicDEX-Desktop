@@ -1203,7 +1203,6 @@
     "name": "BitcoinZ",
     "coinpaprika_id": "btcz-bitcoinz",
     "coingecko_id": "bitcoinz",
-    "nomics_id": "BTCZ",
     "electrum": [
       {
         "url": "electrum1.btcz.rocks:50001"
