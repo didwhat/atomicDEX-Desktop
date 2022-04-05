@@ -2786,7 +2786,6 @@
     "name": "Fujicoin",
     "coinpaprika_id": "fjc-fujicoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "FJC",
     "electrum": [
       {
         "url": "electrumx1.fujicoin.org:50001",
@@ -2811,7 +2810,6 @@
     "name": "Fujicoin",
     "coinpaprika_id": "fjc-fujicoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "FJC",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
