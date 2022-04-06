@@ -4514,8 +4514,7 @@
     "coin": "UIS",
     "name": "Unitus",
     "coinpaprika_id": "uis-unitus",
-    "coingecko_id": "unitus",
-    "nomics_id": "UIS",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "failover.trc-uis.ewmcx.biz:50002",
