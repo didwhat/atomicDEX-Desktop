@@ -91,7 +91,7 @@
     "coingecko_id": "1inch",
     "nomics_id": "1INCH",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -224,7 +224,7 @@
     "coingecko_id": "aave",
     "nomics_id": "AAVE",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -376,7 +376,7 @@
     "coingecko_id": "singularitynet",
     "nomics_id": "AGIX",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -720,7 +720,7 @@
     "coingecko_id": "balancer",
     "nomics_id": "BAL",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -802,7 +802,7 @@
     "coinpaprika_id": "band-band-protocol",
     "coingecko_id": "band-protocol",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1045,7 +1045,7 @@
     "coinpaprika_id": "bnt-bancor",
     "coingecko_id": "bancor",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1371,7 +1371,7 @@
     "coingecko_id": "btu-protocol",
     "nomics_id": "BTU",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1466,7 +1466,7 @@
     "coinpaprika_id": "busd-binance-usd",
     "coingecko_id": "binance-usd",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1526,7 +1526,7 @@
     "coingecko_id": "cad-coin",
     "nomics_id": "CADC",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1786,7 +1786,7 @@
     "coingecko_id": "compound-governance-token",
     "nomics_id": "COMP",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -1955,7 +1955,7 @@
     "coinpaprika_id": "dai-dai",
     "coingecko_id": "dai",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -2618,7 +2618,7 @@
     "coinpaprika_id": "fetch-ai",
     "coingecko_id": "fetch-ai",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3151,7 +3151,7 @@
     "coingecko_id": "the-graph",
     "nomics_id": "GRT",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3260,7 +3260,7 @@
     "coinpaprika_id": "iotx-iotex",
     "coingecko_id": "iotex",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3294,7 +3294,7 @@
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-synthetic-swiss-franc",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3328,7 +3328,7 @@
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-synthetic-euro",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3362,7 +3362,7 @@
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-synthetic-british-pound",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3396,7 +3396,7 @@
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jpyc",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3430,7 +3430,7 @@
     "coingecko_id": "jarvis-reward-token",
     "nomics_id": "JRT",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3668,7 +3668,7 @@
     "coinpaprika_id": "luna-terra",
     "coingecko_id": "terra-luna",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -3763,7 +3763,7 @@
     "coingecko_id": "matic-network",
     "nomics_id": "MATIC",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4014,7 +4014,7 @@
     "coingecko_id": "million",
     "nomics_id": "MM4",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4106,7 +4106,7 @@
     "coinpaprika_id": "ocean-ocean-protocol",
     "coingecko_id": "ocean-protocol",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4203,7 +4203,7 @@
     "coinpaprika_id": "pax-paxos-standard-token",
     "coingecko_id": "paxos-standard",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4253,7 +4253,7 @@
     "coinpaprika_id": "paxg-pax-gold",
     "coingecko_id": "pax-gold",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4434,7 +4434,7 @@
     "coingecko_id": "ethereum",
     "nomics_id": "ETH",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4689,7 +4689,7 @@
     "coinpaprika_id": "usdc-usd-coin",
     "coingecko_id": "usd-coin",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4820,7 +4820,7 @@
     "coinpaprika_id": "usdt-tether",
     "coingecko_id": "tether",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -4972,7 +4972,7 @@
     "coingecko_id": "basic-attention-token",
     "nomics_id": "BAT",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -5196,7 +5196,7 @@
     "coingecko_id": "chainlink",
     "nomics_id": "LINK",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -5417,7 +5417,7 @@
     "coingecko_id": "pegaxy-stone",
     "nomics_id": "PGX",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -5498,7 +5498,7 @@
     "coingecko_id": "peercoin",
     "nomics_id": "PPC",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -5988,7 +5988,7 @@
     "coingecko_id": "sushi",
     "nomics_id": "SUSHI",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6310,7 +6310,7 @@
     "coingecko_id": "nexo",
     "nomics_id": "NEXO",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6428,7 +6428,7 @@
     "coingecko_id": "nzd-stablecoin",
     "nomics_id": "NZDS",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6462,7 +6462,7 @@
     "coingecko_id": "omisego",
     "nomics_id": "OMG",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6693,7 +6693,7 @@
     "coingecko_id": "the-sandbox",
     "nomics_id": "SAND2",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6793,7 +6793,7 @@
     "coingecko_id": "havven",
     "nomics_id": "SNX",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -6872,7 +6872,7 @@
     "coingecko_id": "telcoin",
     "nomics_id": "TEL",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -7058,7 +7058,7 @@
     "coinpaprika_id": "tryb-bilira",
     "coingecko_id": "bilira",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -7155,7 +7155,7 @@
     "coinpaprika_id": "tusd-trueusd",
     "coingecko_id": "true-usd",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -7220,7 +7220,7 @@
     "coinpaprika_id": "ust-terrausd",
     "coingecko_id": "terrausd",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -7548,7 +7548,7 @@
     "coinpaprika_id": "xsgd-xsgd",
     "coingecko_id": "xsgd",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -7948,7 +7948,7 @@
     "coinpaprika_id": "zrx-0x",
     "coingecko_id": "0x",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8240,7 +8240,7 @@
     "coingecko_id": "celsius-degree-token",
     "nomics_id": "CEL",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8291,7 +8291,7 @@
     "coingecko_id": "swissborg",
     "nomics_id": "CHSB",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8341,7 +8341,7 @@
     "coingecko_id": "chiliz",
     "nomics_id": "CHZ",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8391,7 +8391,7 @@
     "coingecko_id": "crypto-com-chain",
     "nomics_id": "CRO",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8473,7 +8473,7 @@
     "coingecko_id": "curve-dao-token",
     "nomics_id": "CRV",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8574,7 +8574,7 @@
     "coingecko_id": "enjincoin",
     "nomics_id": "ENJ",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8608,7 +8608,7 @@
     "coinpaprika_id": "eurs-stasis-eurs",
     "coingecko_id": "stasis-eurs",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8642,7 +8642,7 @@
     "coingecko_id": "gnosis",
     "nomics_id": "GNO",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8676,7 +8676,7 @@
     "coingecko_id": "hex",
     "nomics_id": "HEX",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8710,7 +8710,7 @@
     "coingecko_id": "holotoken",
     "nomics_id": "HOT",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8806,7 +8806,7 @@
     "coinpaprika_id": "husd-husd",
     "coingecko_id": "husd",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8858,7 +8858,7 @@
     "coingecko_id": "leo-token",
     "nomics_id": "LEO",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8892,7 +8892,7 @@
     "coingecko_id": "loopring",
     "nomics_id": "LRC",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -8942,7 +8942,7 @@
     "coingecko_id": "decentraland",
     "nomics_id": "MANA",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9027,7 +9027,7 @@
     "coingecko_id": "power-ledger",
     "nomics_id": "POWR",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9079,7 +9079,7 @@
     "coingecko_id": "privacy-coin",
     "nomics_id": "PRCY",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9147,7 +9147,7 @@
     "coingecko_id": "iexec-rlc",
     "nomics_id": "RLC",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9285,7 +9285,7 @@
     "coingecko_id": "serum",
     "nomics_id": "SRM",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9403,7 +9403,7 @@
     "coingecko_id": "unibright",
     "nomics_id": "UBT",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9453,7 +9453,7 @@
     "coingecko_id": "uma",
     "nomics_id": "UMA",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9547,7 +9547,7 @@
     "coinpaprika_id": "uni-uniswap",
     "coingecko_id": "uniswap",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
@@ -9657,7 +9657,7 @@
     "coingecko_id": "ethos",
     "nomics_id": "VGX",
     "nodes": [
-      "https://polygon-rpc.com"
+      "https://polygon-mainnet.g.alchemy.com/v2/9YYl6iMLmXXLoflMPHnMTC4Dcm2L2tFH"
     ],
     "explorer_url": [
       "https://polygonscan.com/"
