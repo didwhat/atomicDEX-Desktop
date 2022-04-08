@@ -1113,7 +1113,6 @@
     "name": "GlobalBoost-Y",
     "coinpaprika_id": "bsty-globalboost-y",
     "coingecko_id": "globalboost",
-    "nomics_id": "BSTY",
     "electrum": [
       {
         "url": "66.172.33.175:50001",
