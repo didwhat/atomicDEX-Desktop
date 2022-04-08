@@ -6919,7 +6919,7 @@
     "coin": "THC",
     "name": "HempCoin",
     "coinpaprika_id": "thc-hempcoin",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "hempcoin-thc",
     "electrum": [
       {
         "url": "1.eu.thc.electrum.dexstats.info:10020"
