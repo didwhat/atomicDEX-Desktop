@@ -2411,8 +2411,7 @@
     "coin": "EFL",
     "name": "e-Gulden",
     "coinpaprika_id": "efl-e-gulden",
-    "coingecko_id": "test-coin",
-    "nomics_id": "EFL",
+    "coingecko_id": "electronicgulden",
     "electrum": [
       {
         "url": "holland.ecoincore.com:11017",
