@@ -3071,7 +3071,6 @@
     "name": "Groestlcoin",
     "coinpaprika_id": "grs-groestlcoin",
     "coingecko_id": "groestlcoin",
-    "nomics_id": "GRS",
     "electrum": [
       {
         "url": "electrum11.groestlcoin.org:50001"
