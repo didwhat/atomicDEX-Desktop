@@ -3862,6 +3862,7 @@
     "name": "Marmara Credit Loops",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "mcl-marmara-credit-loops",
+    "nomics_id": "MCL",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10023",
