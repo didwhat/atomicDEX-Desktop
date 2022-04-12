@@ -3682,7 +3682,6 @@
     "name": "Lynx",
     "coinpaprika_id": "lynx-lynx",
     "coingecko_id": "test-coin",
-    "nomics_id": "LYNX",
     "electrum": [
       {
         "url": "electrum.getlynx.io:50002",
