@@ -498,6 +498,7 @@
     "name": "Auroracoin",
     "coinpaprika_id": "aur-auroracoin",
     "coingecko_id": "test-coin",
+    "nomics_id": "AUR",
     "electrum": [
       {
         "url": "electrumx.aur.ewmcx.info:50002",
