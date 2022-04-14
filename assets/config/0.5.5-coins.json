@@ -6373,7 +6373,6 @@
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "NVC",
     "electrum": [
       {
         "url": "electrumx.nvc.ewmcx.org:50002",
@@ -6399,7 +6398,6 @@
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "NVC",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -6417,7 +6415,6 @@
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "NVC",
     "explorer_url": [
       "https://explorer.qtum.org/"
     ],
