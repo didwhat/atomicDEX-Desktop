@@ -501,6 +501,7 @@ QtObject {
                                           "VITE": "#007AFF",
                                           "VRM": "#586A7A",
                                           "WSB": "#FEBB84",
+                                          "WAVES": "#016BFF",
                                           "WBTC": "#CCCCCC",
                                           "WHIVE": "#FFCC00",
                                           "XEC": "#273498",
