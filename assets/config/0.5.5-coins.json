@@ -5713,7 +5713,6 @@
     "name": "SmartFi",
     "coinpaprika_id": "smtf-smartfi",
     "coingecko_id": "smartfi",
-    "nomics_id": "SMTF",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
