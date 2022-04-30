@@ -9794,9 +9794,8 @@
   "WHIVE": {
     "coin": "WHIVE",
     "name": "Whive",
-    "coingecko_id": "whive",
+    "coingecko_id": "test-coin",
     "coinpaprika_id": "whive-the-whive-protocol",
-    "nomics_id": "WHIVE",
     "electrum": [
       {
        "url": "electrumx1.cointest.com:50002",
