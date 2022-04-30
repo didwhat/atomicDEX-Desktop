@@ -30,15 +30,15 @@ jobs:
             qt: '5.15.2'
             type: 'release'
 
-          - name: osx-qt-5-15-2
-            os: macos-latest
-            qt: '5.15.2'
-            type: 'release'
+#          - name: osx-qt-5-15-2
+#            os: macos-latest
+#            qt: '5.15.2'
+#            type: 'release'
 
-          - name: windows-10-qt-5-15-2
-            os: windows-latest
-            qt: '5.15.2'
-            type: 'release'
+#          - name: windows-10-qt-5-15-2
+#            os: windows-latest
+#            qt: '5.15.2'
+#            type: 'release'
 
           #- name: osx-qt-5-15-2-dbg
           #  os: macos-latest
