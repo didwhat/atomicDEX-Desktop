@@ -1518,6 +1518,7 @@
     "type": "UTXO",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "bte-bitweb",
+    "nomics_id": "BTE3",
     "electrum": [
       {
         "url": "electrumx.bitwebcore.org:20001"
