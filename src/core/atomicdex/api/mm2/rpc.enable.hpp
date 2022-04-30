@@ -100,7 +100,7 @@ namespace mm2::api
         std::string              matic_gas_station_url{"https://gasstation-mainnet.matic.network/"};
         std::string              testnet_matic_gas_station_url{"https://gasstation-mumbai.matic.today/"};
         std::string              type; ///< QRC-20 ?
-        bool                     with_tx_history{false};
+        bool                     with_tx_history{true};
     };
 
     void to_json(nlohmann::json& j, const enable_request& cfg);
