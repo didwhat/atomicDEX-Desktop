@@ -64,7 +64,7 @@ if (APPLE)
             URL http://195.201.0.6/dev/mm2-fb6890c41-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL https://dexapi.cipig.net/public/mm2-1967ac2e2-Linux-Release.zip)
+            URL http://195.201.0.6/htlc_keypair_hotfix/mm2-c206459a4-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
             URL http://195.201.0.6/dev/mm2-fb6890c41-Windows_NT-Release.zip)
