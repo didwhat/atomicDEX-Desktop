@@ -1259,8 +1259,7 @@
     "coin": "BTX",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "bitcore",
-    "nomics_id": "BTX",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "btx-electrumx.coinsmunity.com:50002",
