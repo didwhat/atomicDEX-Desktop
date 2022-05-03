@@ -5,9 +5,9 @@ brew update
 brew tap-new $USER/local-nim
 brew extract --version=1.4.8 nim $USER/local-nim
 
-brew unlink libtool
-wget https://raw.githubusercontent.com/Homebrew/homebrew-core/0fbd6e24c4122e18ade1ec6c5916cb21de14f352/Formula/libtool.rb
-brew install libtool.rb
+#brew unlink libtool
+#wget https://raw.githubusercontent.com/Homebrew/homebrew-core/0fbd6e24c4122e18ade1ec6c5916cb21de14f352/Formula/libtool.rb
+#brew install libtool.rb
 
 brew install autoconf \
             automake \
@@ -34,7 +34,8 @@ export MACOSX_DEPLOYMENT_TARGET=10.14
 #make -j3 install
 #cd ../
 
-git clone https://github.com/KomodoPlatform/libwally-core.git
+#git clone https://github.com/KomodoPlatform/libwally-core.git
+git clone https://github.com/ElementsProject/libwally-core.git
 cd libwally-core
 ./tools/autogen.sh
 ./configure --disable-shared
