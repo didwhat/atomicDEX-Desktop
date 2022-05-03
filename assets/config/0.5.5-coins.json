@@ -1280,8 +1280,7 @@
     "coin": "BTX-BEP20",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "bitcore",
-    "nomics_id": "BTX",
+    "coingecko_id": "test-coin",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
