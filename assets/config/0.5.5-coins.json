@@ -6362,7 +6362,6 @@
     "name": "NavCoin",
     "coinpaprika_id": "nav-navcoin",
     "coingecko_id": "nav-coin",
-    "nomics_id": "NAV",
     "electrum": [
       {
         "url": "electrum.nav.community:40002",
@@ -6397,7 +6396,6 @@
     "name": "Navcoin",
     "coinpaprika_id": "nav-navcoin",
     "coingecko_id": "nav-coin",
-    "nomics_id": "NAV",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
