@@ -1636,7 +1636,6 @@
     "name": "Canada eCoin",
     "coinpaprika_id": "cdn-canada-ecoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "CDN",
     "electrum": [
       {
         "url": "mumbai.ecoincore.com:34333",
