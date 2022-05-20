@@ -2933,7 +2933,7 @@
   "FTC": {
     "coin": "FTC",
     "name": "Feathercoin",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "ftc-feathercoin",
     "coingecko_id": "feathercoin",
     "electrum": [
       {
@@ -3635,7 +3635,7 @@
   "LBC": {
     "coin": "LBC",
     "name": "LBRY Credits",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "lbc-lbry-credits",
     "coingecko_id": "lbry-credits",
     "electrum": [
       {
@@ -6305,7 +6305,7 @@
   "MONA": {
     "coin": "MONA",
     "name": "MonaCoin",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "mona-monacoin",
     "coingecko_id": "monacoin",
     "electrum": [
       {
