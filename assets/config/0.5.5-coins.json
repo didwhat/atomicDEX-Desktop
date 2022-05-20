@@ -3500,6 +3500,7 @@
     "name": "Jarvis Reward Token",
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-reward-token",
+    "nomics_id": "JRT",
     "nodes": [
       "http://eth1.cipig.net:8555",
       "http://eth2.cipig.net:8555",
@@ -3517,6 +3518,7 @@
     "name": "Jarvis Reward Token",
     "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-reward-token",
+    "nomics_id": "JRT",
     "nodes": [
       "https://polygon-rpc.com"
     ],
