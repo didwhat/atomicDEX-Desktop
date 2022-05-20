@@ -8015,7 +8015,7 @@
     "coin": "ZER",
     "name": "Zero",
     "coinpaprika_id": "zer-zero",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "zero",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10065"
