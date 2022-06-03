@@ -539,12 +539,14 @@
       {
         "url": "electrumx.aur.ewmcx.info:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrumx.aur.ewmcx.info:50003"
       },
       {
         "url": "failover.aur.ewmcx.biz:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "failover.aur.ewmcx.biz:50003"
       }
     ],
     "explorer_url": [
@@ -956,17 +958,20 @@
       {
         "url": "electrum1.blackcoin.nl:10002",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "electrum1.blackcoin.nl:10004"
       },
       {
         "url": "electrum2.blackcoin.nl:20002",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "electrum2.blackcoin.nl:20004"
       },
       {
         "url": "electrum3.blackcoin.nl:30002",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "electrum3.blackcoin.nl:30004"
       }
     ],
     "explorer_url": [
@@ -1006,17 +1011,20 @@
       {
         "url": "electrum1.blackcoin.nl:10012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum1.blackcoin.nl:10014"
       },
       {
         "url": "electrum2.blackcoin.nl:20012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum2.blackcoin.nl:20014"
       },
       {
         "url": "electrum3.blackcoin.nl:30012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum3.blackcoin.nl:30014"
       }
     ],
     "explorer_url": [
@@ -1177,12 +1185,14 @@
       {
         "url": "bsty-main.coinmunity.gold:50012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "bsty-main.coinmunity.gold:50013"
       },
       {
         "url": "bsty-bkp.coinmunity.gold:50012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "bsty-bkp.coinmunity.gold:50013"
       }
     ],
     "explorer_url": [
@@ -1260,10 +1270,12 @@
     "coingecko_id": "bitcoinz",
     "electrum": [
       {
-        "url": "electrum1.btcz.rocks:50001"
+        "url": "electrum1.btcz.rocks:50001",
+        "ws_url": "electrum1.btcz.rocks:50004"
       },
       {
-        "url": "electrum2.btcz.rocks:50001"
+        "url": "electrum2.btcz.rocks:50001",
+        "ws_url": "electrum2.btcz.rocks:50004"
       }
     ],
     "explorer_url": [
@@ -1282,7 +1294,8 @@
       {
         "url": "btx-electrumx.coinsmunity.com:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "btx-electrumx.coinsmunity.com:50003"
       }
     ],
     "explorer_url": [
@@ -1658,27 +1671,32 @@
       {
         "url": "mumbai.ecoincore.com:34333",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "mumbai.ecoincore.com:34335"
       },
       {
         "url": "holland.ecoincore.com:34333",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "holland.ecoincore.com:34335"
       },
       {
         "url": "miami.ecoincore.com:34333",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "miami.ecoincore.com:34335"
       },
       {
         "url": "woolloomooloo.ecoincore.com:34333",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "woolloomooloo.ecoincore.com:34335"
       },
       {
         "url": "lenoir.ecoincore.com:34333",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "lenoir.ecoincore.com:34335"
       }
     ],
     "explorer_url": [
@@ -2107,12 +2125,14 @@
     "electrum": [
       {
         "url": "electrumx.dgc.ewmcx.org:50001",
-        "protocol": "TCP"
+        "protocol": "TCP",
+        "ws_url": "electrumx.dgc.ewmcx.org:50003"
       },
       {
         "url": "failover.dgc.ewmcx.biz:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "failover.dgc.ewmcx.biz:50003"
       }
     ],
     "explorer_url": [
@@ -2169,12 +2189,14 @@
       {
         "url": "electrumx1.diminutivecoin.com:50012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrumx1.diminutivecoin.com:50013"
       },
       {
         "url": "electrumx2.diminutivecoin.com:50012",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrumx2.diminutivecoin.com:50013"
       }
     ],
     "explorer_url": [
@@ -2470,27 +2492,32 @@
       {
         "url": "holland.ecoincore.com:11017",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "holland.ecoincore.com:11019"
       },
       {
         "url": "lenoir.ecoincore.com:11017",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "lenoir.ecoincore.com:11019"
       },
       {
         "url": "electrum1.egulden.org:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum1.egulden.org:50004"
       },
       {
         "url": "electrum2.egulden.org:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum2.egulden.org:50004"
       },
       {
         "url": "electrum5.egulden.org:11017",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "electrum5.egulden.org:11019"
       }
     ],
     "explorer_url": [
@@ -3163,16 +3190,20 @@
     "coingecko_id": "groestlcoin",
     "electrum": [
       {
-        "url": "electrum11.groestlcoin.org:50001"
+        "url": "electrum11.groestlcoin.org:50001",
+        "ws_url": "electrum11.groestlcoin.org:50004"
       },
       {
-        "url": "electrum12.groestlcoin.org:50001"
+        "url": "electrum12.groestlcoin.org:50001",
+        "ws_url": "electrum12.groestlcoin.org:50004"
       },
       {
-        "url": "electrum13.groestlcoin.org:50001"
+        "url": "electrum13.groestlcoin.org:50001",
+        "ws_url": "electrum13.groestlcoin.org:50004"
       },
       {
-        "url": "electrum14.groestlcoin.org:50001"
+        "url": "electrum14.groestlcoin.org:50001",
+        "ws_url": "electrum14.groestlcoin.org:50004"
       }
     ],
     "explorer_url": [
@@ -3791,23 +3822,28 @@
     "electrum": [
       {
         "url": "electrum5.getlynx.io:50002",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "ws_url": "electrum5.getlynx.io:50004"
       },
       {
         "url": "electrum6.getlynx.io:50002",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "ws_url": "electrum6.getlynx.io:50004"
       },
       {
         "url": "electrum7.getlynx.io:50002",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "ws_url": "electrum7.getlynx.io:50004"
       },
       {
         "url": "electrum8.getlynx.io:50002",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "ws_url": "electrum8.getlynx.io:50004"
       },
       {
         "url": "electrum9.getlynx.io:50002",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "ws_url": "electrum9.getlynx.io:50004"
       }
     ],
     "explorer_url": [
@@ -4625,10 +4661,12 @@
       {
         "url": "failover.trc-uis.ewmcx.biz:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "failover.trc-uis.ewmcx.biz:50003"
       },
       {
-        "url": "electrumx.uis.ewmcx.info:50001"
+        "url": "electrumx.uis.ewmcx.info:50001",
+        "ws_url": "electrumx.uis.ewmcx.info:50004"
       }
     ],
     "explorer_url": [
@@ -4647,12 +4685,14 @@
       {
         "url": "uno-main.coinmunity.gold:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "uno-main.coinmunity.gold:50003"
       },
       {
         "url": "uno-bkp.coinmunity.gold:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "uno-bkp.coinmunity.gold:50003"
       }
     ],
     "explorer_url": [
@@ -5318,13 +5358,16 @@
     "coingecko_id": "test-coin",
     "electrum": [
       {
-        "url": "electrum1.cipig.net:10016"
+        "url": "electrum1.cipig.net:10016",
+        "ws_url": "electrum1.cipig.net:30016"
       },
       {
-        "url": "electrum2.cipig.net:10016"
+        "url": "electrum2.cipig.net:10016",
+        "ws_url": "electrum2.cipig.net:30016"
       },
       {
-        "url": "electrum3.cipig.net:10016"
+        "url": "electrum3.cipig.net:10016",
+        "ws_url": "electrum3.cipig.net:30016"
       }
     ],
     "explorer_url": [
@@ -5584,12 +5627,14 @@
       {
         "url": "electrum.peercoinexplorer.net:50002",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "electrum.peercoinexplorer.net:50004"
       },
       {
         "url": "allingas.peercoinexplorer.net:50002",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "allingas.peercoinexplorer.net:50004"
       }
       ],
       "explorer_url": [
@@ -6155,17 +6200,20 @@
       {
         "url": "el0.verus.io:17486",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "el0.verus.io:17488"
       },
       {
         "url": "el1.verus.io:17486",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "el1.verus.io:17488"
       },
       {
         "url": "el2.verus.io:17486",
         "protocol": "SSL",
-        "disable_cert_verification": false
+        "disable_cert_verification": false,
+        "ws_url": "el2.verus.io:17488"
       }
     ],
     "explorer_url": [
@@ -6184,12 +6232,14 @@
       {
         "url": "il8p.electrumx.transcenders.name:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "il8p.electrumx.transcenders.name:50003"
       },
       {
         "url": "il9p.electrumx.transcenders.name:50002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "il9p.electrumx.transcenders.name:50003"
       }
     ],
     "explorer_url": [
@@ -7166,13 +7216,16 @@
       {
         "url": "failover.trc-uis.ewmcx.biz:50006",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "failover.trc-uis.ewmcx.biz:50007"
       },
       {
-        "url": "electrum.terracoin.io:50001"
+        "url": "electrum.terracoin.io:50001",
+        "ws_url": "electrum.terracoin.io:50004"
       },
       {
-        "url": "electrum.southofheaven.ca:50001"
+        "url": "electrum.southofheaven.ca:50001",
+        "ws_url": "electrum.southofheaven.ca:50004"
       }
     ],
     "explorer_url": [
@@ -7427,17 +7480,20 @@
       {
         "url": "e1.validitytech.com:11002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "e1.validitytech.com:11004"
       },
       {
         "url": "e2.validitytech.com:11002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "e2.validitytech.com:11004"
       },
       {
         "url": "e3.validitytech.com:11002",
         "protocol": "SSL",
-        "disable_cert_verification": true
+        "disable_cert_verification": true,
+        "ws_url": "e3.validitytech.com:11004"
       }
     ],
     "explorer_url": [
@@ -7689,7 +7745,8 @@
     "electrum": [
       {
         "url": "lenoir.ecoincore.com:10891",
-        "protocol": "TCP"
+        "protocol": "TCP",
+        "ws_url": "lenoir.ecoincore.com:10894"
       }
     ],
     "explorer_url": [
@@ -8046,13 +8103,16 @@
     "coingecko_id": "zero",
     "electrum": [
       {
-        "url": "electrum1.cipig.net:10065"
+        "url": "electrum1.cipig.net:10065",
+        "ws_url": "electrum1.cipig.net:30065"
       },
       {
-        "url": "electrum2.cipig.net:10065"
+        "url": "electrum2.cipig.net:10065",
+        "ws_url": "electrum2.cipig.net:30065"
       },
       {
-        "url": "electrum3.cipig.net:10065"
+        "url": "electrum3.cipig.net:10065",
+        "ws_url": "electrum3.cipig.net:30065"
       }
     ],
     "explorer_url": [
@@ -8095,7 +8155,8 @@
     "electrum": [
       {
         "url": "207.180.252.200:50011",
-        "protocol": "TCP"
+        "protocol": "TCP",
+        "ws_url": "207.180.252.200:50013"
       },
       {
         "url": "zeta-seed-c.zetacoin.tech:50012",
