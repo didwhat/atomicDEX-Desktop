@@ -15,15 +15,13 @@ CheckBox
     property alias label: _label
     property alias boxWidth: _indicator.implicitWidth
     property alias boxHeight: _indicator.implicitHeight
-    property alias mouseArea: mouse_area
+    property alias mouseArea: mouseArea
     property color textColor: Dex.CurrentTheme.foregroundColor
     property int labelWidth: 0
 
     font.family: Style.font_family
-    Layout.preferredWidth: childrenRect.width
-    Layout.preferredHeight: childrenRect.height
 
-    indicator: DexRectangle
+    indicator: DefaultRectangle
     {
         id: _indicator
         anchors.verticalCenter: control.verticalCenter
@@ -39,7 +37,7 @@ CheckBox
             GradientStop { position: 0.6; color: Dex.CurrentTheme.checkBoxGradientEndColor }
         }
 
-        DexRectangle
+        DefaultRectangle
         {
             visible: !control.checked
             anchors.centerIn: parent
@@ -59,7 +57,7 @@ CheckBox
         height: _label.height
         spacing: 0
 
-        DexLabel
+        DefaultText
         {
             id: _label
             text: control.text
@@ -72,9 +70,9 @@ CheckBox
         }
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
-        id: mouse_area
+        id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
     }

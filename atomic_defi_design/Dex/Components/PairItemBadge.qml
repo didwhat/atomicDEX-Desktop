@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
-DexRectangle
+DefaultRectangle
 {
     id: root
     property alias source: icon.source
@@ -9,8 +9,8 @@ DexRectangle
     property alias fullname: fullname.text
     property alias amount: amount.text
 
-    Layout.preferredWidth: 260
-    Layout.preferredHeight: 66
+    width: 260
+    height: 66
     radius: 10
 
     RowLayout

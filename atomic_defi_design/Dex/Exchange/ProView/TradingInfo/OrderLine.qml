@@ -15,17 +15,17 @@ FloatingBackground
     Layout.fillWidth: true
 
     property var            details
-    property alias          clickable: mouse_area.enabled
+    property alias          clickable: mouseArea.enabled
     readonly property bool  is_placed_order: !details ? false : details.order_id !== ''
 
     height: 50
 
-    color: mouse_area.containsMouse ? Dex.CurrentTheme.accentColor : Dex.CurrentTheme.floatingBackgroundColor
+    color: mouseArea.containsMouse ? Dex.CurrentTheme.accentColor : Dex.CurrentTheme.floatingBackgroundColor
     radius: 0
 
-    DexMouseArea
+    DefaultMouseArea
     {
-        id: mouse_area
+        id: mouseArea
         anchors.fill: parent
         hoverEnabled: enabled
         onClicked:
@@ -153,7 +153,7 @@ FloatingBackground
                 Layout.fillWidth: true
                 Layout.preferredHeight: childrenRect.height
 
-                DexImage
+                DefaultImage
                 {
                     id: baseIcon
 
@@ -208,7 +208,7 @@ FloatingBackground
                     maximumLineCount: 1
                 }
 
-                DexImage
+                DefaultImage
                 {
                     id: relCoin
 
@@ -238,7 +238,7 @@ FloatingBackground
                 text_value: Style.warningCharacter
                 color: Style.colorYellow
 
-                DexTooltip
+                DefaultTooltip
                 {
                     contentItem: DefaultText
                     {
@@ -246,7 +246,7 @@ FloatingBackground
                         font.pixelSize: Style.textSizeSmall4
                     }
 
-                    visible: (parent.visible && mouse_area.containsMouse) ?? false
+                    visible: (parent.visible && mouseArea.containsMouse) ?? false
                 }
             }
 
@@ -256,7 +256,7 @@ FloatingBackground
                 anchors.centerIn: parent
                 anchors.fill: parent
 
-                visible: (!is_history ? details.cancellable ?? false : false) === true ? (mouse_area.containsMouse || hovered) ? true : false : false
+                visible: (!is_history ? details.cancellable ?? false : false) === true ? (mouseArea.containsMouse || hovered) ? true : false : false
 
                 outlinedColor: Dex.CurrentTheme.noColor
                 hoverEnabled: true

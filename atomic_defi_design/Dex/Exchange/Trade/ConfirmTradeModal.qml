@@ -33,7 +33,7 @@ MultipageModal
             {
                 id: dex_pair_badges
 
-                DefaultPairItemBadge
+                PairItemBadge
                 {
                     source: General.coinIcon(!base_ticker ? atomic_app_primary_coin : base_ticker)
                     ticker: base_ticker
@@ -50,7 +50,7 @@ MultipageModal
                     icon: Qaterial.Icons.swapHorizontal
                 }
 
-                DefaultPairItemBadge
+                PairItemBadge
                 {
                     source: General.coinIcon(!rel_ticker ? atomic_app_primary_coin : rel_ticker)
                     ticker: rel_ticker
@@ -101,7 +101,7 @@ MultipageModal
             spacing: 10
 
 
-            DexRectangle {
+            DefaultRectangle {
                 Layout.alignment: Qt.AlignCenter
                 Layout.preferredHeight: fees_detail.height + 20
                 Layout.preferredWidth: parent.width - 60
@@ -232,7 +232,7 @@ MultipageModal
                             Layout.preferredHeight: 10
                             Layout.alignment: Qt.AlignHCenter
                             text_value: qsTr("Required Confirmations") + ": " + required_confirmation_count.value
-                            color: DexTheme.foregroundColor
+                            color: Dex.CurrentTheme.foregroundColor
                             opacity: parent.enabled ? 1 : .6
                         }
 
