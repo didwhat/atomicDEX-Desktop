@@ -30,6 +30,7 @@ namespace mm2::api
         j["coin"]       = cfg.coin_name;
         j["servers"]    = cfg.servers;
         j["tx_history"] = cfg.with_tx_history;
+        j["check_utxo_maturity"] = true;
         if (cfg.coin_type == CoinType::QRC20)
         {
             j["swap_contract_address"] = cfg.is_testnet ? cfg.testnet_qrc_swap_contract_address : cfg.mainnet_qrc_swap_contract_address;
