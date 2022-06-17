@@ -552,27 +552,6 @@ namespace atomic_dex
         const fs::path    logo_path          = atomic_dex::utils::get_logo_path();
         const fs::path    theme_path         = atomic_dex::utils::get_themes_path();
 
-
-        if (fs::exists(wallet_custom_cfg_path))
-        {
-            nlohmann::json custom_config_json_data;
-            QFile          fs;
-            fs.setFileName(std_path_to_qstring(wallet_custom_cfg_path));
-            fs.open(QIODevice::ReadOnly | QIODevice::Text);
-
-            //! Read Contents
-            custom_config_json_data = nlohmann::json::parse(QString(fs.readAll()).toStdString());
-            fs.close();
-
-            //! Modify
-            for (auto&& [key, value]: custom_config_json_data.items()) { value["active"] = false; }
-
-            //! Write
-            fs.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-            fs.write(QString::fromStdString(custom_config_json_data.dump()).toUtf8());
-            fs.close();
-        }
-
         const auto functor_remove = [](auto&& path_to_remove)
         {
             if (fs::exists(path_to_remove))
@@ -598,12 +577,80 @@ namespace atomic_dex
             }
         };
 
-        functor_remove(std::move(wallet_cfg_path));
+        if (fs::exists(wallet_cfg_path))
+        {
+            nlohmann::json wallet_config_json_data;
+            std::unordered_set<std::string> active_coins_registry;
+            QFile          file;
+            file.setFileName(std_path_to_qstring(wallet_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            wallet_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! Get the active coins
+            for (auto&& [key, value]: wallet_config_json_data.items())
+            {
+                if (value["active"]) { active_coins_registry.insert(key); }
+            }
+
+            // remove old coins file
+            functor_remove(std::move(wallet_cfg_path));
+
+            //! Copy default coins file
+            const auto  cfg_path = ag::core::assets_real_path() / "config";
+            std::string filename = std::string(atomic_dex::get_raw_version()) + "-coins.json";
+            fs::copy(cfg_path / filename, wallet_cfg_path);
+
+            //! Open coins file
+            file.setFileName(std_path_to_qstring(wallet_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            wallet_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! set active coins again
+            for (auto&& key: active_coins_registry)
+            {
+                wallet_config_json_data[key]["active"] = true;
+            }
+            
+            //! Write
+            file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+            file.write(QString::fromStdString(wallet_config_json_data.dump(4)).toUtf8());
+            file.close();
+        }
+
+
+        if (fs::exists(wallet_custom_cfg_path))
+        {
+            nlohmann::json custom_config_json_data;
+            QFile          file;
+            file.setFileName(std_path_to_qstring(wallet_custom_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            custom_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! Modify
+            for (auto&& [key, value]: custom_config_json_data.items()) { value["active"] = false; }
+
+            //! Write
+            file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+            file.write(QString::fromStdString(custom_config_json_data.dump()).toUtf8());
+            file.close();
+        }
+
+
         functor_remove(std::move(mm2_coins_file_path));
         functor_remove(std::move(ini_file_path));
         functor_remove(std::move(cfg_json_file_path));
         functor_remove(std::move(logo_path));
         functor_remove(std::move(theme_path));
+
     }
 
     QStringList settings_page::retrieve_seed(const QString& wallet_name, const QString& password)
