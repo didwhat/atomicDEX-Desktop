@@ -26,19 +26,19 @@ jobs:
 
         include:
           - name: ubuntu-qt-5-15-2
-            os: ubuntu-18.04
+            os: ubuntu-20.04
             qt: '5.15.2'
             type: 'release'
 
-          - name: osx-qt-5-15-2
-            os: macos-12
-            qt: '5.15.2'
-            type: 'release'
+#          - name: osx-qt-5-15-2
+#            os: macos-12
+#            qt: '5.15.2'
+#            type: 'release'
 
-          - name: windows-10-qt-5-15-2
-            os: windows-latest
-            qt: '5.15.2'
-            type: 'release'
+#          - name: windows-10-qt-5-15-2
+#            os: windows-latest
+#            qt: '5.15.2'
+#            type: 'release'
 
           #- name: osx-qt-5-15-2-dbg
           #  os: macos-latest
