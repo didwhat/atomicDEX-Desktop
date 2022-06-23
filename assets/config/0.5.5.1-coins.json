@@ -237,7 +237,7 @@
     "coin": "ABY-OLD",
     "name": "ArtByte (OLD)",
     "coinpaprika_id": "aby-artbyte",
-    "coingecko_id": "artbyte",
+    "coingecko_id": "test-coin",
     "nomics_id": "ABY2",
     "electrum": [
       {
@@ -262,7 +262,7 @@
     "coin": "ABY",
     "name": "ArtByte",
     "coinpaprika_id": "aby-artbyte",
-    "coingecko_id": "artbyte",
+    "coingecko_id": "test-coin",
     "nomics_id": "ABY2",
     "electrum": [
       {
@@ -536,7 +536,7 @@
     "coin": "AUR",
     "name": "Auroracoin",
     "coinpaprika_id": "aur-auroracoin",
-    "coingecko_id": "auroracoin",
+    "coingecko_id": "test-coin",
     "nomics_id": "AUR",
     "electrum": [
       {
@@ -634,7 +634,6 @@
     "name": "Axe",
     "coinpaprika_id": "axe-axe",
     "coingecko_id": "axe",
-    "nomics_id": "AXE",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10057",
@@ -1195,8 +1194,7 @@
     "coin": "BSTY",
     "name": "GlobalBoost-Y",
     "coinpaprika_id": "bsty-globalboost-y",
-    "coingecko_id": "globalboost",
-    "nomics_id": "BSTY",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "66.172.33.175:50001",
@@ -1288,7 +1286,6 @@
     "name": "BitcoinZ",
     "coinpaprika_id": "btcz-bitcoinz",
     "coingecko_id": "bitcoinz",
-    "nomics_id": "BTCZ",
     "electrum": [
       {
         "url": "electrum1.btcz.rocks:50001",
@@ -1310,8 +1307,7 @@
     "coin": "BTX",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "bitcore",
-    "nomics_id": "BTX",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "btx-electrumx.coinsmunity.com:50002",
@@ -1333,8 +1329,7 @@
     "coin": "BTX-BEP20",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "bitcore",
-    "nomics_id": "BTX",
+    "coingecko_id": "test-coin",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -1574,7 +1569,7 @@
     "coin": "BTE",
     "name": "Bitweb",
     "type": "UTXO",
-    "coingecko_id": "bitweb",
+    "coingecko_id": "test-coin",
     "coinpaprika_id": "bte-bitweb",
     "nomics_id": "BTE3",
     "electrum": [
@@ -1697,7 +1692,6 @@
     "name": "Canada eCoin",
     "coinpaprika_id": "cdn-canada-ecoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "CDN",
     "electrum": [
       {
         "url": "mumbai.ecoincore.com:34333",
@@ -2223,8 +2217,7 @@
     "coin": "DIMI",
     "name": "Diminutive Coin",
     "coinpaprika_id": "dimi-diminutive-coin",
-    "coingecko_id": "diminutive-coin",
-    "nomics_id": "DIMI",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "electrumx1.diminutivecoin.com:50012",
@@ -2250,8 +2243,7 @@
     "coin": "DIMI-BEP20",
     "name": "DiminutiveCoin",
     "coinpaprika_id": "dimi-diminutive-coin",
-    "coingecko_id": "diminutive-coin",
-    "nomics_id": "DIMI",
+    "coingecko_id": "test-coin",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -2268,8 +2260,7 @@
     "coin": "DIMI-QRC20",
     "name": "DiminutiveCoin",
     "coinpaprika_id": "dimi-diminutive-coin",
-    "coingecko_id": "diminutive-coin",
-    "nomics_id": "DIMI",
+    "coingecko_id": "test-coin",
     "explorer_url": [
       "https://explorer.qtum.org/"
     ],
@@ -2532,7 +2523,7 @@
     "coin": "EFL",
     "name": "e-Gulden",
     "coinpaprika_id": "efl-e-gulden",
-    "coingecko_id": "electronicgulden",
+    "coingecko_id": "test-coin",
     "nomics_id": "EFL",
     "electrum": [
       {
@@ -2940,7 +2931,7 @@
     "coin": "FJC",
     "name": "Fujicoin",
     "coinpaprika_id": "fjc-fujicoin",
-    "coingecko_id": "fujicoin",
+    "coingecko_id": "test-coin",
     "nomics_id": "FJC",
     "electrum": [
       {
@@ -2965,7 +2956,7 @@
     "coin": "FJC-BEP20",
     "name": "Fujicoin",
     "coinpaprika_id": "fjc-fujicoin",
-    "coingecko_id": "fujicoin",
+    "coingecko_id": "test-coin",
     "nomics_id": "FJC",
     "nodes": [
       "http://bsc1.cipig.net:8655",
@@ -3037,7 +3028,6 @@
     "name": "Feathercoin",
     "coinpaprika_id": "ftc-feathercoin",
     "coingecko_id": "feathercoin",
-    "nomics_id": "FTC",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10054",
@@ -3249,7 +3239,6 @@
     "name": "Groestlcoin",
     "coinpaprika_id": "grs-groestlcoin",
     "coingecko_id": "groestlcoin",
-    "nomics_id": "GRS",
     "electrum": [
       {
         "url": "electrum11.groestlcoin.org:50001",
@@ -3639,7 +3628,7 @@
   "JRT-ERC20": {
     "coin": "JRT-ERC20",
     "name": "Jarvis Reward Token",
-    "coinpaprika_id": "jrt-jarvis-reward-token",
+    "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-reward-token",
     "nomics_id": "JRT",
     "nodes": [
@@ -3657,7 +3646,7 @@
   "JRT-PLG20": {
     "coin": "JRT-PLG20",
     "name": "Jarvis Reward Token",
-    "coinpaprika_id": "jrt-jarvis-reward-token",
+    "coinpaprika_id": "test-coin",
     "coingecko_id": "jarvis-reward-token",
     "nomics_id": "JRT",
     "nodes": [
@@ -3780,7 +3769,6 @@
     "name": "LBRY Credits",
     "coinpaprika_id": "lbc-lbry-credits",
     "coingecko_id": "lbry-credits",
-    "nomics_id": "LBC",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10067",
@@ -3807,7 +3795,6 @@
     "name": "Litecoin Cash",
     "coinpaprika_id": "lcc-litecoin-cash",
     "coingecko_id": "litecoin-cash",
-    "nomics_id": "LCC",
     "electrum": [
       {
         "url": "188.166.117.139:50001"
@@ -3923,8 +3910,7 @@
     "coin": "LYNX",
     "name": "Lynx",
     "coinpaprika_id": "lynx-lynx",
-    "coingecko_id": "lynx",
-    "nomics_id": "LYNX",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "electrum5.getlynx.io:50002",
@@ -4109,7 +4095,6 @@
     "name": "Marmara Credit Loops",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "mcl-marmara-credit-loops",
-    "nomics_id": "MCL",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10023",
@@ -4775,8 +4760,7 @@
     "coin": "UIS",
     "name": "Unitus",
     "coinpaprika_id": "uis-unitus",
-    "coingecko_id": "unitus",
-    "nomics_id": "UIS",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "failover.trc-uis.ewmcx.biz:50002",
@@ -4801,7 +4785,6 @@
     "name": "Unobtanium",
     "coinpaprika_id": "uno-unobtanium",
     "coingecko_id": "unobtanium",
-    "nomics_id": "UNO",
     "electrum": [
       {
         "url": "uno-main.coinmunity.gold:50002",
@@ -5646,7 +5629,6 @@
     "name": "Nyancoin",
     "coinpaprika_id": "nyan-nyancoin",
     "coingecko_id": "test-coin",
-    "nomics_id": "NYAN",
     "electrum": [
       {
         "url": "txserver.live:50022",
@@ -5741,8 +5723,7 @@
     "coin": "PND",
     "name": "Pandacoin",
     "coinpaprika_id": "pnd-pandacoin",
-    "coingecko_id": "pandacoin",
-    "nomics_id": "PND",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "electrum.thepandacoin.net:50002",
@@ -5827,7 +5808,6 @@
       "name": "PRUX",
       "coinpaprika_id": "prux-prux-coin",
       "coingecko_id": "test-coin",
-      "nomics_id": "PRUX",
       "electrum": [
       {
         "url": "txserver.live:50002",
@@ -6140,7 +6120,6 @@
     "type": "UTXO",
     "coingecko_id": "test-coin",
     "coinpaprika_id": "sca-scalaris",
-    "nomics_id": "SCA2",
     "electrum": [
       {
         "url": "electrum1.scalaris.info:10001"
@@ -6342,7 +6321,6 @@
     "name": "Verus Coin",
     "coingecko_id": "verus-coin",
     "coinpaprika_id": "vrsc-verus-coin",
-    "nomics_id": "VRSC",
     "electrum": [
       {
         "url": "el0.verus.io:17486",
@@ -6528,7 +6506,6 @@
     "name": "MonaCoin",
     "coinpaprika_id": "mona-monacoin",
     "coingecko_id": "monacoin",
-    "nomics_id": "MONA",
     "electrum": [
       {
         "url": "electrumx3.monacoin.nl:50001"
@@ -6586,7 +6563,6 @@
     "name": "NavCoin",
     "coinpaprika_id": "nav-navcoin",
     "coingecko_id": "nav-coin",
-    "nomics_id": "NAV",
     "electrum": [
       {
         "url": "electrum.nav.community:40002",
@@ -6621,7 +6597,6 @@
     "name": "Navcoin",
     "coinpaprika_id": "nav-navcoin",
     "coingecko_id": "nav-coin",
-    "nomics_id": "NAV",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -6689,7 +6664,6 @@
     "name": "Namecoin",
     "coinpaprika_id": "nmc-namecoin",
     "coingecko_id": "namecoin",
-    "nomics_id": "NMC",
     "electrum": [
       {
         "url": "nmc.bitcoins.sk:50002",
@@ -6716,8 +6690,7 @@
     "coin": "NVC",
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
-    "coingecko_id": "novacoin",
-    "nomics_id": "NVC",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "electrumx.nvc.ewmcx.org:50002",
@@ -6742,8 +6715,7 @@
     "coin": "NVC-BEP20",
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
-    "coingecko_id": "novacoin",
-    "nomics_id": "NVC",
+    "coingecko_id": "test-coin",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -6760,8 +6732,7 @@
     "coin": "NVC-QRC20",
     "name": "Novacoin",
     "coinpaprika_id": "nvc-novacoin",
-    "coingecko_id": "novacoin",
-    "nomics_id": "NVC",
+    "coingecko_id": "test-coin",
     "explorer_url": [
       "https://explorer.qtum.org/"
     ],
@@ -6995,7 +6966,6 @@
     "name": "Raptoreum",
     "coinpaprika_id": "rtm-raptoreum",
     "coingecko_id": "raptoreum",
-    "nomics_id": "RTM",
     "electrum": [
       {
         "url": "209.151.151.21:50001",
@@ -7309,7 +7279,7 @@
     "coin": "THC",
     "name": "HempCoin",
     "coinpaprika_id": "thc-hempcoin",
-    "coingecko_id": "hempcoin-thc",
+    "coingecko_id": "test-coin",
     "nomics_id": "THC",
     "electrum": [
       {
@@ -7330,7 +7300,7 @@
     "coin": "THC-BEP20",
     "name": "HempCoin",
     "coinpaprika_id": "thc-hempcoin",
-    "coingecko_id": "hempcoin-thc",
+    "coingecko_id": "test-coin",
     "nomics_id": "THC",
     "nodes": [
       "http://bsc1.cipig.net:8655",
@@ -7348,8 +7318,7 @@
     "coin": "TKL",
     "name": "Tokel",
     "coinpaprika_id": "tkl-tokel",
-    "coingecko_id": "tokel",
-    "nomics_id": "TKL2",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "1.eu.tokel.electrum.dexstats.info:10077"
@@ -7887,8 +7856,7 @@
     "coin": "XMY",
     "name": "Myriad",
     "coinpaprika_id": "xmy-myriad",
-    "coingecko_id": "myriadcoin",
-    "nomics_id": "XMY",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "lenoir.ecoincore.com:10891",
@@ -8255,7 +8223,6 @@
     "name": "Zero",
     "coinpaprika_id": "zer-zero",
     "coingecko_id": "zero",
-    "nomics_id": "ZER",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10065",
@@ -8281,8 +8248,7 @@
     "coin": "ZET-OLD",
     "name": "Zetacoin (OLD)",
     "coinpaprika_id": "zet-zetacoin",
-    "coingecko_id": "zetacoin",
-    "nomics_id": "ZET",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "failover.zet.ewmci.xyz:50002",
@@ -8307,8 +8273,7 @@
     "coin": "ZET",
     "name": "Zetacoin",
     "coinpaprika_id": "zet-zetacoin",
-    "coingecko_id": "zetacoin",
-    "nomics_id": "ZET",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "207.180.252.200:50011",
@@ -10173,7 +10138,7 @@
   "WHIVE": {
     "coin": "WHIVE",
     "name": "Whive",
-    "coingecko_id": "whive",
+    "coingecko_id": "test-coin",
     "coinpaprika_id": "whive-the-whive-protocol",
     "nomics_id": "WHIVE",
     "electrum": [
@@ -10288,7 +10253,6 @@
     "name": "Ignition",
     "coingecko_id": "ignition",
     "coinpaprika_id": "ic-ignition",
-    "nomics_id": "IC",
     "electrum": [
       {
         "url": "electrum1.ignitioncoin.org:10001",
