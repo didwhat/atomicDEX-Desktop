@@ -27,6 +27,7 @@ Item
     readonly property string headerTextFont: Style.textSize
     readonly property string headerSmallTitleFont: Style.textSizeSmall4
     readonly property string headerSmallFont: Style.textSizeSmall2
+    readonly property string addressURL: General.getAddressExplorerURL(api_wallet_page.ticker, current_ticker_infos.address)
 
     function loadingPercentage(remaining) {
         return General.formatPercent((100 * (1 - parseFloat(remaining)/parseFloat(current_ticker_infos.current_block))).toFixed(3), false)
@@ -887,39 +888,6 @@ Item
                     }
                 }
 
-                DefaultText
-                {
-                    anchors.centerIn: parent
-                    visible: current_ticker_infos.tx_state !== "InProgress" && transactions_mdl.length === 0
-                    text_value: api_wallet_page.tx_fetching_busy ? '' : qsTr("No transactions")
-                    font.pixelSize: Style.textSize
-                }
-
-                ColumnLayout
-                {
-                    id: fetching_text_row
-                    anchors.centerIn: parent
-                    visible: api_wallet_page.tx_fetching_busy
-
-                    spacing: 20
-                    DefaultBusyIndicator
-                    {
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                        Layout.preferredWidth: Style.textSizeSmall3
-                        Layout.preferredHeight: Layout.preferredWidth
-                        indicatorSize: 32
-                        indicatorDotSize: 5
-                    }
-
-                    DefaultText
-                    {
-                        id: fetching_text
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                        text_value: qsTr("Fetching transactions") + "..."
-                        font.pixelSize: Style.textSize
-                    }
-                }
-
                 Transactions
                 {
                     width: parent.width
@@ -929,36 +897,54 @@ Item
 
                 ColumnLayout
                 {
+
                     visible: current_ticker_infos.tx_state !== "InProgress" && transactions_mdl.length === 0
                     anchors.fill: parent
-                    height: parent.height
-                    spacing: 12
-
-                    DefaultText {
-                        Layout.topMargin: 24
-                        Layout.alignment: Qt.AlignHCenter
-                        text_value: api_wallet_page.tx_fetching_busy
-                            ? (qsTr("Refreshing") + "...")
-                            : qsTr('No transactions available. Check the block explorer at:')
-                        font.pixelSize: Style.textSize
-                    }
+                    anchors.centerIn: parent
+                    spacing: 24
 
                     DefaultText
                     {
-                        id: explorer_link
+                        id: fetching_text_row
+                        Layout.topMargin: 24
                         Layout.alignment: Qt.AlignHCenter
-                        visible: !api_wallet_page.tx_fetching_busy
+                        text_value: api_wallet_page.tx_fetching_busy ? qsTr("Fetching transactions...") : qsTr('No transactions available.')
                         font.pixelSize: Style.textSize
-                        text_value: General.getAddressExplorerURL(api_wallet_page.ticker, current_ticker_infos.address)
-                        enabled: !explorer_mouseArea.containsMouse
+                    }
 
-                        MouseArea {
-                            id: explorer_mouseArea
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            hoverEnabled: true
-                            onClicked: Qt.openUrlExternally(explorer_link.text_value)
+                    DefaultBusyIndicator
+                    {
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        Layout.preferredWidth: Style.textSizeSmall3
+                        Layout.preferredHeight: Layout.preferredWidth
+                        indicatorSize: 32
+                        indicatorDotSize: 5
+                        visible: api_wallet_page.tx_fetching_busy
+                    }
+
+                    DefaultMouseArea
+                    {
+                        id: explorer_mouseArea
+                        cursorShape: Qt.PointingHandCursor
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        width:  childrenRect.width
+                        height: childrenRect.height
+                        hoverEnabled: true
+                        onClicked: {
+                            console.log(addressURL)
+                            Qt.openUrlExternally(addressURL)
                         }
+
+                        DefaultText
+                        {
+                            id: explorerLink
+                            visible: !api_wallet_page.tx_fetching_busy && addressURL != ""
+                            font.pixelSize: Style.textSize
+                            text_value:  qsTr("View block explorer at ") + addressURL
+                            enabled: !explorer_mouseArea.containsMouse
+                            color: explorer_mouseArea.containsMouse ? Dex.CurrentTheme.textSelectionColor : Dex.CurrentTheme.foregroundColor
+                        }
+
                     }
 
                     Item { Layout.fillHeight: true }
