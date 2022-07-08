@@ -22,6 +22,7 @@ Dex.ComboBoxWithSearchBar
 
     model: showAssetStandards ? assetStandards : Dex.API.app.portfolio_pg.global_cfg_mdl.all_proxy
     textRole: showAssetStandards ? "" : "ticker"
+    valueRole: showAssetStandards ? "" : "ticker"
 
     searchBar.visible: !showAssetStandards
     searchBar.searchModel: model
@@ -65,9 +66,21 @@ Dex.ComboBoxWithSearchBar
         }
     }
 
-    onCurrentIndexChanged: if (!showAssetStandards && currentIndex === 0) currentIndex = 1
-    onShowAssetStandardsChanged: if (showAssetStandards) currentIndex = 0; else currentIndex = 1
-    onVisibleChanged: if (!visible) { Dex.API.app.portfolio_pg.global_cfg_mdl.all_proxy.setFilterFixedString(""); searchBar.textField.text = ""; }
-    Component.onDestruction: { Dex.API.app.portfolio_pg.global_cfg_mdl.all_proxy.setFilterFixedString(""); searchBar.textField.text = ""; }
-    Component.onCompleted: if (showAssetStandards) currentIndex = 0; else currentIndex = 1
+    onCurrentIndexChanged: {
+        if (!showAssetStandards && currentIndex === 0 && searchBar.textField.text == "") {
+                currentIndex = 1
+        }
+    }
+    function reset_list() {
+        if (showAssetStandards) currentIndex = 0; else { reset_search(); currentIndex = 1 }
+    }
+
+    function reset_search() {
+        Dex.API.app.portfolio_pg.global_cfg_mdl.all_proxy.setFilterFixedString("");
+        searchBar.textField.text = "";
+    }
+    onShowAssetStandardsChanged:  reset_list()
+    onVisibleChanged: if (!visible) reset_list()
+    Component.onDestruction:  reset_list()
+    Component.onCompleted:  reset_list()
 }
