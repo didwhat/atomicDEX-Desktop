@@ -22,6 +22,7 @@
 //! Headers
 #include "atomicdex/utilities/global.utilities.hpp"
 #include "atomicdex/version/version.hpp"
+#include "atomicdex/constants/dex.constants.hpp"
 
 namespace atomic_dex
 {
@@ -32,6 +33,7 @@ namespace atomic_dex
     {
         std::string              gui{std::string(DEX_NAME) + " "s + atomic_dex::get_version()};
         int64_t                  netid{7777};
+        int64_t                  rpcport{atomic_dex::g_dex_rpcport};
         std::vector<std::string> seednodes{};
         //std::vector<std::string> seednodes{"46.4.78.11", "46.4.87.18", "168.119.236.246", "89.248.168.39", "89.248.173.231", "80.82.76.214"};
 #ifdef _WIN32
@@ -53,6 +55,7 @@ namespace atomic_dex
     {
         cfg.gui          = j.at("gui").get<std::string>();
         cfg.netid        = j.at("netid").get<int64_t>();
+        cfg.rpcport      = j.at("rpcport").get<int64_t>();
         cfg.userhome     = j.at("userhome").get<std::string>();
         cfg.passphrase   = j.at("passphrase").get<std::string>();
         cfg.rpc_password = j.at("rpc_password").get<std::string>();
@@ -65,6 +68,7 @@ namespace atomic_dex
         j                 = json::object();
         j["gui"]          = cfg.gui;
         j["netid"]        = cfg.netid;
+        j["rpcport"]      = cfg.rpcport;
         j["userhome"]     = cfg.userhome;
         j["passphrase"]   = cfg.passphrase;
         j["rpc_password"] = cfg.rpc_password;
