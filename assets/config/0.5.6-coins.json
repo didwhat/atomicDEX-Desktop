@@ -268,6 +268,7 @@
     "coinpaprika_id": "aby-artbyte",
     "coingecko_id": "artbyte",
     "nomics_id": "ABY2",
+    "utxo_merge": true,
     "electrum": [
       {
         "url": "elec-seeder-one.artbytecoin.org:50012",
@@ -3145,6 +3146,7 @@
     "coinpaprika_id": "gleec-gleec-coin",
     "coingecko_id": "gleec-coin",
     "nomics_id": "GLEEC",
+    "utxo_merge": true,
     "electrum": [
       {
         "url": "electrum1.cipig.net:10022",
@@ -5219,6 +5221,7 @@
     "coingecko_id": "komodo",
     "coinpaprika_id": "kmd-komodo",
     "nomics_id": "KMD",
+    "utxo_merge": true,
     "electrum": [
       {
         "url": "electrum3.cipig.net:10001",
