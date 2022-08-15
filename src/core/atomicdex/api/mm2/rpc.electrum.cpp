@@ -38,7 +38,9 @@ namespace mm2::api
         if (cfg.address_format.has_value()) {
             j["address_format"] = cfg.address_format.value();
         }
-        //SPDLOG_INFO("electrum: {}", j.dump());
+        if (cfg.merge_params.has_value()) {
+            j["utxo_merge_params"] = cfg.merge_params.value();
+        }
     }
 
     //! Deserialization

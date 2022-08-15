@@ -641,8 +641,17 @@ namespace atomic_dex
                     request.address_format                   = nlohmann::json::object();
                     request.address_format.value()["format"] = "segwit";
                 }
+
+                if (coin_info.utxo_merge.value_or(false))
+                {
+                    t_utxo_merge_params params{.merge_at = 300, .check_every = 60, .max_merge_at_once = 200};
+                    nlohmann::json             j;
+                    mm2::api::to_json(j, params);
+                    request.merge_params     = j;
+                }
                 nlohmann::json j = ::mm2::api::template_request("electrum");
                 ::mm2::api::to_json(j, request);
+                // SPDLOG_INFO("electrum request: {}", j.dump(4));
                 batch_array.push_back(j);
             }
             else
