@@ -644,14 +644,13 @@ namespace atomic_dex
 
                 if (coin_info.utxo_merge.value_or(false))
                 {
-                    t_utxo_merge_params params{.merge_at = 300, .check_every = 60, .max_merge_at_once = 200};
+                    t_utxo_merge_params params{.merge_at = 250, .check_every = 300, .max_merge_at_once = 125};
                     nlohmann::json             j;
                     mm2::api::to_json(j, params);
                     request.merge_params     = j;
                 }
                 nlohmann::json j = ::mm2::api::template_request("electrum");
                 ::mm2::api::to_json(j, request);
-                // SPDLOG_INFO("electrum request: {}", j.dump(4));
                 batch_array.push_back(j);
             }
             else
@@ -664,7 +663,6 @@ namespace atomic_dex
                     .with_tx_history = false};
                 nlohmann::json j = ::mm2::api::template_request("enable");
                 ::mm2::api::to_json(j, request);
-                // SPDLOG_INFO("enable request: {}", j.dump(4));
                 batch_array.push_back(j);
             }
             //! If the coin is a custom coin and not present, then we have a config mismatch, we re-add it to the mm2 coins cfg but this need a app restart.
