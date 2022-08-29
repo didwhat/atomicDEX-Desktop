@@ -3662,6 +3662,40 @@
     "active": false,
     "currently_enabled": false
   },
+  "JST-BEP20": {
+    "coin": "JST-BEP20",
+    "name": "JUST",
+    "coinpaprika_id": "jst-just",
+    "coingecko_id": "just",
+    "nomics_id": "JST",
+    "nodes": [
+      "http://bsc1.cipig.net:8655",
+      "http://bsc2.cipig.net:8655",
+      "http://bsc3.cipig.net:8655"
+    ],
+    "explorer_url": [
+      "https://bscscan.com/"
+    ],
+    "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },
+  "JSTR": {
+    "coin": "JSTR",
+    "name": "Ropsten test ERC20",
+    "coinpaprika_id": "test-coin",
+    "coingecko_id": "test-coin",
+    "is_testnet": true,
+    "nodes": [
+      "https://ropsten.infura.io/v3/1d059a9aca7d49a3a380c71068bffb1c"
+    ],
+    "explorer_url": [
+      "https://ropsten.etherscan.io/"
+    ],
+    "type": "ERC-20",
+    "active": false,
+    "currently_enabled": false
+  },
   "JUMBLR": {
     "coin": "JUMBLR",
     "name": "JUMBLR",
