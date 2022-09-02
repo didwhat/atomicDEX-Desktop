@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 
+import "../../../Constants" as Dex
 import "../../../Components"
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -10,13 +11,16 @@ import Dex.Themes 1.0 as Dex
 RowLayout
 {
     id: control
-    property alias  fiat_value: fiat_label.text_value
+    property alias  fiat_value: _fiat_label.text_value
     property alias  left_label: _left_label.text
     property alias  middle_label: _middle_label.text
     property alias  right_label: _right_label.text
-    property alias  market: _market
-    property alias  increase: _increase
-    property alias  reduce: _reduce
+    property string left_tooltip_text: ""
+    property string middle_tooltip_text: ""
+    property string right_tooltip_text: ""
+    property alias  left_btn: _left_btn
+    property alias  middle_btn: _middle_btn
+    property alias  right_btn: _right_btn
     property int    pixel_size: 12
     property int    btn_width: 33
     spacing: 2
@@ -46,10 +50,40 @@ RowLayout
             text: "-1%"
         }
 
+        DexTooltip
+        {
+            id: _left_tooltip
+            visible: _left_btn.containsMouse && left_tooltip_text != ""
+            
+            contentItem: FloatingBackground
+            {
+                anchors.top: parent.bottom
+                anchors.topMargin: 30
+                color: Dex.CurrentTheme.accentColor
+
+                DefaultText
+                {
+                    text: left_tooltip_text
+                    font: Dex.DexTypo.caption
+                    leftPadding: 10
+                    rightPadding: 10
+                    topPadding: 6
+                    bottomPadding: 6
+                }
+            }
+
+            background: Rectangle {
+                width: 0
+                height: 0
+                color: "transparent"
+            }
+        }
+
         DefaultMouseArea
         {
-            id: _reduce
+            id: _left_btn
             anchors.fill: parent
+            hoverEnabled: true
         }
     }
 
@@ -66,23 +100,54 @@ RowLayout
             width: parent.width
             height: parent.height
             color: Dex.CurrentTheme.tradeMarketModeSelectorNotSelectedBackgroundColor
-        }
 
-        DefaultText
-        {
-            id: _middle_label
-            anchors.centerIn: parent
-            font.pixelSize: pixel_size
-            color: Dex.CurrentTheme.foregroundColor2
-            text: "0%"
-        }
+            DefaultMouseArea
+            {
+                id: _middle_btn
+                anchors.fill: parent
+                hoverEnabled: true
+            }
 
-        DefaultMouseArea
-        {
-            id: _market
-            anchors.fill: parent
+            DefaultText
+            {
+                id: _middle_label
+                anchors.centerIn: parent
+                font.pixelSize: pixel_size
+                color: Dex.CurrentTheme.foregroundColor2
+                text: "0%"
+            }
+
+            DexTooltip
+            {
+                id: _middle_tooltip
+                visible: _middle_btn.containsMouse && middle_tooltip_text != ""
+
+                contentItem: FloatingBackground
+                {
+                    anchors.top: parent.bottom
+                    anchors.topMargin: 30
+                    color: Dex.CurrentTheme.accentColor
+
+                    DefaultText
+                    {
+                        text: middle_tooltip_text
+                        font: Dex.DexTypo.caption
+                        leftPadding: 10
+                        rightPadding: 10
+                        topPadding: 6
+                        bottomPadding: 6
+                    }
+                }
+
+                background: Rectangle {
+                    width: 0
+                    height: 0
+                    color: "transparent"
+                }
+            }
         }
     }
+
     Item
     {
 
@@ -92,6 +157,7 @@ RowLayout
         // Background when market mode is different
         DefaultRectangle
         {
+            id: right_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
@@ -107,10 +173,41 @@ RowLayout
             text: "+1%"
         }
 
+        DexTooltip
+        {
+            id: _right_tooltip
+            visible: _right_btn.containsMouse && right_tooltip_text != ""
+
+
+            contentItem: FloatingBackground
+            {
+                anchors.top: parent.bottom
+                anchors.topMargin: 30
+                color: Dex.CurrentTheme.accentColor
+
+                DefaultText
+                {
+                    text: right_tooltip_text
+                    font: Dex.DexTypo.caption
+                    leftPadding: 10
+                    rightPadding: 10
+                    topPadding: 6
+                    bottomPadding: 6
+                }
+            }
+
+            background: Rectangle {
+                width: 0
+                height: 0
+                color: "transparent"
+            }
+        }
+
         DefaultMouseArea
         {
-            id: _increase
+            id: _right_btn
             anchors.fill: parent
+            hoverEnabled: true
         }
     }
 
@@ -118,8 +215,7 @@ RowLayout
 
     DefaultText
     {
-        id: fiat_label
-        text_value: _fiat_text
+        id: _fiat_label
         font.pixelSize: pixel_size
         color: Dex.CurrentTheme.foregroundColor2
 
