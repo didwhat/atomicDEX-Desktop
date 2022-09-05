@@ -413,6 +413,7 @@ QtObject {
                                           "MTSLA": "#CC0000",
                                           "MINDS": "#687DE3",
                                           "NEAR": "#595959",
+                                          "NENG": "#BFBBBB",
                                           "NEXO": "#A3B3D6",
                                           "NVC": "#FCF96D",
                                           "NYAN": "#008CE7",                                          
