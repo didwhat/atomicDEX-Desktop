@@ -1131,7 +1131,6 @@ namespace atomic_dex
                 }
             }
         }
->>>>>>> upstream/zombie_pirates
     }
 
     coin_config
