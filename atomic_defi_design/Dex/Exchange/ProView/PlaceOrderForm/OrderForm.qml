@@ -12,6 +12,7 @@ import Dex.Themes 1.0 as Dex
 ColumnLayout
 {
     id: root
+    spacing: 8
 
     function focusVolumeField()
     {
@@ -19,6 +20,8 @@ ColumnLayout
     }
 
     readonly property string total_amount: API.app.trading_pg.total_amount
+    readonly property int input_height: 70
+    readonly property int subfield_margin: 5
 
     readonly property bool can_submit_trade: last_trading_error === TradingError.None
 
@@ -56,7 +59,7 @@ ColumnLayout
     Item
     {
         Layout.preferredWidth: parent.width
-        Layout.preferredHeight: input_price.height + price_usd_value.height + price_usd_value.anchors.topMargin
+        Layout.preferredHeight: input_height
 
         AmountField
         {
@@ -66,12 +69,13 @@ ColumnLayout
             right_text: right_ticker
             enabled: !(API.app.trading_pg.preffered_order.price !== undefined)
             color: enabled ? Dex.CurrentTheme.foregroundColor1 : Dex.CurrentTheme.foregroundColor2
-            text: backend_price
+            text: backend_price ? backend_price : General.formatDouble(API.app.trading_pg.cex_price)
             width: parent.width
             height: 41
             radius: 18
 
             onTextChanged: setPrice(text)
+            Component.onCompleted: text = General.formatDouble(API.app.trading_pg.cex_price) ? General.formatDouble(API.app.trading_pg.cex_price) : 1
         }
 
         OrderFormSubfield
@@ -79,18 +83,20 @@ ColumnLayout
             id: price_usd_value
             anchors.top: input_price.bottom
             anchors.left: input_price.left
-            anchors.topMargin: 7
-            reduce.onClicked:
+            anchors.topMargin: subfield_margin
+            visible: !API.app.trading_pg.invalid_cex_price
+            left_btn.onClicked:
             {
-                let price = General.formatDouble(parseFloat(input_price.text) * 0.99)
+                let price = General.formatDouble(parseFloat(input_price.text) - (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
+                if (price < 0) price = 0
                 setPrice(String(price))
             }
-            increase.onClicked:
+            right_btn.onClicked:
             {
-                let price = General.formatDouble(parseFloat(input_price.text) * 1.01)
+                let price = General.formatDouble(parseFloat(input_price.text) + (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
                 setPrice(String(price))
             }
-            market.onClicked:
+            middle_btn.onClicked:
             {
                 if (input_price.text == "0") setPrice("1")
                 let price = General.formatDouble(API.app.trading_pg.cex_price)
@@ -100,14 +106,16 @@ ColumnLayout
             left_label: "-1%"
             middle_label: "0%"
             right_label: "+1%"
+            left_tooltip_text: qsTr("Reduce 1% relative to CEX market price.")
+            middle_tooltip_text: qsTr("Use CEX market price.")
+            right_tooltip_text: qsTr("Increase 1% relative to CEX market price.")
         }
     }
 
     Item
     {
         Layout.preferredWidth: parent.width
-        Layout.topMargin: 8
-        Layout.preferredHeight: input_volume.height + volume_usd_value.height + volume_usd_value.anchors.topMargin
+        Layout.preferredHeight: input_height
 
         AmountField
         {
@@ -127,18 +135,18 @@ ColumnLayout
             id: volume_usd_value
             anchors.top: input_volume.bottom
             anchors.left: input_volume.left
-            anchors.topMargin: 7
-            reduce.onClicked:
+            anchors.topMargin: subfield_margin
+            left_btn.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume * 0.25)
                 setVolume(String(volume))
             }
-            market.onClicked:
+            middle_btn.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume * 0.5)
                 setVolume(String(volume))
             }
-            increase.onClicked: 
+            right_btn.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume)
                 setVolume(String(volume))
@@ -146,7 +154,10 @@ ColumnLayout
             fiat_value: General.getFiatText(non_null_volume, left_ticker)
             left_label: "25%"
             middle_label: "50%"
-            right_label: "Max"
+            right_label:  qsTr("Max")
+            left_tooltip_text:  qsTr("Swap 25% of your tradable balance.")
+            middle_tooltip_text:  qsTr("Swap 50% of your tradable balance.")
+            right_tooltip_text:  qsTr("Swap 100% of your tradable balance.")
         }
     }
 
@@ -154,8 +165,7 @@ ColumnLayout
     {
         visible: _useCustomMinTradeAmountCheckbox.checked
         Layout.preferredWidth: parent.width
-        Layout.topMargin: 8
-        Layout.preferredHeight: input_minvolume.height + volume_usd_value.height + volume_usd_value.anchors.topMargin
+        Layout.preferredHeight: input_height
 
         AmountField
         {
@@ -167,7 +177,7 @@ ColumnLayout
             right_text: left_ticker
             placeholderText: sell_mode ? qsTr("Min amount to sell") : qsTr("Min amount to receive")
             text: API.app.trading_pg.min_trade_vol
-            onTextChanged: setMinimumAmount(text)
+            onTextChanged: if (API.app.trading_pg.min_trade_vol != text) setMinimumAmount(text)
         }
 
         OrderFormSubfield
@@ -175,40 +185,36 @@ ColumnLayout
             id: minvolume_usd_value
             anchors.top: input_minvolume.bottom
             anchors.left: input_minvolume.left
-            anchors.topMargin: 7
-            reduce.onClicked:
+            anchors.topMargin: subfield_margin
+            left_btn.onClicked:
             {
-                let volume = API.app.trading_pg.max_volume * 0.05
-                if (volume > parseFloat(input_volume.text))
-                    volume = parseFloat(input_volume.text)
+                let volume = input_volume.text * 0.10
                 setMinimumAmount(General.formatDouble(volume))
             }
-            market.onClicked:
+            middle_btn.onClicked:
             {
-                let volume = API.app.trading_pg.max_volume * 0.10
-                if (volume > parseFloat(input_volume.text))
-                    volume = parseFloat(input_volume.text)
+                let volume = input_volume.text * 0.25
                 setMinimumAmount(General.formatDouble(volume))
             }
-            increase.onClicked: 
+            right_btn.onClicked:
             {
-                let volume = API.app.trading_pg.max_volume * 0.20
-                if (volume > parseFloat(input_volume.text))
-                    volume = parseFloat(input_volume.text)
+                let volume = input_volume.text * 0.50
                 setMinimumAmount(General.formatDouble(volume))
             }
             fiat_value: General.getFiatText(non_null_volume, left_ticker)
-            left_label: "5%"
-            middle_label: "10%"
-            right_label: "20%"
+            left_label: "10%"
+            middle_label: "25%"
+            right_label: "50%"
+            left_tooltip_text:  qsTr("Minimum accepted trade equals 10% of order volume.")
+            middle_tooltip_text:  qsTr("Minimum accepted trade equals 25% of order volume.")
+            right_tooltip_text:  qsTr("Minimum accepted trade equals 50% of order volume.")
         }
     }
 
     Item
     {
         Layout.preferredWidth: parent.width
-        Layout.preferredHeight: minVolLabel.height
-        Layout.topMargin: 8
+        Layout.preferredHeight: 30
         visible: !_useCustomMinTradeAmountCheckbox.checked
 
         DefaultText
@@ -218,40 +224,14 @@ ColumnLayout
             font.pixelSize: 13
             text: qsTr("Min volume: ") + API.app.trading_pg.min_trade_vol
         }
-
-        DefaultText
-        {
-            anchors.left: minVolLabel.right
-            anchors.leftMargin: 8
-            anchors.verticalCenter: minVolLabel.verticalCenter
-
-            text: General.cex_icon
-            color: Dex.CurrentTheme.foregroundColor3
-
-            DefaultMouseArea
-            {
-                anchors.fill: parent
-                onClicked: _sliderHelpModal.open()
-            }
-
-            ModalLoader
-            {
-                id: _sliderHelpModal
-                sourceComponent: HelpModal
-                {
-                    title: qsTr("How to use the pro-view slider ?")
-                    helpSentence: qsTr("This slider is used to setup the order requirements you need.\nLeft slider: Sets the minimum amount required to process a trade.\nRight slider: Sets the volume you want to trade.")
-                }
-            }
-        }
     }
 
     RowLayout
     {
-        Layout.topMargin: 10
         Layout.rightMargin: 2
         Layout.leftMargin: 2
-        Layout.fillWidth: true
+        Layout.preferredWidth: parent.width
+        Layout.preferredHeight: 30
         spacing: 5
 
         DefaultCheckBox
@@ -260,6 +240,7 @@ ColumnLayout
             boxWidth: 20
             boxHeight: 20
             labelWidth: 0
+            onToggled: setMinimumAmount(0)
         }
 
         DefaultText
@@ -273,31 +254,5 @@ ColumnLayout
             color: Dex.CurrentTheme.foregroundColor3
             font.pixelSize: 13
         }
-    }
-
-    DefaultRangeSlider
-    {
-        id: _volumeRange
-        visible: false
-
-        function getRealValue() { return first.position * (first.to - first.from); }
-        function getRealValue2() { return second.position * (second.to - second.from); }
-
-        enabled: input_volume.enabled && !(!sell_mode && General.isZero(non_null_price)) && to > 0
-
-        Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: parent.width
-
-        from: API.app.trading_pg.orderbook.current_min_taker_vol
-        to: Math.max(0, parseFloat(max_volume))
-
-        first.value: parseFloat(API.app.trading_pg.min_trade_vol)
-
-        firstDisabled: !_useCustomMinTradeAmountCheckbox.checked
-
-        second.value: parseFloat(non_null_volume)
-
-        first.onValueChanged: if (first.pressed) setMinimumAmount(General.formatDouble(first.value))
-        second.onValueChanged: if (second.pressed) setVolume(General.formatDouble(second.value))
     }
 }
