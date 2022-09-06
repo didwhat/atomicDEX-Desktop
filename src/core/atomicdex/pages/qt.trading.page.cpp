@@ -1184,7 +1184,7 @@ namespace atomic_dex
         auto answer_functor = [this, &mm2](web::http::http_response resp)
         {
             std::string body = TO_STD_STR(resp.extract_string(true).get());
-            SPDLOG_INFO("trade_preimage answer received: {}", body);
+            SPDLOG_INFO("[determine_fees] trade_preimage answer received: {}", body);
             if (resp.status_code() == web::http::status_codes::OK)
             {
                 auto           answers               = nlohmann::json::parse(body);
