@@ -71,37 +71,32 @@ namespace atomic_dex
         {
             return false;
         }
-
-        atomic_dex::mm2_service& mm2 = get_mm2();
-        std::unordered_map<CoinType, std::array<std::vector<coin_config>, 2>> enable_registry;
-        const std::size_t testnet_idx = 0;
-        const std::size_t mainnet_idx = 1;
-        std::unordered_set<std::string> visited;
         
-        for (auto&& coin: coins)
+        std::vector<std::string> coins_std{};
+        coins_std.reserve(coins.size());
+        atomic_dex::mm2_service& mm2 = get_mm2();
+        std::unordered_set<std::string> extra_coins;
+        for (auto&& coin : coins)
         {
-            if (visited.contains(coin.toStdString()))
-            {
-                SPDLOG_INFO("already visited: {} - skipping", coin.toStdString());
-                continue;
-            }
             auto coin_info = mm2.get_coin_info(coin.toStdString());
-            const bool is_tesnet = coin_info.is_testnet.value_or(false);
-            if (coin_info.has_parent_fees_ticker && coin_info.ticker != coin_info.fees_ticker)
+            
+            if (coin_info.has_parent_fees_ticker &&
+                coin_info.ticker != coin_info.fees_ticker &&
+                !coins.contains(QString::fromStdString(coin_info.fees_ticker)))
             {
                 auto coin_parent_info = mm2.get_coin_info(coin_info.fees_ticker);
-                if (!coin_parent_info.currently_enabled && !coin_parent_info.active && visited.insert(coin_parent_info.ticker).second)
+                if (!coin_parent_info.currently_enabled && !coin_parent_info.active && extra_coins.insert(coin_parent_info.ticker).second)
                 {
                     SPDLOG_INFO("Adding extra coin: {} to enable", coin_parent_info.ticker);
-                    const auto coin_type = (coin_parent_info.ticker == "BCH" || coin_parent_info.ticker == "tBCH") ? CoinType::SLP : coin_parent_info.coin_type;
-                    enable_registry[coin_type][is_tesnet ? testnet_idx : mainnet_idx].push_back(coin_parent_info);
                 }
             }
-            const auto coin_type = (coin_info.ticker == "BCH" || coin_info.ticker == "tBCH") ? CoinType::SLP : coin_info.coin_type;
-            enable_registry[coin_type][is_tesnet ? testnet_idx : mainnet_idx].push_back(coin_info);
-            visited.insert(coin_info.ticker);
+            coins_std.push_back(coin.toStdString());
         }
-        mm2.enable_multiple_coins_v2(enable_registry);
+        for (auto&& extra_coin : extra_coins)
+        {
+            coins_std.push_back(extra_coin);
+        }
+        mm2.enable_coins(coins_std);
         return true;
     }
 
@@ -116,7 +111,7 @@ namespace atomic_dex
         QString     secondary_coin = QString::fromStdString(g_second_primary_dex_coin);
         QStringList coins_copy;
         const auto& mm2 = system_manager_.get_system<mm2_service>();
-        for (auto&& coin: coins)
+        for (auto&& coin : coins)
         {
             const auto coin_info       = mm2.get_coin_info(coin.toStdString());
             bool       has_parent_fees = coin_info.has_parent_fees_ticker;
@@ -146,7 +141,7 @@ namespace atomic_dex
             system_manager_.get_system<portfolio_page>().disable_coins(coins_copy);
             system_manager_.get_system<trading_page>().disable_coins(coins_copy);
             coins_std.reserve(coins_copy.size());
-            for (auto&& coin: coins_copy)
+            for (auto&& coin : coins_copy)
             {
                 if (QString::fromStdString(get_mm2().get_current_ticker()) == coin && m_primary_coin_fully_enabled)
                 {
@@ -191,6 +186,126 @@ namespace atomic_dex
     bool atomic_dex::application::first_run()
     {
         return qt_wallet_manager::get_wallets().empty();
+    }
+
+
+    void atomic_dex::application::reset_coin_cfg()
+    {
+        using namespace std::string_literals;
+        const std::string wallet_name                = qt_wallet_manager::get_default_wallet_name().toStdString();
+        const std::string wallet_cfg_file            = std::string(atomic_dex::get_raw_version()) + "-coins"s + "."s + wallet_name + ".json"s;
+        std::string       wallet_custom_cfg_filename = "custom-tokens."s + wallet_name + ".json"s;
+        const fs::path    wallet_custom_cfg_path{utils::get_atomic_dex_config_folder() / wallet_custom_cfg_filename};
+        const fs::path    wallet_cfg_path{utils::get_atomic_dex_config_folder() / wallet_cfg_file};
+        const fs::path    mm2_coins_file_path{atomic_dex::utils::get_current_configs_path() / "coins.json"};
+        const fs::path    ini_file_path      = atomic_dex::utils::get_current_configs_path() / "cfg.ini";
+        const fs::path    cfg_json_file_path = atomic_dex::utils::get_current_configs_path() / "cfg.json";
+        const fs::path    logo_path          = atomic_dex::utils::get_logo_path();
+        const fs::path    theme_path         = atomic_dex::utils::get_themes_path();
+
+        const auto functor_remove = [](auto&& path_to_remove)
+        {
+            if (fs::exists(path_to_remove))
+            {
+                fs_error_code ec;
+                if (fs::is_directory(path_to_remove))
+                {
+                    fs::remove_all(path_to_remove, ec);
+                }
+                else
+                {
+                    fs::remove(path_to_remove, ec);
+                }
+                if (ec)
+                {
+                    LOG_PATH("error when removing {}", path_to_remove);
+                    SPDLOG_ERROR("error: {}", ec.message());
+                }
+                else
+                {
+                    LOG_PATH("Successfully removed {}", path_to_remove);
+                }
+            }
+        };
+
+        if (fs::exists(wallet_cfg_path))
+        {
+            nlohmann::json wallet_config_json_data;
+            std::unordered_set<std::string> active_coins_registry;
+            QFile          file;
+            file.setFileName(std_path_to_qstring(wallet_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            wallet_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! Get the active coins
+            for (auto&& [key, value]: wallet_config_json_data.items())
+            {
+                if (value["active"]) { active_coins_registry.insert(key); }
+            }
+
+            // remove old coins file
+            functor_remove(std::move(wallet_cfg_path));
+
+            //! Copy default coins file
+            const auto  cfg_path = ag::core::assets_real_path() / "config";
+            std::string filename = std::string(atomic_dex::get_raw_version()) + "-coins.json";
+            fs::copy(cfg_path / filename, wallet_cfg_path);
+
+            //! Open coins file
+            file.setFileName(std_path_to_qstring(wallet_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            wallet_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! set active coins again
+            int i = 0;
+            for (auto&& key: active_coins_registry)
+            {
+                if (wallet_config_json_data.contains(key))
+                {
+                    i = i + 1;
+                    wallet_config_json_data[key]["active"] = true;
+                }
+            }
+
+            //! Write
+            //SPDLOG_DEBUG("Data written: ", wallet_config_json_data.dump(4));
+            file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+            file.write(QString::fromStdString(wallet_config_json_data.dump(4)).toUtf8());
+            file.close();
+        }
+
+        if (fs::exists(wallet_custom_cfg_path))
+        {
+            nlohmann::json custom_config_json_data;
+            QFile          file;
+            file.setFileName(std_path_to_qstring(wallet_custom_cfg_path));
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+            //! Read Contents
+            custom_config_json_data = nlohmann::json::parse(QString(file.readAll()).toStdString());
+            file.close();
+
+            //! Modify
+            for (auto&& [key, value]: custom_config_json_data.items()) { value["active"] = false; }
+
+            //! Write
+            file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+            file.write(QString::fromStdString(custom_config_json_data.dump()).toUtf8());
+            file.close();
+        }
+        functor_remove(std::move(mm2_coins_file_path));
+        functor_remove(std::move(cfg_json_file_path));
+        functor_remove(std::move(logo_path));
+        functor_remove(std::move(theme_path));
+        // Uncomment if you want to reset fiat/language/theme
+        // functor_remove(std::move(ini_file_path));
+        atomic_dex::application::restart();
     }
 
     void application::launch()
@@ -524,7 +639,7 @@ namespace atomic_dex
     {
         QString result;
 
-        ::mm2::api::recover_funds_of_swap_request request{.swap_uuid = uuid.toStdString()};
+        mm2::recover_funds_of_swap_request request{.swap_uuid = uuid.toStdString()};
         auto                                      res = get_mm2().get_mm2_client().rpc_recover_funds(std::move(request));
         result                                        = QString::fromStdString(res.raw_result);
 

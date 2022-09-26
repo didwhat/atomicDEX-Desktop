@@ -9,7 +9,7 @@
 #include "atomicdex/api/mm2/transaction.data.hpp"
 #include "atomicdex/utilities/global.utilities.hpp"
 
-namespace mm2::api
+namespace atomic_dex::mm2
 {
     void
     from_json(const nlohmann::json& j, fee_regular_coin& cfg)
@@ -89,9 +89,16 @@ namespace mm2::api
             cfg.confirmations = j.at("confirmations").get<std::size_t>();
         }
 
-        if (cfg.from.empty() && cfg.coin == "FIRO")
+        if (cfg.from.empty())
         {
-            cfg.from.emplace_back("Lelantusjsplit (Hidden)");
+            if (cfg.coin == "FIRO")
+            {
+                cfg.from.emplace_back("Lelantusjsplit (Hidden)");
+            }
+            else
+            {
+                cfg.from.emplace_back("Shielded");
+            }
         }
 
         // transaction_fee only in ZHTLC response
@@ -119,4 +126,4 @@ namespace mm2::api
         std::string s         = atomic_dex::utils::to_human_date<std::chrono::seconds>(cfg.timestamp, "%e %b %Y, %H:%M");
         cfg.timestamp_as_date = std::move(s);
     }
-} // namespace mm2::api
+} // namespace atomic_dex::mm2

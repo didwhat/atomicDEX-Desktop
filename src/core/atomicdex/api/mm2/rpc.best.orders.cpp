@@ -26,7 +26,7 @@
 #include "atomicdex/api/mm2/rpc.best.orders.hpp"
 
 //! Implementation RPC [best_orders]
-namespace mm2::api
+namespace atomic_dex::mm2
 {
     void
     to_json(nlohmann::json& j, const best_orders_request& req)
@@ -34,7 +34,8 @@ namespace mm2::api
         SPDLOG_INFO("getting bestorders data...");
         j["params"]["coin"]   = req.coin;
         j["params"]["action"] = req.action;
-        j["params"]["volume"] = req.volume;
+        j["params"]["request_by"]["type"] = "volume";
+        j["params"]["request_by"]["value"] = req.volume;
     }
 
     void
@@ -62,15 +63,9 @@ namespace mm2::api
                     }
                     else
                     {
-                        //hit = true;
                         SPDLOG_WARN("Order with uuid: {} already added - skipping", contents.uuid);
                     }
                 }
-                /*if (hit)
-                {
-                    SPDLOG_WARN("mm2 answer duplicated: {}", value.dump());
-                    hit = false;
-                }*/
             }
         }
     }
@@ -81,4 +76,4 @@ namespace mm2::api
         extract_rpc_json_answer<best_orders_answer_success>(j, answer);
     }
 
-} // namespace mm2::api
+} // namespace atomic_dex::mm2
