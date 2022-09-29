@@ -5768,7 +5768,8 @@
     "coin": "PND",
     "name": "Pandacoin",
     "coinpaprika_id": "pnd-pandacoin",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "pandacoin",
+    "nomics_id": "PND",
     "electrum": [
       {
         "url": "electrum.thepandacoin.net:50002",
