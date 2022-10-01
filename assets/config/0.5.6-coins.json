@@ -10303,7 +10303,7 @@
   "WHIVE": {
     "coin": "WHIVE",
     "name": "Whive",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "whive",
     "coinpaprika_id": "whive-the-whive-protocol",
     "nomics_id": "WHIVE",
     "electrum": [
