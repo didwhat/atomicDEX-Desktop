@@ -5728,7 +5728,7 @@
   "PGX-PLG20": {
     "coin": "PGX-PLG20",
     "name": "Pegaxy Stone",
-    "coinpaprika_id": "test-coin",
+    "coinpaprika_id": "pgx-pegaxy-stone",
     "coingecko_id": "pegaxy-stone",
     "nomics_id": "PGX",
     "nodes": [
