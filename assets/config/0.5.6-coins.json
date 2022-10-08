@@ -8613,7 +8613,7 @@
     "coin": "ZER",
     "name": "Zero",
     "coinpaprika_id": "zer-zero",
-    "coingecko_id": "zero",
+    "coingecko_id": "test-coin",
     "nomics_id": "ZER",
     "electrum": [
       {
