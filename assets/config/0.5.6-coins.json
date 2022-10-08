@@ -5900,7 +5900,7 @@
     "coin": "NYAN",
     "name": "Nyancoin",
     "coinpaprika_id": "nyan-nyancoin",
-    "coingecko_id": "nyancoin",
+    "coingecko_id": "test-coin",
     "nomics_id": "NYAN",
     "electrum": [
       {
