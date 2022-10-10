@@ -669,7 +669,7 @@
     "coin": "AXE",
     "name": "Axe",
     "coinpaprika_id": "axe-axe",
-    "coingecko_id": "axe",
+    "coingecko_id": "test-coin",
     "electrum": [
       {
         "url": "electrum1.cipig.net:10057",
