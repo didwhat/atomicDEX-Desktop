@@ -1360,7 +1360,7 @@
     "coin": "BTX",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "bitcore",
     "electrum": [
       {
         "url": "btx-electrumx.coinsmunity.com:50002",
@@ -1382,7 +1382,7 @@
     "coin": "BTX-BEP20",
     "name": "BitCore",
     "coinpaprika_id": "btx-bitcore",
-    "coingecko_id": "test-coin",
+    "coingecko_id": "bitcore",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
