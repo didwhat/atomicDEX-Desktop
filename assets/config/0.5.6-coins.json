@@ -5377,7 +5377,7 @@
     "coin": "AVN",
     "name": "Avian",
     "coinpaprika_id": "avn-avian",
-    "coingecko_id": "avian-network",
+    "coingecko_id": "test-coin",
     "nomics_id": "AVN3",
     "electrum": [
       {
