@@ -312,7 +312,7 @@ namespace atomic_dex
 
         if (s_info >= 30s)
         {
-            //fetch_infos_thread();
+            fetch_infos_thread();
             m_info_clock = std::chrono::high_resolution_clock::now();
         }
     }
