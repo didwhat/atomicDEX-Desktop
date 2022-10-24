@@ -737,7 +737,7 @@ namespace atomic_dex
                 .servers         = coin_config.electrum_urls.value_or(get_electrum_server_from_token(coin_config.ticker)),
                 .coin_type       = coin_config.coin_type,
                 .is_testnet      = coin_config.is_testnet.value_or(false),
-                .with_tx_history = true
+                .with_tx_history = false
             };
             
             if (coin_config.segwit && coin_config.is_segwit_on)
