@@ -1240,7 +1240,6 @@ namespace atomic_dex
                                             this->m_nb_update_required += 1;
                                             this->dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
                                             this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
-                                            break;
                                         }
                                         else
                                         {
@@ -1275,7 +1274,7 @@ namespace atomic_dex
                                                     web::http::http_response             z_resp      = z_resp_task.get();
                                                     auto                                 z_answers   = mm2::basic_batch_answer(z_resp);
                                                     z_error                                          = z_answers;
-                                                    // SPDLOG_DEBUG("z_answer: {}", z_answers[0].dump(4));
+
                                                     std::string status = z_answers[0].at("result").at("status").get<std::string>();
 
                                                     if (status == "Ready")
@@ -1304,6 +1303,8 @@ namespace atomic_dex
                                                     }
                                                     else
                                                     {
+                                                        // todo(syl): many unused variables.
+                                                        // fix that
                                                         if (z_answers[0].at("result").at("details").contains("UpdatingBlocksCache"))
                                                         {
                                                             event = "UpdatingBlocksCache";
@@ -1342,6 +1343,8 @@ namespace atomic_dex
                                                             this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], event);
                                                             last_event = event;
                                                         }
+
+                                                        // todo(syl): refactor to a background task
                                                         std::this_thread::sleep_for(2s);
                                                     }
                                                     m_coins_informations[tickers[idx]].activation_status = z_answers[0];
@@ -1549,10 +1552,22 @@ namespace atomic_dex
             auto answer        = mm2::basic_batch_answer(resp);
             if (answer.is_array())
             {
+                if (answer.size() < 1)
+                {
+                    SPDLOG_ERROR("Answer array did not contain enough elements");
+                    return;
+                }
+
                 auto orderbook_answer = mm2::rpc_process_answer_batch<t_orderbook_answer>(answer[0], "orderbook");
 
                 if (is_a_reset)
                 {
+                    if (answer.size() < 5)
+                    {
+                        SPDLOG_ERROR("Answer array did not contain enough elements");
+                        return;
+                    }
+
                     auto base_max_taker_vol_answer = mm2::rpc_process_answer_batch<mm2::max_taker_vol_answer>(answer[1], "max_taker_vol");
                     if (base_max_taker_vol_answer.rpc_result_code == 200)
                     {
@@ -1624,6 +1639,8 @@ namespace atomic_dex
         }
 
         t_balance_request balance_request{.coin = cfg_infos.ticker};
+        SPDLOG_INFO("fetch single balance of ticker named:");
+        SPDLOG_INFO(cfg_infos.ticker);
         nlohmann::json    j = mm2::template_request("my_balance");
         mm2::to_json(j, balance_request);
         batch_array.push_back(j);
@@ -1632,7 +1649,9 @@ namespace atomic_dex
         {
             try
             {
+                SPDLOG_INFO("parse fetch single balance answer");
                 auto answers = mm2::basic_batch_answer(resp);
+                SPDLOG_INFO("fetch single balance answer parsed");
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
@@ -1655,13 +1674,17 @@ namespace atomic_dex
         SPDLOG_INFO("fetch_infos_thread");
         if (only_tx)
         {
+            SPDLOG_INFO("fetch_infos_thread only tx start");
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
+            SPDLOG_INFO("fetch_infos_thread only tx end");
         }
         else
         {
+            SPDLOG_INFO("fetch_infos_thread not only tx start");
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
+            SPDLOG_INFO("fetch_infos_thread not only tx end");
         }
     }
 
@@ -2200,6 +2223,7 @@ namespace atomic_dex
     void
     mm2_service::process_tx_answer(const nlohmann::json& answer_json, std::string ticker)
     {
+        SPDLOG_DEBUG("Process tx answer.");
         mm2::tx_history_answer answer;
         mm2::from_json(answer_json, answer);
         t_tx_state state;
