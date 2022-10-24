@@ -312,7 +312,7 @@ namespace atomic_dex
 
         if (s_info >= 30s)
         {
-            fetch_infos_thread();
+            //fetch_infos_thread();
             m_info_clock = std::chrono::high_resolution_clock::now();
         }
     }
@@ -737,7 +737,7 @@ namespace atomic_dex
                 .servers         = coin_config.electrum_urls.value_or(get_electrum_server_from_token(coin_config.ticker)),
                 .coin_type       = coin_config.coin_type,
                 .is_testnet      = coin_config.is_testnet.value_or(false),
-                .with_tx_history = false
+                .with_tx_history = true
             };
             
             if (coin_config.segwit && coin_config.is_segwit_on)
