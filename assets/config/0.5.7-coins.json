@@ -516,7 +516,7 @@
     "coin": "ARPA-BEP20",
     "name": "ARPA Chain",
     "coinpaprika_id": "arpa-arpa-chain",
-    "coingecko_id": "arpa-chain",
+    "coingecko_id": "arpa",
     "nomics_id": "ARPA",
     "nodes": [
       "http://bsc1.cipig.net:8655",
@@ -534,7 +534,7 @@
     "coin": "ARPA-ERC20",
     "name": "ARPA Chain",
     "coinpaprika_id": "arpa-arpa-chain",
-    "coingecko_id": "arpa-chain",
+    "coingecko_id": "arpa",
     "nomics_id": "ARPA",
     "nodes": [
       "http://eth1.cipig.net:8555",
