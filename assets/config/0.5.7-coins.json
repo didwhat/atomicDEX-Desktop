@@ -2304,7 +2304,7 @@
     "coin": "DIMI",
     "name": "Diminutive Coin",
     "coinpaprika_id": "dimi-diminutive-coin",
-    "coingecko_id": "diminutive-coin",
+    "coingecko_id": "test-coin",
     "nomics_id": "DIMI",
     "electrum": [
       {
@@ -2332,6 +2332,7 @@
     "name": "DiminutiveCoin",
     "coinpaprika_id": "dimi-diminutive-coin",
     "coingecko_id": "test-coin",
+    "nomics_id": "DIMI",
     "nodes": [
       "http://bsc1.cipig.net:8655",
       "http://bsc2.cipig.net:8655",
@@ -2349,6 +2350,7 @@
     "name": "DiminutiveCoin",
     "coinpaprika_id": "dimi-diminutive-coin",
     "coingecko_id": "test-coin",
+    "nomics_id": "DIMI",
     "explorer_url": [
       "https://explorer.qtum.org/"
     ],
