@@ -209,6 +209,12 @@ namespace atomic_dex::mm2
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 
+    t_init_z_coin_cancel_answer
+    mm2_client::rpc_init_z_coin_cancel(t_init_z_coin_cancel_request&& request)
+    {
+        return process_rpc<t_init_z_coin_cancel_request, t_init_z_coin_cancel_answer>(std::forward<t_init_z_coin_cancel_request>(request), "task::enable_z_coin::cancel");
+    }
+
     t_disable_coin_answer
     mm2_client::rpc_disable_coin(t_disable_coin_request&& request)
     {
@@ -221,6 +227,7 @@ namespace atomic_dex::mm2
         return process_rpc<t_recover_funds_of_swap_request, t_recover_funds_of_swap_answer>(
             std::forward<t_recover_funds_of_swap_request>(request), "recover_funds_of_swap");
     }
+
 } // namespace atomic_dex
 
 template atomic_dex::mm2::tx_history_answer   atomic_dex::mm2::mm2_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command);
