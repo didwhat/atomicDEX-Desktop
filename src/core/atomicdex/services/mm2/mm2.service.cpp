@@ -36,6 +36,8 @@
 #include "atomicdex/config/mm2.cfg.hpp"
 #include "atomicdex/constants/dex.constants.hpp"
 #include "atomicdex/managers/qt.wallet.manager.hpp"
+#include "atomicdex/pages/qt.portfolio.page.hpp"
+#include "atomicdex/pages/qt.trading.page.hpp"
 #include "atomicdex/services/internet/internet.checker.service.hpp"
 #include "atomicdex/services/mm2/mm2.service.hpp"
 #include "atomicdex/utilities/qt.utilities.hpp"
@@ -426,6 +428,13 @@ namespace atomic_dex
         return destination;
     }
 
+    void mm2_service::init_z_coin_cancel(const std::int8_t task_id)
+    {
+        t_init_z_coin_cancel_request request{.task_id = task_id};
+        auto                                answer = m_mm2_client.rpc_init_z_coin_cancel(std::move(request));
+        SPDLOG_INFO("mm2_service::init_z_coin_cancel: [task_id {}]  result: {}", task_id, answer.raw_result);
+    }
+
     bool mm2_service::disable_coin(const std::string& ticker, std::error_code& ec)
     {
         coin_config coin_info = get_coin_info(ticker);
@@ -438,7 +447,6 @@ namespace atomic_dex
         }
 
         t_disable_coin_request request{.coin = ticker};
-
         auto                   answer = m_mm2_client.rpc_disable_coin(std::move(request));
         SPDLOG_INFO("mm2_service::disable_coin: {} result: {}", ticker, answer.raw_result);
 
@@ -1040,7 +1048,6 @@ namespace atomic_dex
                 SPDLOG_WARN("{}", ec.message());
             }
         }
-
         update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
     }
 
@@ -1227,7 +1234,7 @@ namespace atomic_dex
                     [this, tickers](web::http::http_response resp) mutable
                     {
                         std::size_t                     idx = 0;
-                        auto                            ticker = tickers[idx];
+                        std::string                     ticker = tickers[idx];
                         std::unordered_set<std::string> to_remove;
 
                         try
@@ -1270,6 +1277,7 @@ namespace atomic_dex
                                             bool task_successful = false;
 
                                             static std::size_t z_nb_try      = 0;
+                                            static std::size_t loop_limit    = 5000;
                                             std::string        event         = "none";
                                             std::string        last_event    = "none";
                                             nlohmann::json     z_error       = nlohmann::json::array();
@@ -1347,21 +1355,39 @@ namespace atomic_dex
                                                 std::this_thread::sleep_for(2s);
                                                 z_nb_try += 1;
 
-                                            } while (z_nb_try < 5000);
+                                            } while (z_nb_try < loop_limit);
 
                                             try {
-                                                if (z_nb_try == 5000)
+                                                if (z_nb_try == loop_limit)
                                                 {
                                                     // TODO: Handle this case.
                                                     // There could be no error message if scanning takes too long.
                                                     // Either we force disable here, or schedule to check on it later
                                                     // If this happens, address will be "Invalid" and balance will be zero.
                                                     // We could save this ticker in a list to try `task::enable_z_coin::status` again on it periodically until complete.
+                                                    // TODO: we need to track task_ids for coins so that we can also cancel tasks when exiting app
 
-                                                    //! TODO: run zcoin_init_cancel, then try again.
-                                                    SPDLOG_DEBUG("Error for: [{}]", ticker);
-                                                    SPDLOG_ERROR("Exited zhtlc enable loop unsuccessfully after 1000 tries");
-                                                    this->dispatcher_.trigger<enabling_coin_failed>(ticker, z_error[0].dump(4));
+                                                    std::string message = "Exited zhtlc enable loop unsuccessfully after " + std::to_string(loop_limit) + " tries";
+                                                    SPDLOG_DEBUG("Error enabling [{}]: {}", ticker, message);
+
+                                                    init_z_coin_cancel(task_id);
+                                                    this->dispatcher_.trigger<enabling_z_coin_status>(ticker, "Failed!");
+                                                    this->dispatcher_.trigger<enabling_coin_failed>(ticker, message);
+
+                                                    std::shared_lock lock(m_coin_cfg_mutex);
+                                                    m_coins_informations[ticker].active = false;
+                                                    m_coins_informations[ticker].currently_enabled = true;
+                                                    nlohmann::json status_failed = {{"result", "failed"}};
+                                                    m_coins_informations[ticker].activation_status = status_failed;
+
+                                                    QStringList coins_copy;
+                                                    coins_copy.push_back(QString::fromStdString(ticker));
+                                                    this->m_system_manager.get_system<trading_page>().disable_coins(coins_copy);
+                                                    this->m_system_manager.get_system<portfolio_page>().disable_coins(coins_copy);
+                                                    this->dispatcher_.trigger<update_portfolio_values>(false);
+
+                                                    to_remove.emplace(ticker);
+                                                    continue;
                                                 }
                                                 if (z_error[0].contains("error"))
                                                 {
@@ -1381,13 +1407,13 @@ namespace atomic_dex
                                             if (task_successful)
                                             {
                                                 this->dispatcher_.trigger<enabling_z_coin_status>(ticker, "Complete");
-                                                continue;
                                             }
                                             else
                                             {
                                                 this->dispatcher_.trigger<enabling_z_coin_status>(ticker, "Failed!");
+                                                this->dispatcher_.trigger<enabling_coin_failed>(ticker, error);
                                                 update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
-                                                continue;
+                                                to_remove.emplace(ticker);
                                             }
                                         }
                                         else
@@ -1397,7 +1423,6 @@ namespace atomic_dex
                                             to_remove.emplace(ticker);
                                             this->dispatcher_.trigger<enabling_z_coin_status>(ticker, "Failed!");
                                             this->dispatcher_.trigger<enabling_coin_failed>(ticker, error);
-                                            continue;
                                         }
                                     }
                                     else
@@ -1407,7 +1432,6 @@ namespace atomic_dex
                                         to_remove.emplace(ticker);
                                         this->dispatcher_.trigger<enabling_z_coin_status>(ticker, "Failed!");
                                         this->dispatcher_.trigger<enabling_coin_failed>(ticker, error);
-                                        continue;
                                     }
                                     idx += 1;
                                 }
@@ -1458,6 +1482,7 @@ namespace atomic_dex
         {
             if (coin_info.activation_status.contains("result"))
             {
+
                 if (coin_info.activation_status.at("result").contains("status"))
                 {
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
@@ -1470,6 +1495,10 @@ namespace atomic_dex
                             }
                         }
                     }
+                }
+                else if (coin_info.activation_status["result"] == "failed")
+                {
+                    return true;
                 }
             }
             return false;

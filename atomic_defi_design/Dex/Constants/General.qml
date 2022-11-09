@@ -82,7 +82,11 @@ QtObject {
         // use range from checkpoint block to present
         if (coin == 'ARRR') block_offset = 1900000
 
-        if (status == "Ok")
+        if (!status)
+        {
+            return -1
+        }
+        else if (status == "Ok")
         {
             if (details.hasOwnProperty("error"))
                 console.log("[zhtlcActivationProgress] Error enabling: " + JSON.stringify(details.error))

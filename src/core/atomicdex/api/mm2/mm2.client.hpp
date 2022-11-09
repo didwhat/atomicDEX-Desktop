@@ -36,7 +36,7 @@ namespace atomic_dex::mm2
 
         //! Synced
         template <typename TRequest, typename TAnswer>
-        TAnswer process_rpc(TRequest&& request, std::string rpc_command);
+        TAnswer process_rpc(TRequest&& request, std::string rpc_command, bool is_v2 = false);
 
         template <typename RpcReturnType>
         RpcReturnType rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command);

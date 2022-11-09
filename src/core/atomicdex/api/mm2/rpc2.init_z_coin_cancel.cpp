@@ -32,7 +32,7 @@ namespace atomic_dex::mm2
     //! Deserialization
     void from_json(const nlohmann::json& j, init_z_coin_cancel_answer_success& answer)
     {
-        j.at("result").get_to(answer.result);
+        answer.result = j.at("result").get<std::string>();
     }
 
     void
@@ -46,7 +46,7 @@ namespace atomic_dex::mm2
         {
             if (j.contains("result") && j.contains("mmrpc") && j.at("mmrpc").get<std::string>() == "2.0")
             {
-                answer.result = j.at("result").get<init_z_coin_cancel_answer_success>();
+                answer.result = j.get<init_z_coin_cancel_answer_success>();
             }
         }
     }
