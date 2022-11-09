@@ -38,7 +38,7 @@ namespace atomic_dex::mm2
         }
         else
         {
-            answer.result = j.at("result").at("details").at("result").get<transaction_data>();
+            answer.result = j.at("result").at("details").get<transaction_data>();
         }
     }
 } // namespace atomic_dex::mm2

@@ -1396,7 +1396,6 @@ namespace atomic_dex
                                                 }
                                                 else
                                                 {
-                                                    SPDLOG_DEBUG("Activation successful enabling {}: {} ", ticker, z_error[0].dump(4));
                                                     task_successful = true;
                                                 }
                                             }
