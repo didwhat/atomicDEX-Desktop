@@ -74,6 +74,7 @@ QtObject {
     {
         let progress = 100
         if (!activation_status.hasOwnProperty("result")) return progress
+        console.log("[zhtlcActivationProgress]: " + JSON.stringify(activation_status))
         let status = activation_status.result.status
         let details = activation_status.result.details
 
