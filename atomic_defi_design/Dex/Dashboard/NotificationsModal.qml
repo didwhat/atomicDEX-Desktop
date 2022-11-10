@@ -291,7 +291,7 @@ DexPopup
             msg)
     }
 
-    readonly property string check_internet_connection_text: qsTr("Please check your internet connection (e.g. VPN service or firewall might block it).")
+    property string check_internet_connection_text: qsTr("Please check your internet connection (e.g. VPN service or firewall might block it).")
     function onEnablingCoinFailedStatus(coin, error, human_date, timestamp)
     {
         // Ignore if coin already enabled (e.g. parent chain in batch)
@@ -314,7 +314,14 @@ DexPopup
         // Display the notification
         const title = qsTr("Failed to enable %1", "TICKER").arg(coin)
 
-        error = check_internet_connection_text + "\n\n" + error
+        if (error.search("Exited zhtlc enable loop unsuccessfully") > -1)
+        {
+            check_internet_connection_text = error
+        }
+        else
+        {
+            error = check_internet_connection_text + "\n\n" + error
+        }
 
         newNotification("onEnablingCoinFailedStatus",
             {
