@@ -191,7 +191,7 @@ namespace atomic_dex::mm2
     TAnswer
     mm2_client::process_rpc(TRequest&& request, std::string rpc_command, bool is_v2)
     {
-        SPDLOG_INFO("Processing rpc call: {}", rpc_command);
+        SPDLOG_DEBUG("Processing rpc call: {}", rpc_command);
 
         nlohmann::json json_data = mm2::template_request(rpc_command, is_v2);
 
