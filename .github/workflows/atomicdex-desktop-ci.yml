@@ -5,9 +5,7 @@ on:
     types: [ opened, synchronize, reopened ]
   push:
     branches:
-      - master
-  schedule:
-    - cron: '0 0 * * 1'
+      - nogeo
 
 env:
   DEX_API: "mm2"
@@ -29,11 +27,7 @@ jobs:
       matrix:
         name: [
             ubuntu-release,
-            ubuntu-debug,
-            osx-release,
-            osx-debug,
-            windows-release,
-            windows-debug
+            ubuntu-debug
         ]
 
         include:
@@ -48,30 +42,6 @@ jobs:
             qt: '5.15.2'
             type: 'Debug'
             host: 'linux'
-
-          - name: osx-release
-            os: macos-11
-            qt: '5.15.2'
-            type: 'Release'
-            host: 'mac'
-
-          - name: osx-debug
-            os: macos-11
-            qt: '5.15.2'
-            type: 'Debug'
-            host: 'mac'
-
-          - name: windows-release
-            os: windows-latest
-            qt: '5.15.2'
-            type: 'Release'
-            host: 'windows'
-
-          - name: windows-debug
-            os: windows-latest
-            qt: '5.15.2'
-            type: 'Debug'
-            host: 'windows'
 
     steps:
       - uses: actions/checkout@v2
