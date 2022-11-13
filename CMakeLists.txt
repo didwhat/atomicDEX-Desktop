@@ -64,7 +64,7 @@ if (APPLE)
             URL http://195.201.0.6/mm2.1/mm2-1e1338d2d-Darwin-Release.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(mm2
-            URL http://195.201.0.6/mm2.1/mm2-1e1338d2d-Linux-Release.zip)
+            URL http://195.201.0.6/dev/mm2-f4eb4c962-Linux-Release.zip)
 else ()
     FetchContent_Declare(mm2
             URL http://195.201.0.6/mm2.1/mm2-1e1338d2d-Windows_NT-Release.zip)
