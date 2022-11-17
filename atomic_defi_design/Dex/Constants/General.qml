@@ -8,7 +8,9 @@ QtObject {
     readonly property int height: 800
     readonly property int minimumWidth: 1280
     readonly property int minimumHeight: 800
-    readonly property int max_pw_length: 256
+    readonly property int max_camo_pw_length: 256
+    readonly property int max_std_pw_length: 256
+    readonly property int max_pw_length: max_std_pw_length + max_camo_pw_length
     readonly property double delta_time: 1000/60
 
     readonly property string os_file_prefix: Qt.platform.os == "windows" ? "file:///" : "file://"
@@ -20,7 +22,7 @@ QtObject {
 
     function coinIcon(ticker)
     {
-        if (ticker === "" || ticker === "All" || ticker===undefined )
+        if (ticker === "" || ticker === "All" || ticker===undefined)
         {
             return ""
         }
@@ -603,9 +605,9 @@ QtObject {
         if (ticker === atomic_app_primary_coin || ticker === atomic_app_secondary_coin) return false
         if (ticker === "ETH") return !General.isParentCoinNeeded("ETH", "ERC-20")
         if (ticker === "MATIC") return !General.isParentCoinNeeded("MATIC", "Matic")
-        if (ticker === "FTM") return !General.isParentCoinNeeded("FTM", "ERC-20")
-        if (ticker === "AVAX") return !General.isParentCoinNeeded("ETH", "AVX-20")
-        if (ticker === "BNB") return !General.isParentCoinNeeded("AVAX", "BEP-20")
+        if (ticker === "FTM") return !General.isParentCoinNeeded("FTM", "FTM-20")
+        if (ticker === "AVAX") return !General.isParentCoinNeeded("AVAX", "AVX-20")
+        if (ticker === "BNB") return !General.isParentCoinNeeded("BNB", "BEP-20")
         if (ticker === "ONE") return !General.isParentCoinNeeded("ONE", "HRC-20")
         if (ticker === "QTUM") return !General.isParentCoinNeeded("QTUM", "QRC-20")
         if (ticker === "KCS") return !General.isParentCoinNeeded("KCS", "KRC-20")
