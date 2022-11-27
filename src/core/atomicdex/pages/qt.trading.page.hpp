@@ -138,7 +138,7 @@ namespace atomic_dex
         void update() final;
 
         //! Public API
-        void process_action();
+        void process_trading_actions();
         void connect_signals();
         void disconnect_signals();
         void clear_models() const;

@@ -25,6 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
+        SPDLOG_DEBUG("orderbook::adjust_vol");
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
