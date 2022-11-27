@@ -1182,13 +1182,13 @@ namespace atomic_dex
         mm2::to_json(preimage_request, req);
         batch.push_back(preimage_request);
         preimage_request["userpass"] = "******";
-        SPDLOG_DEBUG("trade_preimage request: {}", preimage_request.dump(-1));
+        // SPDLOG_DEBUG("trade_preimage request: {}", preimage_request.dump(-1));
 
         this->set_preimage_busy(true);
         auto answer_functor = [this, &mm2](web::http::http_response resp)
         {
             std::string body = TO_STD_STR(resp.extract_string(true).get());
-            SPDLOG_DEBUG("trade_preimage answer received: {}", body);
+            // SPDLOG_DEBUG("trade_preimage answer received: {}", body);
             if (resp.status_code() == web::http::status_codes::OK)
             {
                 auto           answers               = nlohmann::json::parse(body);
