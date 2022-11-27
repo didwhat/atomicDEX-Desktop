@@ -76,8 +76,9 @@ namespace atomic_dex
     void
     trading_page::set_current_orderbook(const QString& base, const QString& rel)
     {
-        if (base.toStdString() == "" || rel.toStdString() == "")
+        if (base.toStdString() == "" || rel.toStdString() == "" || rel == base)
         {
+            SPDLOG_WARN("Cant set pair to same tickers {}/{} (base/rel)", base.toStdString(), rel.toStdString());
             return;
         }
         if (bool is_wallet_only = m_system_manager.get_system<mm2_service>().get_coin_info(base.toStdString()).wallet_only; is_wallet_only)
@@ -85,7 +86,7 @@ namespace atomic_dex
             SPDLOG_WARN("{} is wallet only - skipping", base.toStdString());
             return;
         }
-        SPDLOG_DEBUG("Setting current orderbook: {} / {} (base/rel)", base.toStdString(), rel.toStdString());
+        SPDLOG_DEBUG("Setting current orderbook: {}/{} (base/rel)", base.toStdString(), rel.toStdString());
         auto* market_selector_mdl = get_market_pairs_mdl();
 
         const bool to_change = base != market_selector_mdl->get_left_selected_coin() || rel != market_selector_mdl->get_right_selected_coin();
@@ -96,7 +97,7 @@ namespace atomic_dex
 
         if (to_change)
         {
-            SPDLOG_DEBUG("set_current_orderbook");
+            SPDLOG_DEBUG("Clearing orerbook and current_orderbook forms...");
             this->get_orderbook_wrapper()->clear_orderbook();
             this->clear_forms("set_current_orderbook");
         }
@@ -969,7 +970,7 @@ namespace atomic_dex
     bool
     trading_page::set_pair(bool is_left_side, const QString& changed_ticker)
     {
-        SPDLOG_INFO("Changed ticker: {}", changed_ticker.toStdString());
+        SPDLOG_INFO("changing {} ticker: {}", is_left_side ? "left" : "right", changed_ticker.toStdString());
         const auto* market_pair = get_market_pairs_mdl();
         auto        base        = market_pair->get_left_selected_coin();
         auto        rel         = market_pair->get_right_selected_coin();
