@@ -24,7 +24,6 @@ Item
 
     Component.onCompleted:
     {
-        API.app.trading_pg.on_gui_enter_dex()
         if (dashboard.current_ticker!==undefined)
         {
             onOpened(dashboard.current_ticker)
@@ -35,8 +34,6 @@ Item
         }
         dashboard.current_ticker = undefined
     }
-
-    Component.onDestruction: API.app.trading_pg.on_gui_leave_dex()
 
     readonly property bool block_everything: swap_cooldown.running
                                              || fetching_multi_ticker_fees_busy
