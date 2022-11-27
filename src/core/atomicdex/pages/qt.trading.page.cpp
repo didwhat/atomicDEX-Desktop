@@ -85,7 +85,7 @@ namespace atomic_dex
             SPDLOG_WARN("{} is wallet only - skipping", base.toStdString());
             return;
         }
-        SPDLOG_DEBUG("Setting current orderbook: {} / {}", base.toStdString(), rel.toStdString());
+        SPDLOG_DEBUG("Setting current orderbook: {} / {} (base/rel)", base.toStdString(), rel.toStdString());
         auto* market_selector_mdl = get_market_pairs_mdl();
 
         const bool to_change = base != market_selector_mdl->get_left_selected_coin() || rel != market_selector_mdl->get_right_selected_coin();
