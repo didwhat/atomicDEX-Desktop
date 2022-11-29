@@ -80,6 +80,7 @@ ClipRRect // Trade Card
 
     Connections
     {
+        enabled: parent.enabled
         target: Constants.API.app.trading_pg.orderbook.bids
 
         function onBetterOrderDetected(newOrder)
@@ -650,7 +651,7 @@ ClipRRect // Trade Card
 
                 DexGradientAppButton
                 {
-                    enabled: !Constants.API.app.trading_pg.preimage_rpc_busy && !_swapAlert.visible
+                    enabled: parent.enabled && !Constants.API.app.trading_pg.preimage_rpc_busy && !_swapAlert.visible
                     opacity: enabled ? 1 : .6
                     radius: 10
                     anchors.fill: parent
@@ -665,6 +666,7 @@ ClipRRect // Trade Card
 
                     Connections
                     {
+                        enabled: parent.enabled
                         target: exchange_trade
                         function onBuy_sell_rpc_busyChanged()
                         {
