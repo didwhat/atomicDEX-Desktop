@@ -106,7 +106,7 @@ Widget
         RowLayout
         {
             id: orderSelection
-            visible: API.app.trading_pg.preffered_order.price !== undefined
+            visible: API.app.trading_pg.preferred_order.price !== undefined
             anchors.fill: parent
             anchors.verticalCenter: parent.verticalCenter
 
@@ -139,7 +139,7 @@ Widget
 
         Rectangle
         {
-            visible: API.app.trading_pg.preffered_order.price !== undefined
+            visible: API.app.trading_pg.preferred_order.price !== undefined
             anchors.fill: parent
             radius: 8
             color: 'transparent'

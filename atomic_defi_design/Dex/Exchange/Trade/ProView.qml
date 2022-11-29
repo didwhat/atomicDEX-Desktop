@@ -50,7 +50,7 @@ RowLayout
     {
         setMarketMode(!is_asks ? MarketMode.Sell : MarketMode.Buy)
 
-        API.app.trading_pg.preffered_order = {
+        API.app.trading_pg.preferred_order = {
             "coin": coin,
             "price": price,
             "quantity": quantity,

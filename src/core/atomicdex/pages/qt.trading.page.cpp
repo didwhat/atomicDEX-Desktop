@@ -52,6 +52,7 @@ namespace atomic_dex
     void
     trading_page::on_process_orderbook_finished_event(const atomic_dex::process_orderbook_finished& evt)
     {
+        SPDLOG_DEBUG("trading_page::on_process_orderbook_finished_event")
         if (!m_about_to_exit_the_app)
         {
             m_actions_queue.push(trading_actions::post_process_orderbook_finished);
@@ -625,6 +626,7 @@ namespace atomic_dex
     void
     trading_page::set_price(QString price)
     {
+        SPDLOG_DEBUG("set_price")
         if (price.isEmpty())
         {
             price = "0";
@@ -636,21 +638,25 @@ namespace atomic_dex
             {
                 SPDLOG_WARN("releasing preferred order because price has been modified");
                 this->m_preferred_order = std::nullopt;
-                emit prefferedOrderChanged();
+                emit preferredOrderChanged();
             }
 
             //! When price change in MarketMode::Buy you want to redetermine max_volume
             if (m_market_mode == MarketMode::Buy)
             {
+                SPDLOG_DEBUG("determine_max_volume() from setprice() because m_market_mode == MarketMode::Buy");
                 this->determine_max_volume();
             }
 
+            SPDLOG_DEBUG("determine_total_amount() from setprice()");
             this->determine_total_amount();
 
             if (this->m_preferred_order.has_value())
             {
                 this->m_preferred_order.value()["locked"] = true;
             }
+
+            SPDLOG_DEBUG("determine_cex_rates() from setprice()");
             this->determine_cex_rates();
             emit priceChanged();
             emit priceReversedChanged();
@@ -699,7 +705,7 @@ namespace atomic_dex
         emit invalidCexPriceChanged();
         emit cexPriceReversedChanged();
         emit feesChanged();
-        emit prefferedOrderChanged();
+        emit preferredOrderChanged();
         emit priceChanged();
         emit priceReversedChanged();
     }
@@ -1060,7 +1066,7 @@ namespace atomic_dex
         {
             SPDLOG_DEBUG("preferred_order: {}", preferred_order.dump(-1));
             m_preferred_order = std::move(preferred_order);
-            emit prefferedOrderChanged();
+            emit preferredOrderChanged();
             if (!m_preferred_order->empty() && m_preferred_order->contains("price"))
             {
                 m_preferred_order->operator[]("capped") = false;
