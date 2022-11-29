@@ -183,7 +183,10 @@ DexListView
             {
                 Layout.preferredWidth: _quantityColumnSize
                 horizontalAlignment: Text.AlignRight
-                text_value: parseFloat(General.formatDouble(quantity, General.amountPrecision, true)).toFixed(8)
+                text_value: {
+                    console.log("Quantity: " + quantity)
+                    parseFloat(General.formatDouble(quantity, General.amountPrecision, true)).toFixed(8)
+                }
                 font.pixelSize: 14
             }
 

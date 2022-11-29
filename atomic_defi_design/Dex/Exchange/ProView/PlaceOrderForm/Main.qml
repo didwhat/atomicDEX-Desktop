@@ -125,7 +125,11 @@ Widget
                 Layout.preferredWidth: 30
                 Layout.rightMargin: 5
                 foregroundColor: Dex.CurrentTheme.noColor
-                onClicked: API.app.trading_pg.reset_order()
+                onClicked:
+                {
+                    console.log("Resetting order on red selected order cancel box")
+                    API.app.trading_pg.reset_order()
+                } 
 
                 Qaterial.ColorIcon
                 {

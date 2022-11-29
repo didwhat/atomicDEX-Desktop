@@ -7,6 +7,7 @@ import QtQuick.Controls 2.15
 import Qaterial 1.0 as Qaterial
 
 //! Project Imports
+import AtomicDEX.TradingMode 1.0
 import AtomicDEX.TradingError 1.0
 import AtomicDEX.SelectedOrderStatus 1.0
 import "../../../Components"
@@ -31,7 +32,11 @@ ClipRRect // Trade Card
     {
         if (typeof selectedOrder !== 'undefined' && selectedOrder.from_best_order) Constants.API.app.trading_pg.orderbook.select_best_order(selectedOrder.uuid)
         else if (typeof selectedOrder !== 'undefined') Constants.API.app.trading_pg.preferred_order = selectedOrder
-        else Constants.API.app.trading_pg.reset_order()
+        else if (API.app.trading_pg.current_trading_mode == TradingMode.Simple)
+        {
+            console.log("Resetting order for simple view")
+            Constants.API.app.trading_pg.reset_order()
+        }
 
         Constants.API.app.trading_pg.determine_fees()
     }

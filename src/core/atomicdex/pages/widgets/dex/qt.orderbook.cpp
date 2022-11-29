@@ -111,7 +111,7 @@ namespace atomic_dex
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
         {
-            SPDLOG_INFO("selected best orders have a value - set preferred order");
+            SPDLOG_DEBUG("qt_orderbook_wrapper::reset_orderbook -> set_preferred_order because selected best orders have a value");
             m_system_manager.get_system<trading_page>().set_preferred_order(m_selected_best_order->value());
             m_selected_best_order = std::nullopt;
         }
@@ -219,7 +219,7 @@ namespace atomic_dex
             auto right_coin = trading_pg.get_market_pairs_mdl()->get_right_selected_coin();
             if (right_coin == out.value("coin").toString())
             {
-                SPDLOG_INFO("Selected order is from the same pair, overriding preferred_order");
+                SPDLOG_DEBUG("qt_orderbook_wrapper::select_best_order -> set_preferred_order because selected order is from the same pair so overwriting");
                 trading_pg.set_preferred_order(out);
             }
             else
