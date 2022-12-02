@@ -48,6 +48,8 @@ namespace atomic_dex
         {
         case orderbook_model::PriceRole:
             return safe_float(left_data.toString().toStdString()) < safe_float(right_data.toString().toStdString());
+        case orderbook_model::QuantityRole:
+            break;
         case orderbook_model::TotalRole:
             break;
         case orderbook_model::UUIDRole:
@@ -59,6 +61,10 @@ namespace atomic_dex
         case orderbook_model::PriceNumerRole:
             break;
         case orderbook_model::PercentDepthRole:
+            break;
+        case orderbook_model::QuantityDenomRole:
+            break;
+        case orderbook_model::QuantityNumerRole:
             break;
         case orderbook_model::CoinRole:
             break;
