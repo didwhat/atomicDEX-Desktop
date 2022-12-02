@@ -2101,6 +2101,7 @@ namespace atomic_dex
         }
     }
 
+    void
     mm2_service::on_gui_enter_trading([[maybe_unused]] const gui_enter_trading& evt)
     {
         SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, fs::path(__FILE__).filename().string());
