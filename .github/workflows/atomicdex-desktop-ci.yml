@@ -32,7 +32,7 @@ jobs:
 
         include:
           - name: ubuntu-release
-            os: ubuntu-latest
+            os: ubuntu-20.04
             qt: '5.15.2'
             type: 'Release'
             host: 'linux'
