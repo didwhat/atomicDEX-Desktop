@@ -25,7 +25,7 @@ sudo apt-get install build-essential \
                     libxcb-keysyms1-dev \
                     libxcb-render-util0-dev \
                     libxcb-xinerama0 \
-                    libgstreamer-plugins-base1.0-dev \
+#                    libgstreamer-plugins-base1.0-dev \
                     git -y
                     
 # get llvm
