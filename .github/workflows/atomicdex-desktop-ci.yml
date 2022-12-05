@@ -38,7 +38,7 @@ jobs:
             host: 'linux'
 
           - name: ubuntu-debug
-            os: ubuntu-latest
+            os: ubuntu-20.04
             qt: '5.15.2'
             type: 'Debug'
             host: 'linux'
