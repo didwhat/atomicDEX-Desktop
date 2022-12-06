@@ -96,7 +96,7 @@ namespace atomic_dex
         market_selector_mdl->set_base_selected_coin(m_market_mode == MarketMode::Sell ? base : rel);
         market_selector_mdl->set_rel_selected_coin(m_market_mode == MarketMode::Sell ? rel : base);
 
-        if (to_change)
+        if (to_change && m_current_trading_mode != TradingModeGadget::Simple)
         {
             SPDLOG_DEBUG("Clearing orerbook and current_orderbook forms...");
             this->get_orderbook_wrapper()->clear_orderbook();
@@ -492,6 +492,7 @@ namespace atomic_dex
                     if (m_models_actions[orderbook_need_a_reset] && this->m_current_trading_mode == TradingModeGadget::Pro)
                     {
                         SPDLOG_DEBUG("process_trading_actions -> set_preferred_settings() because m_models_actions[orderbook_need_a_reset] && this->m_current_trading_mode == TradingModeGadget::Pro");
+                        // This goes to a function which looks like it is for bot trading. Do we need to run it at this stage?
                         this->set_preferred_settings();
                     }
                     else
@@ -689,7 +690,7 @@ namespace atomic_dex
             SPDLOG_DEBUG("ZEROING set_price() set_max_volume() m_minimal_trading_amount set_volume() from trading_page::clear_forms()");
             this->set_price("0");
             this->set_max_volume("0");
-            m_minimal_trading_amount = "0";
+            m_minimal_trading_amount = "0.00777";
             emit minTradeVolChanged();
             this->set_volume("0");
         }
@@ -741,11 +742,6 @@ namespace atomic_dex
 
             SPDLOG_DEBUG("refresh_best_orders() from set_volume()");
             this->get_orderbook_wrapper()->refresh_best_orders();
-            if (!m_price.isEmpty() || m_price != "0")
-            {
-                SPDLOG_DEBUG("determine_fees() from set_volume()");
-                this->determine_fees();
-            }
         }
     }
 
@@ -1105,10 +1101,7 @@ namespace atomic_dex
                     SPDLOG_DEBUG("set_volume() from trading_page::set_preferred_order() (SIMPLE)");
                     this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
                 }
-                SPDLOG_DEBUG("refresh_best_orders() from trading_page::set_preferred_order()");
                 this->get_orderbook_wrapper()->refresh_best_orders();
-                SPDLOG_DEBUG("determine_fees() from trading_page::set_preferred_order()");
-                this->determine_fees();
                 emit preferredOrderChangeFinished();
             }
         }
@@ -1199,23 +1192,27 @@ namespace atomic_dex
         const auto  rel         = market_pair->get_right_selected_coin().toStdString();
         const auto  swap_method = m_market_mode == MarketMode::Sell ? "sell"s : "buy"s;
         std::string volume      = get_volume().toStdString();
+        std::string price       = get_price().toStdString();
 
-        if (base == rel)
+        if (base == rel) // trade_preimage::BaseEqualRel 
         {
             return;
         }
-        if (volume == "0")
+        if (volume == "0") // trade_preimage::VolumeTooLow (can also occur if trade vol + fees is > balance)
         {
-            volume = "0.0001";
+            return;
+        }
+        if (std::stof(price) < 0.00000001) // trade_preimage::PriceTooLow
+        {
+            return;
         }
 
-        SPDLOG_DEBUG("get_volume().toStdString(): {}", get_volume().toStdString());
         t_trade_preimage_request req{
             .base_coin = base,
             .rel_coin = rel,
             .swap_method = swap_method,
             .volume = volume,
-            .price = get_price().toStdString()
+            .price = price
         };
 
         nlohmann::json batch;
@@ -1354,6 +1351,10 @@ namespace atomic_dex
             else if (safe_float(m_volume.toStdString()) < safe_float(cur_min_taker_vol) && !is_selected_min_max)
             {
                 current_trading_error = TradingError::VolumeIsLowerThanTheMinimum;
+            }
+            else if (safe_float(m_total_amount.toStdString()) < 0.00777)
+            {
+                current_trading_error = TradingError::ReceiveVolumeIsLowerThanTheMinimum;
             }
             else
             {
@@ -1522,6 +1523,10 @@ namespace atomic_dex
             // SPDLOG_WARN("Spurious min_diff detected - (not) overriding immediately (using get_orderbook_wrapper()->get_current_min_taker_vol())");
             // min_trade_vol = get_orderbook_wrapper()->get_current_min_taker_vol();
         //}
+        if (safe_float(min_taker_vol) < 0.00777)
+        {
+            min_trade_vol = "0.00777";
+        }
 
         if (min_trade_vol != m_minimal_trading_amount)
         {

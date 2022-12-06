@@ -98,13 +98,14 @@ Item
                                                      General.default_rel)
         }
         setPair(true, ticker)
+        // triggers chart reload
         app.pairChanged(base_ticker, rel_ticker)
     }
 
-    function setPair(is_left_side, changed_ticker) {
+    function setPair(is_left_side, changed_ticker, is_swap=false) {
         swap_cooldown.restart()
-
-        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker))
+        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, is_swap))
+            // triggers chart reload
             app.pairChanged(base_ticker, rel_ticker)
     }
 
