@@ -36,7 +36,7 @@ Widget
         function onPreImageRpcStatusChanged(){
             // console.log("onPreImageRpcStatusChanged::preimage_rpc_busy: " + API.app.trading_pg.preimage_rpc_busy)
         }
-        function onPrefferedOrderChanged(){
+        function onpreferredOrderChanged(){
             reset_fees_state()
         }
     }

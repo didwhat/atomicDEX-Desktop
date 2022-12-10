@@ -573,15 +573,15 @@ namespace atomic_dex
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
             {
                 auto&      trading_pg      = m_system_mgr.get_system<trading_page>();
-                const auto preffered_order = trading_pg.get_preferred_order();
-                if (!preffered_order.empty())
+                const auto preferred_order = trading_pg.get_preferred_order();
+                if (!preferred_order.empty())
                 {
-                    const auto selected_order_uuid = preffered_order.value("uuid", "").toString().toStdString();
+                    const auto selected_order_uuid = preferred_order.value("uuid", "").toString().toStdString();
                     if (selected_order_uuid == uuid_to_be_removed)
                     {
                         SPDLOG_WARN(
                             "The selected order uuid: {} is removed from the orderbook model, checking if a better order is available", uuid_to_be_removed);
-                        check_for_better_order(trading_pg, preffered_order, selected_order_uuid);
+                        check_for_better_order(trading_pg, preferred_order, selected_order_uuid);
                     }
                 }
             }

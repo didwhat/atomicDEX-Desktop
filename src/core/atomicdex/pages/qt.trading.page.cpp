@@ -1070,41 +1070,38 @@ namespace atomic_dex
         return {};
     }
 
-    void
-    trading_page::set_preferred_order(const QVariantMap& price_object)
+    void trading_page::set_preferred_order(const QVariantMap& price_object)
     {
-        SPDLOG_DEBUG("trading_page::set_preferred_order()");
-        if (auto preferred_order = nlohmann::json::parse(QString(QJsonDocument(QJsonObject::fromVariantMap(price_object)).toJson()).toStdString());
-            preferred_order != m_preferred_order)
+        auto preferred_order = nlohmann::json::parse(QString(QJsonDocument(QJsonObject::fromVariantMap(price_object)).toJson()).toStdString());
+        if (preferred_order == m_preferred_order)
         {
-            SPDLOG_DEBUG("preferred_order: {}", preferred_order.dump(-1));
-            m_preferred_order = std::move(preferred_order);
-            emit preferredOrderChanged();
-            if (!m_preferred_order->empty() && m_preferred_order->contains("price"))
-            {
-                m_preferred_order->operator[]("capped") = false;
-                SPDLOG_DEBUG("setprice() from trading_page::set_preferred_order()");
-                this->set_price(QString::fromStdString(utils::format_float(safe_float(m_preferred_order->at("price").get<std::string>()))));
-                SPDLOG_DEBUG("determine_max_volume() from trading_page::set_preferred_order()");
-                this->determine_max_volume();
-                QString min_vol = QString::fromStdString(utils::format_float(safe_float(m_preferred_order->at("base_min_volume").get<std::string>())));
-                SPDLOG_DEBUG("set_min_trade_vol() from trading_page::set_preferred_order()");
-                this->set_min_trade_vol(min_vol);
-                auto available_quantity = m_preferred_order->at("base_max_volume").get<std::string>();
-                if (this->m_current_trading_mode == TradingModeGadget::Pro)
-                {
-                    SPDLOG_DEBUG("set_volume() from trading_page::set_preferred_order() (PRO)");
-                    this->set_volume(QString::fromStdString(utils::extract_large_float(available_quantity)));
-                }
-                else if (this->m_current_trading_mode == TradingModeGadget::Simple && m_preferred_order->contains("initial_input_volume"))
-                {
-                    SPDLOG_DEBUG("set_volume() from trading_page::set_preferred_order() (SIMPLE)");
-                    this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
-                }
-                this->get_orderbook_wrapper()->refresh_best_orders();
-                emit preferredOrderChangeFinished();
-            }
+            return;
         }
+        SPDLOG_DEBUG("preferred_order: {}", preferred_order.dump(-1));
+        m_preferred_order = std::move(preferred_order);
+        emit preferredOrderChanged();
+        if (!m_preferred_order->empty() && m_preferred_order->contains("price"))
+        {
+            m_preferred_order->operator[]("capped") = false;
+            this->set_price(QString::fromStdString(utils::format_float(safe_float(m_preferred_order->at("price").get<std::string>()))));
+            this->determine_max_volume();
+            QString min_vol = QString::fromStdString(utils::format_float(safe_float(m_preferred_order->at("base_min_volume").get<std::string>())));
+            this->set_min_trade_vol(min_vol);
+            auto available_quantity = m_preferred_order->at("base_max_volume").get<std::string>();
+            if (this->m_current_trading_mode == TradingModeGadget::Pro)
+            {
+                SPDLOG_DEBUG("set_volume() from trading_page::set_preferred_order() (PRO)");
+                this->set_volume(QString::fromStdString(utils::extract_large_float(available_quantity)));
+            }
+            else if (this->m_current_trading_mode == TradingModeGadget::Simple && m_preferred_order->contains("initial_input_volume"))
+            {
+                SPDLOG_DEBUG("From simple view, using initial_input_volume from selection to use.");
+                this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
+            }
+            this->get_orderbook_wrapper()->refresh_best_orders();
+            this->determine_fees();
+        }
+        emit preferredOrderChangeFinished();
     }
 
     QString
