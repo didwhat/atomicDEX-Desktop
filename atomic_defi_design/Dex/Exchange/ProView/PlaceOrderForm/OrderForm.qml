@@ -153,8 +153,8 @@ ColumnLayout
             left_label: General.formatDouble(API.app.trading_pg.max_volume) * 0.25 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Min") : "25%"
             middle_label: General.formatDouble(API.app.trading_pg.max_volume) * 0.5 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Min") : "50%"
             right_label:  qsTr("Max")
-            left_tooltip_text:  qsTr("Swap 25% of your tradable balance.")
-            middle_tooltip_text:  qsTr("Swap 50% of your tradable balance.")
+            left_tooltip_text: General.formatDouble(API.app.trading_pg.max_volume) * 0.25 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Use minimum order volume") : qsTr("Swap 25% of your tradable balance.")
+            middle_tooltip_text: General.formatDouble(API.app.trading_pg.max_volume) * 0.5 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Use minimum order volume") : qsTr("Swap 50% of your tradable balance.")
             right_tooltip_text:  qsTr("Swap 100% of your tradable balance.")
         }
     }
