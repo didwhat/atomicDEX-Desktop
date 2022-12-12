@@ -570,6 +570,19 @@ QtObject {
         })
     }
 
+    function setVolume(vol, min_vol) {
+        vol = General.formatDouble(vol)
+        min_vol = General.formatDouble(min_vol)
+        if (min_vol > vol && vol != 0)
+        {
+            API.app.trading_pg.volume = String(min_vol)
+        }
+        else
+        {
+            API.app.trading_pg.volume = String(vol)
+        }
+    }
+
     function getMinTradeAmount() {
         return formatDouble(API.app.trading_pg.min_trade_vol, 8, false).toString()
     }

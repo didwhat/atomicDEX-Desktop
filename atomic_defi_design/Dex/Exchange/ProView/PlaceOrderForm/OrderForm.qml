@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 
 import "../../../Components"
+import "../../../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
@@ -124,7 +125,7 @@ ColumnLayout
             right_text: left_ticker
             placeholderText: sell_mode ? qsTr("Amount to sell") : qsTr("Amount to receive")
             text: API.app.trading_pg.volume
-            onTextChanged: setVolume(text)
+            onTextChanged: General.setVolume(input_volume.text, API.app.trading_pg.min_trade_vol)
         }
 
         OrderFormSubfield
@@ -135,18 +136,18 @@ ColumnLayout
             anchors.topMargin: subfield_margin
             left_btn.onClicked:
             {
-                let volume = General.formatDouble(API.app.trading_pg.max_volume * 0.25)
-                setVolume(String(volume))
+                let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.25
+                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
             middle_btn.onClicked:
             {
-                let volume = General.formatDouble(API.app.trading_pg.max_volume * 0.5)
-                setVolume(String(volume))
+                let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.5
+                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
             right_btn.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume)
-                setVolume(String(volume))
+                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
             fiat_value: General.getFiatText(non_null_volume, left_ticker)
             left_label: "25%"
