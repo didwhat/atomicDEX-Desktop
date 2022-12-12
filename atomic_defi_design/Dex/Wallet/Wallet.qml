@@ -23,6 +23,7 @@ RowLayout
     // Local
     function onClickedSwap()
     {
+        console.log("Going to DEX page from wallet")
         dashboard.switchPage(Dashboard.PageType.DEX)
         dashboard.current_ticker = api_wallet_page.ticker
         API.app.trading_pg.set_pair(true, api_wallet_page.ticker)

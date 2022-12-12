@@ -25,6 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
+        SPDLOG_DEBUG("orderbook::adjust_vol");
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -115,7 +116,7 @@ namespace atomic_dex
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
         {
-            SPDLOG_INFO("selected best orders have a value - set preffered order");
+            SPDLOG_DEBUG("qt_orderbook_wrapper::reset_orderbook -> set_preferred_order because selected best orders have a value");
             m_system_manager.get_system<trading_page>().set_preferred_order(m_selected_best_order->value());
             m_selected_best_order = std::nullopt;
         }
@@ -219,7 +220,7 @@ namespace atomic_dex
             auto right_coin = trading_pg.get_market_pairs_mdl()->get_right_selected_coin();
             if (right_coin == out.value("coin").toString())
             {
-                SPDLOG_INFO("Selected order is from the same pair, overriding preffered_order");
+                SPDLOG_DEBUG("qt_orderbook_wrapper::select_best_order -> set_preferred_order because selected order is from the same pair so overwriting");
                 trading_pg.set_preferred_order(out);
             }
             else
@@ -256,11 +257,11 @@ namespace atomic_dex
     {
         QString    cur_taker_vol   = get_base_min_taker_vol();
         auto&      trading_pg      = m_system_manager.get_system<trading_page>();
-        auto       preffered_order = trading_pg.get_raw_preferred_order();
+        auto       preferred_order = trading_pg.get_raw_preferred_order();
         t_float_50 price_f         = safe_float(trading_pg.get_price().toStdString());
-        if (preffered_order.has_value())
+        if (preferred_order.has_value())
         {
-            price_f = safe_float(preffered_order->at("price").get<std::string>());
+            price_f = safe_float(preferred_order->at("price").get<std::string>());
         }
         // if (trading_pg.)
         if (price_f <= 0)
@@ -276,9 +277,9 @@ namespace atomic_dex
         // t_float_50 cur_min_volume_f       = safe_float(trading_pg.get_min_trade_vol().toStdString());
         cur_taker_vol = QString::fromStdString(utils::format_float(base_min_vol_threshold));
 
-        if (preffered_order.has_value())
+        if (preferred_order.has_value())
         {
-            cur_taker_vol = QString::fromStdString(preffered_order->at("base_min_volume").get<std::string>());
+            cur_taker_vol = QString::fromStdString(preferred_order->at("base_min_volume").get<std::string>());
             // SPDLOG_INFO("Overriding min_volume with the one from orderbook: {}", cur_taker_vol.toStdString());
         }
 

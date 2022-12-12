@@ -52,6 +52,7 @@ namespace atomic_dex
     void
     trading_page::on_process_orderbook_finished_event(const atomic_dex::process_orderbook_finished& evt)
     {
+        SPDLOG_DEBUG("trading_page::on_process_orderbook_finished_event");
         if (!m_about_to_exit_the_app)
         {
             m_actions_queue.push(trading_actions::post_process_orderbook_finished);
@@ -76,8 +77,9 @@ namespace atomic_dex
     void
     trading_page::set_current_orderbook(const QString& base, const QString& rel)
     {
-        if (base.toStdString() == "" || rel.toStdString() == "")
+        if (base.toStdString() == "" || rel.toStdString() == "" || rel == base)
         {
+            SPDLOG_WARN("Cant set pair to same tickers {}/{} (base/rel)", base.toStdString(), rel.toStdString());
             return;
         }
         if (bool is_wallet_only = m_system_manager.get_system<mm2_service>().get_coin_info(base.toStdString()).wallet_only; is_wallet_only)
@@ -85,7 +87,7 @@ namespace atomic_dex
             SPDLOG_WARN("{} is wallet only - skipping", base.toStdString());
             return;
         }
-        SPDLOG_DEBUG("Setting current orderbook: {} / {}", base.toStdString(), rel.toStdString());
+        SPDLOG_DEBUG("Setting current orderbook: {}/{} (base/rel)", base.toStdString(), rel.toStdString());
         auto* market_selector_mdl = get_market_pairs_mdl();
 
         const bool to_change = base != market_selector_mdl->get_left_selected_coin() || rel != market_selector_mdl->get_right_selected_coin();
@@ -96,7 +98,7 @@ namespace atomic_dex
 
         if (to_change && m_current_trading_mode != TradingModeGadget::Simple)
         {
-            SPDLOG_DEBUG("set_current_orderbook");
+            SPDLOG_DEBUG("Clearing orerbook and current_orderbook forms...");
             this->get_orderbook_wrapper()->clear_orderbook();
             this->clear_forms("set_current_orderbook");
         }
@@ -468,12 +470,10 @@ namespace atomic_dex
     }
 
     void
-    trading_page::process_action()
+    trading_page::process_trading_actions()
     {
-        if (m_actions_queue.empty() || m_about_to_exit_the_app)
-        {
-            return;
-        }
+
+        SPDLOG_DEBUG("Processing trading actions");
         const auto&     mm2_system = m_system_manager.get_system<mm2_service>();
         trading_actions last_action;
         this->m_actions_queue.pop(last_action);
@@ -481,8 +481,10 @@ namespace atomic_dex
         {
             switch (last_action)
             {
+
             case trading_actions::post_process_orderbook_finished:
             {
+                SPDLOG_DEBUG("trading_actions::post_process_orderbook_finished");
                 std::error_code    ec;
                 t_orderbook_answer result = mm2_system.get_orderbook(ec);
                 
@@ -493,23 +495,27 @@ namespace atomic_dex
 
                     if (m_models_actions[orderbook_need_a_reset] && this->m_current_trading_mode == TradingModeGadget::Pro)
                     {
-                        // This goes to a function which looks like it is for bot trading. We dont need to run it at this stage.
-                        // this->set_preferred_settings();
+                        SPDLOG_DEBUG("process_trading_actions -> set_preferred_settings() because m_models_actions[orderbook_need_a_reset] && this->m_current_trading_mode == TradingModeGadget::Pro");
+                        // This goes to a function which looks like it is for bot trading. Do we need to run it at this stage?
+                        this->set_preferred_settings();
                     }
                     else
                     {
                         const auto base_max_taker_vol = safe_float(wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
                         auto       rel_max_taker      = wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString();
+                        const auto rel_max_taker_vol  = safe_float(rel_max_taker);
+
                         if (rel_max_taker.empty())
                         {
                             rel_max_taker = "0";
                         }
-                        const auto rel_max_taker_vol = safe_float(rel_max_taker);
+
                         t_float_50 min_vol           = safe_float(m_minimal_trading_amount.toStdString());
                         auto       adjust_functor    = [this, wrapper]()
                         {
                             if (m_post_clear_forms && this->m_current_trading_mode == TradingModeGadget::Pro)
                             {
+                                SPDLOG_DEBUG("determine_max_volume, set_volume, set_min_trade_vol - because m_post_clear_forms && this->m_current_trading_mode == TradingModeGadget::Pro");
                                 this->determine_max_volume();
                                 this->set_volume(get_max_volume());
                                 this->set_min_trade_vol(wrapper->get_current_min_taker_vol());
@@ -626,6 +632,7 @@ namespace atomic_dex
     void
     trading_page::set_price(QString price)
     {
+        SPDLOG_DEBUG("set_price");
         if (price.isEmpty())
         {
             price = "0";
@@ -638,21 +645,25 @@ namespace atomic_dex
             {
                 SPDLOG_WARN("releasing preferred order because price has been modified");
                 this->m_preferred_order = std::nullopt;
-                emit prefferedOrderChanged();
+                emit preferredOrderChanged();
             }
 
             //! When price change in MarketMode::Buy you want to redetermine max_volume
             if (m_market_mode == MarketMode::Buy)
             {
+                SPDLOG_DEBUG("determine_max_volume() from setprice() because m_market_mode == MarketMode::Buy");
                 this->determine_max_volume();
             }
 
+            SPDLOG_DEBUG("determine_total_amount() from setprice()");
             this->determine_total_amount();
 
             if (this->m_preferred_order.has_value())
             {
                 this->m_preferred_order.value()["locked"] = true;
             }
+
+            SPDLOG_DEBUG("determine_cex_rates() from setprice()");
             this->determine_cex_rates();
             emit priceChanged();
             emit priceReversedChanged();
@@ -669,7 +680,7 @@ namespace atomic_dex
             SPDLOG_WARN("MM2 service not available, required to clear forms - skipping");
             return;
         }
-        SPDLOG_DEBUG("clearing forms : {}", from.toStdString());
+        SPDLOG_DEBUG("clearing forms from: {}", from.toStdString());
 
         if (m_preferred_order.has_value() && m_current_trading_mode == TradingModeGadget::Simple &&
             m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
@@ -682,6 +693,7 @@ namespace atomic_dex
         }
         else
         {
+            SPDLOG_DEBUG("ZEROING set_price() set_max_volume() m_minimal_trading_amount set_volume() from trading_page::clear_forms()");
             this->set_price("0");
             this->set_max_volume("0");
             m_minimal_trading_amount = "0.00777";
@@ -690,19 +702,22 @@ namespace atomic_dex
         }
         
         this->set_total_amount("0");
+        SPDLOG_DEBUG("set_trading_error() from clear_forms()");
         this->set_trading_error(TradingError::None);
         this->m_preferred_order  = std::nullopt;
         this->m_fees             = QVariantMap();
         this->m_cex_price        = "0";
         this->m_post_clear_forms = true;
         this->set_selected_order_status(SelectedOrderStatus::None);
+        SPDLOG_DEBUG("reset_fees() from clear_forms()");
         this->reset_fees();
+        SPDLOG_DEBUG("determine_cex_rates() from clear_forms()");
         this->determine_cex_rates();
         emit cexPriceChanged();
         emit invalidCexPriceChanged();
         emit cexPriceReversedChanged();
         emit feesChanged();
-        emit prefferedOrderChanged();
+        emit preferredOrderChanged();
         emit priceChanged();
         emit priceReversedChanged();
     }
@@ -723,12 +738,16 @@ namespace atomic_dex
                 volume = "0";
             }
             m_volume = std::move(volume);
-            SPDLOG_DEBUG("volume is : [{}]", m_volume.toStdString());
+            SPDLOG_DEBUG("set_volume to: [{}]", m_volume.toStdString());
 
+            SPDLOG_DEBUG("determine_total_amount() from set_volume()");
             this->determine_total_amount();
             emit volumeChanged();
+
+            SPDLOG_DEBUG("cap_volume() from set_volume()");
             this->cap_volume();
 
+            SPDLOG_DEBUG("refresh_best_orders() from set_volume()");
             this->get_orderbook_wrapper()->refresh_best_orders();
         }
     }
@@ -744,9 +763,9 @@ namespace atomic_dex
     {
         if (m_max_volume != max_volume)
         {
+            SPDLOG_DEBUG("set_max_volume to: [{}]", m_max_volume.toStdString());
             max_volume   = QString::fromStdString(utils::extract_large_float(max_volume.toStdString()));
             m_max_volume = std::move(max_volume);
-            SPDLOG_DEBUG("max_volume is [{}]", m_max_volume.toStdString());
             emit maxVolumeChanged();
         }
     }
@@ -754,6 +773,7 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
+        SPDLOG_DEBUG("determine_max_volume()");
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -803,6 +823,7 @@ namespace atomic_dex
                 }
 
                 //! Capping it
+                SPDLOG_DEBUG("cap_volume() from determine_max_volume() (SELL MODE)");
                 this->cap_volume();
             }
             else
@@ -851,7 +872,6 @@ namespace atomic_dex
                             this->set_max_volume(QString::fromStdString(utils::format_float(res_f)));
                         }
                     }
-                    this->cap_volume();
                 }
                 else
                 {
@@ -863,8 +883,9 @@ namespace atomic_dex
                         res = 0;
                     }
                     this->set_max_volume(QString::fromStdString(utils::format_float(res)));
-                    this->cap_volume();
                 }
+                SPDLOG_DEBUG("cap_volume() from determine_max_volume() (BUY MODE)");
+                this->cap_volume();
             }
         }
     }
@@ -876,15 +897,20 @@ namespace atomic_dex
          * cap_volume is called only in MarketMode::Buy, and in Sell mode if preferred order
          * if the current volume text field is > the new max_volume then set volume to max_volume
          */
-        if (auto std_volume = this->get_volume().toStdString();
-            !std_volume.empty() && safe_float(std_volume) > safe_float(this->get_max_volume().toStdString()))
+        auto max_volume = this->get_max_volume();
+        auto std_volume = this->get_volume();
+        if (!std_volume.toStdString().empty() && safe_float(std_volume.toStdString()) > safe_float(max_volume.toStdString()))
         {
-            auto max_volume = this->get_max_volume();
             if (!max_volume.isEmpty() && max_volume != "0")
             {
-                SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
-                this->set_volume(get_max_volume());
+                SPDLOG_DEBUG("set_volume() std_volume from cap_volume() because {} (volume) > {} (max_volume)", std_volume.toStdString(), max_volume.toStdString());
+                this->set_volume(max_volume);
             }
+        }
+        else
+        {
+            SPDLOG_DEBUG("set_volume() std_volume from cap_volume()");
+            this->set_volume(std_volume);
         }
     }
 
@@ -973,7 +999,8 @@ namespace atomic_dex
     bool
     trading_page::set_pair(bool is_left_side, const QString& changed_ticker)
     {
-        SPDLOG_INFO("Changed ticker: {}", changed_ticker.toStdString());
+        SPDLOG_DEBUG("trading_page::set_pair()");
+        SPDLOG_INFO("changing {} ticker: {}", is_left_side ? "left" : "right", changed_ticker.toStdString());
         const auto* market_pair = get_market_pairs_mdl();
         auto        base        = market_pair->get_left_selected_coin();
         auto        rel         = market_pair->get_right_selected_coin();
@@ -1015,6 +1042,7 @@ namespace atomic_dex
 
         if (is_swap)
         {
+            SPDLOG_DEBUG("swap_market_pair() from trading_page::set_pair()");
             swap_market_pair();
             base = market_pair->get_left_selected_coin();
             rel  = market_pair->get_right_selected_coin();
@@ -1027,9 +1055,11 @@ namespace atomic_dex
             }
             else
             {
+                SPDLOG_DEBUG("set_current_orderbook({}, {}) from trading_page::set_pair()", base.toStdString(), rel.toStdString());
                 set_current_orderbook(base, rel);
             }
         }
+        SPDLOG_DEBUG("determine_cex_rates() from trading_page::set_pair()");
         this->determine_cex_rates();
         emit priceChanged();
         emit priceReversedChanged();
@@ -1041,9 +1071,9 @@ namespace atomic_dex
     {
         if (m_preferred_order.has_value())
         {
+            SPDLOG_DEBUG("trading_page::get_preferred_order() has value");
             return nlohmann_json_object_to_qt_json_object(m_preferred_order.value()).toVariantMap();
         }
-
         return {};
     }
 
@@ -1056,7 +1086,7 @@ namespace atomic_dex
         }
         SPDLOG_DEBUG("preferred_order: {}", preferred_order.dump(-1));
         m_preferred_order = std::move(preferred_order);
-        emit prefferedOrderChanged();
+        emit preferredOrderChanged();
         if (!m_preferred_order->empty() && m_preferred_order->contains("price"))
         {
             m_preferred_order->operator[]("capped") = false;
@@ -1066,14 +1096,9 @@ namespace atomic_dex
             this->set_min_trade_vol(min_vol);
 
             if (this->m_current_trading_mode == TradingModeGadget::Pro)
-            {                
-                if (this->m_current_trading_mode == TradingModeGadget::Pro)
-                {
-                    auto available_quantity = m_preferred_order->at("base_max_volume").get<std::string>();
-                    this->set_volume(QString::fromStdString(utils::extract_large_float(available_quantity)));
-                }
-                this->get_orderbook_wrapper()->refresh_best_orders();
-                emit preferredOrderChangeFinished();
+            {
+                SPDLOG_DEBUG("set_volume() from trading_page::set_preferred_order() (PRO)");
+                this->set_volume(QString::fromStdString(utils::extract_large_float(m_preferred_order->at("base_max_volume").get<std::string>())));
             }
             else if (this->m_current_trading_mode == TradingModeGadget::Simple && m_preferred_order->contains("initial_input_volume"))
             {
@@ -1082,8 +1107,8 @@ namespace atomic_dex
             }
             this->get_orderbook_wrapper()->refresh_best_orders();
             this->determine_fees();
-            emit preferredOrderChangeFinished();
         }
+        emit preferredOrderChangeFinished();
     }
 
     QString
@@ -1095,6 +1120,7 @@ namespace atomic_dex
     void
     trading_page::set_total_amount(QString total_amount)
     {
+        SPDLOG_DEBUG("trading_page::set_total_amount()");
         if (m_total_amount != total_amount)
         {
             m_total_amount = std::move(total_amount);
@@ -1108,8 +1134,10 @@ namespace atomic_dex
     void
     trading_page::determine_total_amount()
     {
+        SPDLOG_DEBUG("trading_page::determine_total_amount()");
         if (!m_price.isEmpty() && !m_volume.isEmpty())
         {
+            SPDLOG_DEBUG("set_total_amount from trading_page::determine_total_amount()");
             this->set_total_amount(calculate_total_amount(m_price, m_volume));
             if (const std::string max_dust_str =
                     ((m_market_mode == MarketMode::Sell) ? get_orderbook_wrapper()->get_base_max_taker_vol() : get_orderbook_wrapper()->get_rel_max_taker_vol())
@@ -1118,6 +1146,7 @@ namespace atomic_dex
                         .toStdString();
                 !max_dust_str.empty())
             {
+                SPDLOG_DEBUG("determine_error_cases from trading_page::determine_total_amount()");
                 this->determine_error_cases();
             }
         }
@@ -1195,7 +1224,7 @@ namespace atomic_dex
         mm2::to_json(preimage_request, req);
         batch.push_back(preimage_request);
         preimage_request["userpass"] = "******";
-        SPDLOG_DEBUG("trade_preimage request: {}", preimage_request.dump(4));
+        // SPDLOG_DEBUG("trade_preimage request: {}", preimage_request.dump(-1));
 
         this->set_preimage_busy(true);
         auto answer_functor = [this, &mm2](web::http::http_response resp)
@@ -1246,6 +1275,7 @@ namespace atomic_dex
                     }
                     fees["total_fees"] = atomic_dex::nlohmann_json_array_to_qt_json_array(success_answer.total_fees);
 
+                    SPDLOG_DEBUG("set_fees from trading_page::determine_fees()");
                     this->set_fees(fees);
                 }
             }
@@ -1335,6 +1365,7 @@ namespace atomic_dex
             {
                 if (!get_fees().empty())
                 {
+                    SPDLOG_DEBUG("generate_fees_error from trading_page::determine_error_cases()");
                     current_trading_error = generate_fees_error(get_fees());
                 }
             }
@@ -1347,6 +1378,7 @@ namespace atomic_dex
     void
     trading_page::determine_cex_rates()
     {
+        SPDLOG_DEBUG("trading_page::determine_cex_rates()");
         const auto& price_service   = m_system_manager.get_system<global_price_service>();
         const auto* market_selector = get_market_pairs_mdl();
         const auto& base            = market_selector->get_left_selected_coin();
@@ -1389,6 +1421,7 @@ namespace atomic_dex
     QString
     trading_page::get_cex_price_reversed() const
     {
+        SPDLOG_DEBUG("trading_page::get_cex_price_reversed()");
         if (!get_invalid_cex_price())
         {
             t_float_50 reversed_cex_price = t_float_50(1) / safe_float(m_cex_price.toStdString());
@@ -1400,6 +1433,7 @@ namespace atomic_dex
     QString
     trading_page::get_cex_price_diff() const
     {
+        SPDLOG_DEBUG("trading_page::get_cex_price_diff()");
         if (bool is_invalid = get_invalid_cex_price(); is_invalid || safe_float(m_price.toStdString()) <= 0)
         {
             return "0";
@@ -1414,6 +1448,7 @@ namespace atomic_dex
     t_float_50
     trading_page::get_max_balance_without_dust(const std::optional<QString>& trade_with) const
     {
+        SPDLOG_DEBUG("trading_page::get_max_balance_without_dust()");
         if (!trade_with.has_value())
         {
             const std::string max_dust_str =
@@ -1435,6 +1470,7 @@ namespace atomic_dex
     TradingError
     trading_page::generate_fees_error(QVariantMap fees) const
     {
+        SPDLOG_DEBUG("trading_page::generate_fees_error()");
         TradingError last_trading_error = TradingError::None;
         const auto&  mm2                = m_system_manager.get_system<mm2_service>();
 
@@ -1474,6 +1510,7 @@ namespace atomic_dex
     void
     trading_page::set_min_trade_vol(QString min_trade_vol)
     {
+        SPDLOG_DEBUG("trading_page::set_min_trade_vol()");
         //! KMD<->DOGE Buy -> base_min_vol, sell base_min_vol ->
         //! base_min_vol -> 0.0001 KMD
         //! rel_min_vol -> 10 DOGE
@@ -1484,15 +1521,14 @@ namespace atomic_dex
             min_trade_vol = QString::fromStdString(min_taker_vol);
         }
 
-        if (safe_float(get_orderbook_wrapper()->get_current_min_taker_vol().toStdString()) > safe_float(min_trade_vol.toStdString()))
-        {
-            SPDLOG_WARN("Spurious min_diff detected - (not) overriding immediately (using get_orderbook_wrapper()->get_current_min_taker_vol())");
-            // TODO: Sometimes this ends up returning a higher value than expected.
-            // Commenting out as it might be better to not update if this is the case.
-            // If not associated bugs appear as a result, we can delete this.
+        // TODO: Sometimes this ends up returning a higher value than expected.
+        // Commenting out as it might be better to not update if this is the case.
+        // If no associated bugs appear as a result, we can delete this.
+        //if (safe_float(get_orderbook_wrapper()->get_current_min_taker_vol().toStdString()) > safe_float(min_trade_vol.toStdString()))
+        //{
+            // SPDLOG_WARN("Spurious min_diff detected - (not) overriding immediately (using get_orderbook_wrapper()->get_current_min_taker_vol())");
             // min_trade_vol = get_orderbook_wrapper()->get_current_min_taker_vol();
-        }
-        
+        //}
         if (safe_float(min_taker_vol) < 0.00777)
         {
             min_trade_vol = "0.00777";
@@ -1503,7 +1539,6 @@ namespace atomic_dex
             min_trade_vol            = QString::fromStdString(utils::adjust_precision(min_trade_vol.toStdString()));
             m_minimal_trading_amount = std::move(min_trade_vol);
             emit minTradeVolChanged();
-            this->determine_error_cases();
         }
     }
 
@@ -1533,6 +1568,7 @@ namespace atomic_dex
     {
         SPDLOG_DEBUG("reset_fees");
         this->set_fees(QVariantMap());
+        SPDLOG_DEBUG("determine_error_cases from trading_page::set_min_trade_vol()");
         this->determine_error_cases();
     }
 } // namespace atomic_dex
@@ -1562,7 +1598,7 @@ namespace atomic_dex
         t_float_50 spread             = settings.value("Spread", 1.0).toDouble();
         t_float_50 min_volume_percent = settings.value("MinVolume", 10.0).toDouble() / 100; ///< min volume is always 10% of the order or more
         settings.endGroup();
-        
+
         if (!is_disabled)
         {
             SPDLOG_WARN("{}/{} have trading settings - using them", left.toStdString(), right.toStdString());
@@ -1573,15 +1609,18 @@ namespace atomic_dex
                 (m_market_mode == MarketMode::Sell) ? t_float_50(cex_price + (cex_price * percent)) : t_float_50(cex_price - (cex_price * percent));
 
             this->set_price(QString::fromStdString(utils::format_float(target_price)));
+            SPDLOG_DEBUG("determine_max_volume from trading_page::set_preferred_settings()");
             this->determine_max_volume();
+            SPDLOG_DEBUG("set_volume from trading_page::set_preferred_settings()");
             this->set_volume(get_max_volume());
             t_float_50 volume     = safe_float(get_volume().toStdString());
             t_float_50 min_volume = volume * min_volume_percent;
+            SPDLOG_DEBUG("set_min_trade_vol from trading_page::set_preferred_settings()");
             this->set_min_trade_vol(QString::fromStdString(utils::format_float(min_volume)));
         }
         else
         {
-            SPDLOG_WARN("{}/{} doesn't have any trading settings - skipping", left.toStdString(), right.toStdString());
+            SPDLOG_WARN("Makerbot code inactive, so {}/{} doesn't have any trading settings - skipping", left.toStdString(), right.toStdString());
         }
     }
 
