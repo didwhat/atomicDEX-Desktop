@@ -91,12 +91,12 @@ namespace atomic_dex
         }
         else if (m_best_orders->rowCount() == 0)
         {
-            // SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : reset_best_orders");
+            SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : reset_best_orders");
             m_best_orders->reset_orderbook(data);
         }
         else
         {
-            // SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : refresh_best_orders");
+            SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : refresh_best_orders");
             m_best_orders->refresh_orderbook(data);
         }
         this->set_both_taker_vol();
@@ -105,8 +105,13 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer)
     {
+        SPDLOG_DEBUG("Resetting m_asks Orderbook");
         this->m_asks->reset_orderbook(answer.asks);
+        SPDLOG_DEBUG("Resetting m_bids Orderbook");
         this->m_bids->reset_orderbook(answer.bids);
+        SPDLOG_DEBUG("Resetting m_best_orders Orderbook");
+        this->m_best_orders->clear_orderbook();                                               ///< Remove all elements from the model
+        this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
         {
@@ -114,8 +119,6 @@ namespace atomic_dex
             m_system_manager.get_system<trading_page>().set_preferred_order(m_selected_best_order->value());
             m_selected_best_order = std::nullopt;
         }
-        m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
-        this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
     }
 
     void
@@ -177,6 +180,7 @@ namespace atomic_dex
         }
         else
         {
+            SPDLOG_INFO("Refreshing bestorders");
             get_best_orders()->clear_orderbook();
         }
     }

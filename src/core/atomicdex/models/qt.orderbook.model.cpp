@@ -526,10 +526,12 @@ namespace atomic_dex
             {
                 if (this->m_orders_id_registry.find(current_order.uuid) != this->m_orders_id_registry.end())
                 {
+                    SPDLOG_DEBUG("Updating order: {}", current_order.uuid);
                     this->update_order(current_order);
                 }
                 else
                 {
+                    SPDLOG_DEBUG("Initializating order: {}", current_order.uuid);
                     this->initialize_order(current_order);
                 }
             }
@@ -538,10 +540,19 @@ namespace atomic_dex
             std::unordered_set<std::string> to_remove;
             for (auto&& id: this->m_orders_id_registry)
             {
-                bool res = std::none_of(begin(contents), end(contents), [id](auto&& contents) { return contents.uuid == id; });
+                SPDLOG_DEBUG("m_orders_id_registry ID: {}", id);
+                bool res = std::none_of(
+                    begin(contents),
+                    end(contents),
+                    [id](auto&& current_order) {
+                        SPDLOG_DEBUG("current_order.uuid: {}", current_order.uuid);
+                        return current_order.uuid == id;
+                    }
+                );
                 //! Need to remove the row
                 if (res)
                 {
+                    SPDLOG_DEBUG("Deleting order: {}", id);
                     auto res_list = this->match(index(0, 0), UUIDRole, QString::fromStdString(id));
                     if (not res_list.empty())
                     {
@@ -598,7 +609,7 @@ namespace atomic_dex
     void
     orderbook_model::clear_orderbook()
     {
-        // SPDLOG_INFO("clear orderbook");
+        SPDLOG_DEBUG("clear orderbook");
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();

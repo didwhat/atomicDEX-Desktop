@@ -37,7 +37,7 @@ namespace atomic_dex
     {
         if (!source_left.isValid() || !source_right.isValid())
         {
-            SPDLOG_WARN("one of the index is invalid - skipping -> role: {}", this->sortRole());
+            SPDLOG_WARN("one of the indexes are invalid - skipping -> role: {}", this->sortRole());
             return false;
         }
         int      role       = this->sortRole();
