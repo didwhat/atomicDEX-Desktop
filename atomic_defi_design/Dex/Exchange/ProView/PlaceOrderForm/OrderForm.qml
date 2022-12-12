@@ -83,18 +83,18 @@ ColumnLayout
             anchors.left: input_price.left
             anchors.topMargin: subfield_margin
             visible: !API.app.trading_pg.invalid_cex_price
-            left_btn.onClicked:
+            left_btn_mousearea.onClicked:
             {
                 let price = General.formatDouble(parseFloat(input_price.text) - (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
                 if (price < 0) price = 0
                 setPrice(String(price))
             }
-            right_btn.onClicked:
+            right_btn_mousearea.onClicked:
             {
                 let price = General.formatDouble(parseFloat(input_price.text) + (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
                 setPrice(String(price))
             }
-            middle_btn.onClicked:
+            middle_btn_mousearea.onClicked:
             {
                 if (input_price.text == "0") setPrice("1")
                 let price = General.formatDouble(API.app.trading_pg.cex_price)
@@ -134,24 +134,24 @@ ColumnLayout
             anchors.top: input_volume.bottom
             anchors.left: input_volume.left
             anchors.topMargin: subfield_margin
-            left_btn.onClicked:
+            left_btn_mousearea.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.25
                 General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
-            middle_btn.onClicked:
+            middle_btn_mousearea.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.5
                 General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
-            right_btn.onClicked:
+            right_btn_mousearea.onClicked:
             {
                 let volume = General.formatDouble(API.app.trading_pg.max_volume)
                 General.setVolume(volume, API.app.trading_pg.min_trade_vol)
             }
             fiat_value: General.getFiatText(non_null_volume, left_ticker)
-            left_label: "25%"
-            middle_label: "50%"
+            left_label: General.formatDouble(API.app.trading_pg.max_volume) * 0.25 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Min") : "25%"
+            middle_label: General.formatDouble(API.app.trading_pg.max_volume) * 0.5 < General.formatDouble(API.app.trading_pg.min_trade_vol) ? qsTr("Min") : "50%"
             right_label:  qsTr("Max")
             left_tooltip_text:  qsTr("Swap 25% of your tradable balance.")
             middle_tooltip_text:  qsTr("Swap 50% of your tradable balance.")
@@ -184,17 +184,17 @@ ColumnLayout
             anchors.top: input_minvolume.bottom
             anchors.left: input_minvolume.left
             anchors.topMargin: subfield_margin
-            left_btn.onClicked:
+            left_btn_mousearea.onClicked:
             {
                 let volume = input_volume.text * 0.10
                 setMinimumAmount(General.formatDouble(volume))
             }
-            middle_btn.onClicked:
+            middle_btn_mousearea.onClicked:
             {
                 let volume = input_volume.text * 0.25
                 setMinimumAmount(General.formatDouble(volume))
             }
-            right_btn.onClicked:
+            right_btn_mousearea.onClicked:
             {
                 let volume = input_volume.text * 0.50
                 setMinimumAmount(General.formatDouble(volume))
