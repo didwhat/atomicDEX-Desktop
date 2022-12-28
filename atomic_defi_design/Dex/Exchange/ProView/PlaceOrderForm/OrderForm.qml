@@ -62,10 +62,10 @@ ColumnLayout
             volume_usd_value.left_rect.color = input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
             volume_usd_value.right_rect.color = input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
 
-            volume_usd_value.left_label = General.getVolumeShortcutValue(0.25) ? qsTr("Min") : "25%"
-            volume_usd_value.left_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : General.getVolumeShortcutValue(0.25) ? qsTr("Use minimum order volume") : qsTr("Swap 25% of your tradable balance.")
-            volume_usd_value.middle_label = General.getVolumeShortcutValue(0.5) ? qsTr("Min") : "50%"
-            volume_usd_value.middle_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : General.getVolumeShortcutValue(0.5) ? qsTr("Use minimum order volume") : qsTr("Swap 50% of your tradable balance.")
+            volume_usd_value.left_label = General.getVolumeShortcutLabel(0.25) ? qsTr("Min") : "25%"
+            volume_usd_value.left_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : General.getVolumeShortcutLabel(0.25) ? qsTr("Use minimum order volume") : qsTr("Swap 25% of your tradable balance.")
+            volume_usd_value.middle_label = General.getVolumeShortcutLabel(0.5) ? qsTr("Min") : "50%"
+            volume_usd_value.middle_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : General.getVolumeShortcutLabel(0.5) ? qsTr("Use minimum order volume") : qsTr("Swap 50% of your tradable balance.")
             volume_usd_value.right_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : qsTr("Swap 100% of your tradable balance.")
             price_usd_value.left_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : qsTr("Reduce 1% relative to CEX market price.")
             price_usd_value.right_tooltip_text = input_price.text == "0" ? qsTr("Enter price first") : qsTr("Increase 1% relative to CEX market price.")
@@ -106,20 +106,26 @@ ColumnLayout
             visible: !API.app.trading_pg.invalid_cex_price
             left_btn_mousearea.onClicked:
             {
-                let price = General.formatDouble(parseFloat(input_price.text) - (cex_price * 0.01))
-                if (price < 0) price = 0
-                General.setPrice(String(price))
+                if (input_price.text != "0")
+                {
+                    let price = General.formatDouble(parseFloat(input_price.text) - (cex_price * 0.01))
+                    if (price < 0) price = 0
+                    General.setPrice(String(price))
+                }
             }
             right_btn_mousearea.onClicked:
             {
-                let price = General.formatDouble(parseFloat(input_price.text) + (cex_price * 0.01))
-                General.setPrice(String(price))
+                if (input_price.text != "0")
+                {
+                    let price = General.formatDouble(parseFloat(input_price.text) + (cex_price * 0.01))
+                    General.setPrice(String(price))
+                }
             }
             middle_btn_mousearea.onClicked:
             {
-                if (input_price.text == "0") General.setPrice("1")
-                let price = cex_price
-                General.setPrice(String(price))
+                    if (input_price.text == "0") General.setPrice("1")
+                    let price = cex_price
+                    General.setPrice(String(price))
             }
             fiat_value: General.getFiatText(non_null_price, right_ticker)
             left_label: "-1%"
@@ -146,7 +152,7 @@ ColumnLayout
             right_text: left_ticker
             placeholderText: sell_mode ? qsTr("Amount to sell") : qsTr("Amount to receive")
             text: API.app.trading_pg.volume
-            onTextChanged: General.setVolume(input_volume.text, API.app.trading_pg.min_trade_vol)
+            onTextChanged: General.setVolume(input_volume.text)
         }
 
         OrderFormSubfield
@@ -157,29 +163,38 @@ ColumnLayout
             anchors.topMargin: subfield_margin
             left_btn_mousearea.onClicked:
             {
-                let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.25
-                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
+                if (input_price.text != "0")
+                {
+                    let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.25
+                    General.setVolume(volume)
+                }
             }
             middle_btn_mousearea.onClicked:
             {
-                let volume = General.formatDouble(API.app.trading_pg.max_volume) * 0.5
-                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
+                if (input_price.text != "0")
+                {
+                    let volume = middle_label == qsTr("Min") ? API.app.trading_pg.min_trade_vol : General.formatDouble(API.app.trading_pg.max_volume) * 0.5
+                    General.setVolume(volume)
+                }
             }
             right_btn_mousearea.onClicked:
             {
-                let volume = General.formatDouble(API.app.trading_pg.max_volume)
-                General.setVolume(volume, API.app.trading_pg.min_trade_vol)
+                if (input_price.text != "0")
+                {
+                    let volume = General.formatDouble(API.app.trading_pg.max_volume)
+                    General.setVolume(volume)
+                }
             }
 
             fiat_value: General.getFiatText(non_null_volume, left_ticker)
-            left_label: General.getVolumeShortcutValue(0.25) ? qsTr("Min") : "25%"
-            middle_label: General.getVolumeShortcutValue(0.5) ? qsTr("Min") : "50%"
+            left_label: qsTr("25%")
+            middle_label: General.getVolumeShortcutLabel(0.5) ? qsTr("Min") : qsTr("50%")
             right_label:  qsTr("Max")
             left_rect.color: input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
             middle_rect.color: input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
             right_rect.color: input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
-            left_tooltip_text: input_price.text == "0" ? "Enter price first" : General.getVolumeShortcutValue(0.25) ? qsTr("Use minimum order volume") : qsTr("Swap 25% of your tradable balance.")
-            middle_tooltip_text: input_price.text == "0" ? "Enter price first" : General.getVolumeShortcutValue(0.5) ? qsTr("Use minimum order volume") : qsTr("Swap 50% of your tradable balance.")
+            left_tooltip_text: input_price.text == "0" ? "Enter price first" : qsTr("Swap 25% of your tradable balance.")
+            middle_tooltip_text: input_price.text == "0" ? "Enter price first" : General.getVolumeShortcutLabel(0.5) ? qsTr("Use minimum order volume") : qsTr("Swap 50% of your tradable balance.")
             right_tooltip_text:  input_price.text == "0" ? "Enter price first" : qsTr("Swap 100% of your tradable balance.")
         }
     }
