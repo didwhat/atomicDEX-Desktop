@@ -1531,6 +1531,7 @@ namespace atomic_dex
         if (batch.empty())
             return;
 
+        SPDLOG_ERROR("process_orderbook [is_a_reset: {}]", is_a_reset);
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto&& [base, rel] = m_synchronized_ticker_pair.get();
@@ -1607,7 +1608,7 @@ namespace atomic_dex
         {
             return;
         }
-
+        SPDLOG_DEBUG("[mm2_service::fetch_current_orderbook_thread] is_a_reset: {}", is_a_reset);
         process_orderbook(is_a_reset);
     }
 
@@ -2052,7 +2053,7 @@ namespace atomic_dex
     void
     mm2_service::on_refresh_orderbook(const orderbook_refresh& evt)
     {
-        SPDLOG_DEBUG("on_refresh_orderbook");
+        SPDLOG_DEBUG("[mm2_service::on_refresh_orderbook]");
 
         // SPDLOG_INFO("refreshing orderbook pair: [{} / {}]", evt.base, evt.rel);
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);

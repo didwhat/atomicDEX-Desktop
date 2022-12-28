@@ -570,6 +570,17 @@ QtObject {
         })
     }
 
+    function setPrice(v) {
+
+        API.app.trading_pg.price = v
+    }
+
+    function setMinimumAmount(value) { API.app.trading_pg.min_trade_vol = value }
+
+    function getVolumeShortcutValue(pct) {
+        return formatDouble(API.app.trading_pg.max_volume) * pct < formatDouble(API.app.trading_pg.min_trade_vol)
+    }
+
     function setVolume(vol, min_vol) {
         vol = General.formatDouble(vol)
         min_vol = General.formatDouble(min_vol)

@@ -19,6 +19,13 @@ RowLayout
     property string left_tooltip_text: ""
     property string middle_tooltip_text: ""
     property string right_tooltip_text: ""
+    property alias  left_btn: _left_btn
+    property alias  middle_btn: _middle_btn
+    property alias  right_btn: _right_btn
+    property alias  left_rect: _left_rect
+    property alias  middle_rect: _middle_rect
+    property alias  right_rect: _right_rect
+
     property alias  left_btn_mousearea: _left_btn_mousearea
     property alias  middle_btn_mousearea: _middle_btn_mousearea
     property alias  right_btn_mousearea: _right_btn_mousearea
@@ -30,14 +37,14 @@ RowLayout
 
     Item
     {
-        id: left_btn
+        id: _left_btn
         visible: middle_label != qsTr("Min")
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
+            id: _left_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
@@ -92,24 +99,17 @@ RowLayout
 
     Item
     {
-        id: middle_btn
+        id: _middle_btn
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
+            id: _middle_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
             color: Dex.CurrentTheme.tradeMarketModeSelectorNotSelectedBackgroundColor
-
-            DefaultMouseArea
-            {
-                id: _middle_btn_mousearea
-                anchors.fill: parent
-                hoverEnabled: true
-            }
 
             DefaultText
             {
@@ -148,19 +148,25 @@ RowLayout
                     color: "transparent"
                 }
             }
+
+            DefaultMouseArea
+            {
+                id: _middle_btn_mousearea
+                anchors.fill: parent
+                hoverEnabled: true
+            }
         }
     }
 
     Item
     {
-        id: right_btn
+        id: _right_btn
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
-            id: right_rect
+            id: _right_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height

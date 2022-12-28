@@ -41,6 +41,7 @@ namespace atomic_dex
     void
     qt_orders_widget::common_cancel_all_orders(bool by_coin, const QString& ticker)
     {
+        SPDLOG_INFO("[qt_orders_widget::common_cancel_all_orders]");
         nlohmann::json batch          = nlohmann::json::array();
         nlohmann::json cancel_request = mm2::template_request("cancel_all_orders");
         if (by_coin && not ticker.isEmpty())
@@ -77,7 +78,7 @@ namespace atomic_dex
     void
     qt_orders_widget::cancel_order(const QStringList& orders_id)
     {
-        SPDLOG_INFO("cancel order");
+        SPDLOG_DEBUG("[qt_orders_widget::cancel_order]");
         nlohmann::json batch = nlohmann::json::array();
         for (auto&& order_id: orders_id)
         {
