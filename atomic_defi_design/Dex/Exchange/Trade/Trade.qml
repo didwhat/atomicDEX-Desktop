@@ -43,20 +43,14 @@ Item
     signal prepareMultiOrder
     property bool multi_order_values_are_valid: true
 
+    readonly property string backend_volume: API.app.trading_pg.volume
     readonly property string non_null_price: backend_price === '' ? '0' : backend_price
     readonly property string non_null_volume: backend_volume === '' ? '0' : backend_volume
     readonly property bool price_is_empty: parseFloat(non_null_price) <= 0
 
     readonly property string backend_price: API.app.trading_pg.price
-    function setPrice(v) {
-        API.app.trading_pg.price = v
-    }
     readonly property int last_trading_error: API.app.trading_pg.last_trading_error
     readonly property string max_volume: API.app.trading_pg.max_volume
-    readonly property string backend_volume: API.app.trading_pg.volume
-    function setVolume(v) {
-        API.app.trading_pg.volume = v
-    }
 
     property bool sell_mode: API.app.trading_pg.market_mode.toString(
                                  ) === "Sell"
@@ -145,7 +139,6 @@ Item
             API.app.trading_pg.place_sell_order(nota, confs)
         else
             API.app.trading_pg.place_buy_order(nota, confs)
-
         orderPlaced()
     }
 

@@ -21,6 +21,7 @@
 #include <QVariantMap>
 
 //! STD
+#include <shared_mutex>
 #include <unordered_set>
 
 //! Deps
@@ -89,7 +90,7 @@ namespace atomic_dex
         bool                                 removeRows(int row, int count, const QModelIndex& parent) override;
 
         void                                 reset_orderbook(const t_orders_contents& orderbook);
-        void                                 refresh_orderbook(const t_orders_contents& orderbook);
+        void                                 refresh_orderbook(const t_orders_contents& orderbook, QString trigger = "");
         void                                 clear_orderbook();
         [[nodiscard]] int                    get_length() const;
         [[nodiscard]] orderbook_proxy_model* get_orderbook_proxy() const;
@@ -112,6 +113,7 @@ namespace atomic_dex
         ag::ecs::system_manager&        m_system_mgr;
         t_orders_contents               m_model_data;
         std::unordered_set<std::string> m_orders_id_registry;
+        mutable std::shared_mutex       m_orders_mutex;
         orderbook_proxy_model*          m_model_proxy;
     };
 

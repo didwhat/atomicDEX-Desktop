@@ -570,6 +570,30 @@ QtObject {
         })
     }
 
+    function setPrice(v) {
+
+        API.app.trading_pg.price = v
+    }
+
+    function setMinimumAmount(value) { API.app.trading_pg.min_trade_vol = value }
+
+    function getVolumeShortcutLabel(pct) {
+        return formatDouble(API.app.trading_pg.max_volume) * pct < formatDouble(API.app.trading_pg.min_trade_vol)
+    }
+
+    function setVolume(vol) {
+        vol = General.formatDouble(vol)
+        let min_vol = General.formatDouble(API.app.trading_pg.min_trade_vol)
+        if (min_vol > vol && vol != 0)
+        {
+            API.app.trading_pg.volume = String(min_vol)
+        }
+        else
+        {
+            API.app.trading_pg.volume = String(vol)
+        }
+    }
+
     function getMinTradeAmount() {
         return formatDouble(API.app.trading_pg.min_trade_vol, 8, false).toString()
     }

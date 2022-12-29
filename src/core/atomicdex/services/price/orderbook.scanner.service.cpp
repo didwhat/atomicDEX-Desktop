@@ -44,7 +44,7 @@ namespace atomic_dex
             return;
         }
 
-        // SPDLOG_INFO("process_best_orders processing");
+        SPDLOG_INFO("[process_best_orders]");
         if (m_system_manager.has_system<mm2_service>())
         {
             auto& mm2_system = m_system_manager.get_system<mm2_service>();
@@ -95,7 +95,7 @@ namespace atomic_dex
                         }
                         catch (const std::exception& e)
                         {
-                            SPDLOG_ERROR("pplx task error: {}", e.what());
+                            SPDLOG_ERROR("[process_best_orders] pplx task error: {}", e.what());
                             this->m_rpc_busy = false;
                             this->dispatcher_.trigger<process_orderbook_finished>(true);
                         }

@@ -518,20 +518,22 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::refresh_orderbook(const t_orders_contents& orderbook)
+    orderbook_model::refresh_orderbook(const t_orders_contents& orderbook, QString trigger)
     {
+        SPDLOG_DEBUG("[orderbook_model::refresh_orderbook] trigger: {}", trigger.toStdString());
         auto refresh_functor = [this](const std::vector<mm2::order_contents>& contents)
         {
+            std::unique_lock lock(m_orders_mutex);
             for (auto&& current_order: contents)
             {
                 if (this->m_orders_id_registry.find(current_order.uuid) != this->m_orders_id_registry.end())
                 {
-                    SPDLOG_DEBUG("Updating order: {}", current_order.uuid);
+                    // SPDLOG_DEBUG("Updating order: {}", current_order.uuid);
                     this->update_order(current_order);
                 }
                 else
                 {
-                    SPDLOG_DEBUG("Initializating order: {}", current_order.uuid);
+                    // SPDLOG_DEBUG("Initializating order: {}", current_order.uuid);
                     this->initialize_order(current_order);
                 }
             }
@@ -540,19 +542,19 @@ namespace atomic_dex
             std::unordered_set<std::string> to_remove;
             for (auto&& id: this->m_orders_id_registry)
             {
-                SPDLOG_DEBUG("m_orders_id_registry ID: {}", id);
+                // SPDLOG_DEBUG("m_orders_id_registry ID: {}", id);
                 bool res = std::none_of(
                     begin(contents),
                     end(contents),
                     [id](auto&& current_order) {
-                        SPDLOG_DEBUG("current_order.uuid: {}", current_order.uuid);
+                        // SPDLOG_DEBUG("current_order.uuid: {}", current_order.uuid);
                         return current_order.uuid == id;
                     }
                 );
                 //! Need to remove the row
                 if (res)
                 {
-                    SPDLOG_DEBUG("Deleting order: {}", id);
+                    // SPDLOG_DEBUG("Deleting order: {}", id);
                     auto res_list = this->match(index(0, 0), UUIDRole, QString::fromStdString(id));
                     if (not res_list.empty())
                     {

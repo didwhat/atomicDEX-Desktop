@@ -432,6 +432,9 @@ namespace atomic_dex
                 const QString& rel_coin  = data(idx, OrdersRoles::RelCoinRole).toString();
                 m_dispatcher.trigger<swap_status_notification>(
                     contents.order_id, prev_value.toString(), new_value.toString(), base_coin, rel_coin, new_value_d.toString());
+
+                SPDLOG_DEBUG("[orders_model::update_swap] Processing orderbook (true)");
+                // why are we processing orderbok here? Is it to remove a matched order?
                 auto& mm2 = m_system_manager.get_system<mm2_service>();
                 mm2.process_orderbook(true);
             }
