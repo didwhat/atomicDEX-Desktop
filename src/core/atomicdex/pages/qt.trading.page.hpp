@@ -121,12 +121,12 @@ namespace atomic_dex
         //! Private function
         void                       determine_max_volume();
         void                       determine_total_amount();
-        void                       determine_cex_rates();
+        void                       determine_cex_rates(QString trigger = "");
         void                       cap_volume();
         [[nodiscard]] t_float_50   get_max_balance_without_dust(const std::optional<QString>& trade_with = std::nullopt) const;
         [[nodiscard]] TradingError generate_fees_error(QVariantMap fees) const;
         void                       set_preferred_settings();
-        static QString                    calculate_total_amount(QString price, QString volume) ;
+        static QString             calculate_total_amount(QString price, QString volume);
 
       public:
         //! Constructor
@@ -149,7 +149,7 @@ namespace atomic_dex
         Q_INVOKABLE void     on_gui_enter_dex();
         Q_INVOKABLE void     on_gui_leave_dex();
         Q_INVOKABLE QVariant get_raw_mm2_coin_cfg(const QString& ticker) const;
-        Q_INVOKABLE void     clear_forms(QString from);
+        Q_INVOKABLE void     clear_forms(QString trigger);
 
         //! Trading business
         Q_INVOKABLE void swap_market_pair(); ///< market_selector (button to switch market selector and orderbook)

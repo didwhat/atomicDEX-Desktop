@@ -55,6 +55,10 @@ ColumnLayout
     Connections {
         target: API.app.trading_pg
 
+        function onMarketModeChanged() {
+            General.setPrice(String(General.formatDouble(cex_price, 8)))
+        }
+
         function onPriceChanged() {
             price_usd_value.left_rect.color = input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
             price_usd_value.middle_rect.color = input_price.text == "0" ? Dex.CurrentTheme.buttonColorDisabled : Dex.CurrentTheme.buttonColorEnabled
@@ -104,6 +108,10 @@ ColumnLayout
             anchors.left: input_price.left
             anchors.topMargin: subfield_margin
             visible: !API.app.trading_pg.invalid_cex_price
+            fiat_value: General.getFiatText(non_null_price, right_ticker)
+
+            left_label: "-1%"
+            left_tooltip_text: input_price.text == "0" ? qsTr("Enter price first") : qsTr("Reduce 1% relative to CEX market price.")
             left_btn_mousearea.onClicked:
             {
                 if (input_price.text != "0")
@@ -113,6 +121,16 @@ ColumnLayout
                     General.setPrice(String(price))
                 }
             }
+
+            middle_label: "0%"
+            middle_tooltip_text: qsTr("Use CEX market price.")
+            middle_btn_mousearea.onClicked:
+            {
+                    General.setPrice(String(cex_price))
+            }
+
+            right_label: "+1%"
+            right_tooltip_text: input_price.text == "0" ? qsTr("Enter price first") : qsTr("Increase 1% relative to CEX market price.")
             right_btn_mousearea.onClicked:
             {
                 if (input_price.text != "0")
@@ -121,19 +139,6 @@ ColumnLayout
                     General.setPrice(String(price))
                 }
             }
-            middle_btn_mousearea.onClicked:
-            {
-                    if (input_price.text == "0") General.setPrice("1")
-                    let price = cex_price
-                    General.setPrice(String(price))
-            }
-            fiat_value: General.getFiatText(non_null_price, right_ticker)
-            left_label: "-1%"
-            middle_label: "0%"
-            right_label: "+1%"
-            left_tooltip_text: input_price.text == "0" ? qsTr("Enter price first") : qsTr("Reduce 1% relative to CEX market price.")
-            middle_tooltip_text: qsTr("Use CEX market price.")
-            right_tooltip_text: input_price.text == "0" ? qsTr("Enter price first") : qsTr("Increase 1% relative to CEX market price.")
         }
     }
 

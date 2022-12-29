@@ -70,9 +70,6 @@ Rectangle
     {
         anchors.fill: parent
         enabled: API.app.trading_pg.market_mode != marketMode
-        onClicked: {
-            General.setPrice("1")
-            API.app.trading_pg.market_mode = marketMode
-        }
+        onClicked: API.app.trading_pg.market_mode = marketMode
     }
 }

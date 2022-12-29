@@ -1500,7 +1500,7 @@ namespace atomic_dex
 
     nlohmann::json mm2_service::prepare_batch_orderbook(bool is_a_reset)
     {
-        // SPDLOG_INFO("is_a_reset: {}", is_a_reset);
+        // SPDLOG_DEBUG("[mm2_service::prepare_batch_orderbook] is_a_reset: {}", is_a_reset);
         auto&& [base, rel] = m_synchronized_ticker_pair.get();
         if (rel.empty())
             return nlohmann::json::array();
@@ -1531,7 +1531,7 @@ namespace atomic_dex
         if (batch.empty())
             return;
 
-        SPDLOG_ERROR("process_orderbook [is_a_reset: {}]", is_a_reset);
+        // SPDLOG_DEBUG("[mm2_service::process_orderbook] is_a_reset: {}", is_a_reset);
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto&& [base, rel] = m_synchronized_ticker_pair.get();
@@ -1608,7 +1608,7 @@ namespace atomic_dex
         {
             return;
         }
-        SPDLOG_DEBUG("[mm2_service::fetch_current_orderbook_thread] is_a_reset: {}", is_a_reset);
+        // SPDLOG_DEBUG("[mm2_service::fetch_current_orderbook_thread] is_a_reset: {}", is_a_reset);
         process_orderbook(is_a_reset);
     }
 

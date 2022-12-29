@@ -52,7 +52,7 @@ namespace atomic_dex
     void
     trading_page::on_process_orderbook_finished_event(const atomic_dex::process_orderbook_finished& evt)
     {
-        SPDLOG_WARN("[on_process_orderbook_finished_event]");
+        // SPDLOG_DEBUG("[trading_page::on_process_orderbook_finished_event]");
         if (!m_about_to_exit_the_app)
         {
             m_actions_queue.push(trading_actions::post_process_orderbook_finished);
@@ -513,6 +513,7 @@ namespace atomic_dex
                                 SPDLOG_DEBUG("m_post_clear_forms && this->m_current_trading_mode == TradingModeGadget::Pro");
                                 this->determine_max_volume();
                                 this->set_volume(get_max_volume());
+                                this->set_price(m_cex_price);
                                 this->set_min_trade_vol(wrapper->get_current_min_taker_vol());
                                 m_post_clear_forms = false;
                             }
@@ -605,8 +606,7 @@ namespace atomic_dex
             this->clear_forms("set_market_mode");
             const auto* market_selector_mdl = get_market_pairs_mdl();
             set_current_orderbook(market_selector_mdl->get_left_selected_coin(), market_selector_mdl->get_right_selected_coin());
-            emit marketModeChanged();
-            
+
             if (m_market_mode == MarketMode::Buy)
             {
                 this->get_orderbook_wrapper()->get_best_orders()->get_orderbook_proxy()->sort(0, Qt::AscendingOrder);
@@ -615,6 +615,7 @@ namespace atomic_dex
             {
                 this->get_orderbook_wrapper()->get_best_orders()->get_orderbook_proxy()->sort(0, Qt::DescendingOrder);
             }
+            emit marketModeChanged();
         }
     }
 
@@ -629,6 +630,7 @@ namespace atomic_dex
     {
         if (price.isEmpty())
         {
+            this->determine_cex_rates("set_price");
             price = m_cex_price;
         }
         
@@ -655,7 +657,6 @@ namespace atomic_dex
             }
 
             this->determine_total_amount();
-            this->determine_cex_rates();
             emit priceChanged();
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
@@ -664,14 +665,14 @@ namespace atomic_dex
     }
 
     void
-    trading_page::clear_forms(QString from)
+    trading_page::clear_forms(QString trigger)
     {
+        SPDLOG_DEBUG("[trading_page::clear_forms] trigger: {}", trigger.toStdString());
         if (!this->m_system_manager.has_system<mm2_service>())
         {
             SPDLOG_WARN("MM2 service not available, required to clear forms - skipping");
             return;
         }
-        SPDLOG_DEBUG("clearing forms : {}", from.toStdString());
 
         if (m_preferred_order.has_value() && m_current_trading_mode == TradingModeGadget::Simple &&
             m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
@@ -680,11 +681,9 @@ namespace atomic_dex
             this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
             const auto max_taker_vol = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject()["decimal"].toString();
             this->set_max_volume(max_taker_vol);
-            this->set_price("0");
         }
         else
         {
-            this->set_price("0");
             this->set_max_volume("0");
             m_minimal_trading_amount = "0.0001";
             emit minTradeVolChanged();
@@ -698,15 +697,8 @@ namespace atomic_dex
         this->m_cex_price        = "0";
         this->m_post_clear_forms = true;
         this->set_selected_order_status(SelectedOrderStatus::None);
-        this->reset_fees();
-        this->determine_cex_rates();
-        emit cexPriceChanged();
-        emit invalidCexPriceChanged();
-        emit cexPriceReversedChanged();
-        emit feesChanged();
+        this->determine_cex_rates("clear_forms");
         emit prefferedOrderChanged();
-        emit priceChanged();
-        emit priceReversedChanged();
     }
 
     QString
@@ -760,7 +752,7 @@ namespace atomic_dex
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
-            SPDLOG_DEBUG("[determine_max_volume] m_market_mode == MarketMode::Sell");
+            // SPDLOG_DEBUG("[determine_max_volume] m_market_mode == MarketMode::Sell");
             const auto max_taker_vol_obj  = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject();
             const auto max_taker_vol      = max_taker_vol_obj["decimal"].toString().toStdString();
             const auto max_taker_vol_coin = max_taker_vol_obj["coin"].toString().toStdString();
@@ -813,7 +805,7 @@ namespace atomic_dex
         else
         {
             //! In MarketMode::Buy mode the max volume is rel_max_taker_vol / price
-            SPDLOG_DEBUG("[determine_max_volume] m_market_mode == MarketMode::Buy");
+            // SPDLOG_DEBUG("[determine_max_volume] m_market_mode == MarketMode::Buy");
             if (!m_price.isEmpty())
             {
                 //! It's selected let's use rat price
@@ -1026,9 +1018,7 @@ namespace atomic_dex
                 set_current_orderbook(base, rel);
             }
         }
-        this->determine_cex_rates();
-        emit priceChanged();
-        emit priceReversedChanged();
+        this->determine_cex_rates("set_pair");
         return true;
     }
 
@@ -1338,21 +1328,29 @@ namespace atomic_dex
     }
 
     void
-    trading_page::determine_cex_rates()
+    trading_page::determine_cex_rates(QString trigger)
     {
+        // SPDLOG_DEBUG("[trading_page::determine_cex_rates] trigger: {}", trigger.toStdString());
         const auto& price_service   = m_system_manager.get_system<global_price_service>();
         const auto* market_selector = get_market_pairs_mdl();
         const auto& base            = market_selector->get_left_selected_coin();
         const auto& rel             = market_selector->get_right_selected_coin();
+        auto cex_price = QString::fromStdString(price_service.get_cex_rates(base.toStdString(), rel.toStdString()));
         
-        if (auto cex_price = QString::fromStdString(price_service.get_cex_rates(base.toStdString(), rel.toStdString())); cex_price != m_cex_price)
+        if (cex_price != m_cex_price)
         {
             m_cex_price = std::move(cex_price);
+            // SPDLOG_DEBUG("[trading_page::determine_cex_rates] m_cex_price updated to: {}", m_cex_price.toStdString());
             emit cexPriceChanged();
             emit invalidCexPriceChanged();
             emit cexPriceReversedChanged();
         }
+        if (trigger.toStdString() == "set_pair" && this->m_current_trading_mode == TradingModeGadget::Pro)
+        {
+            this->set_price(m_cex_price);
+        }
         emit cexPriceDiffChanged();
+
     }
 
     QString
