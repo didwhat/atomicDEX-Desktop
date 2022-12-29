@@ -696,7 +696,7 @@ namespace atomic_dex
             SPDLOG_DEBUG("ZEROING set_price() set_max_volume() m_minimal_trading_amount set_volume() from trading_page::clear_forms()");
             this->set_price("0");
             this->set_max_volume("0");
-            m_minimal_trading_amount = "0.00777";
+            m_minimal_trading_amount = "0.0001";
             emit minTradeVolChanged();
             this->set_volume("0");
         }
@@ -1357,7 +1357,7 @@ namespace atomic_dex
             {
                 current_trading_error = TradingError::VolumeIsLowerThanTheMinimum;
             }
-            else if (safe_float(m_total_amount.toStdString()) < 0.00777)
+            else if (safe_float(m_total_amount.toStdString()) < safe_float(rel_min_taker_vol))
             {
                 current_trading_error = TradingError::ReceiveVolumeIsLowerThanTheMinimum;
             }
@@ -1514,12 +1514,11 @@ namespace atomic_dex
         //! KMD<->DOGE Buy -> base_min_vol, sell base_min_vol ->
         //! base_min_vol -> 0.0001 KMD
         //! rel_min_vol -> 10 DOGE
-        const auto& min_taker_vol = get_orderbook_wrapper()->get_base_min_taker_vol().toStdString();
-
-        if (t_float_50 min_vol_f = safe_float(min_taker_vol); safe_float(min_trade_vol.toStdString()) <= min_vol_f)
-        {
-            min_trade_vol = QString::fromStdString(min_taker_vol);
-        }
+        t_float_50   min_trade_vol_f         = safe_float(min_trade_vol.toStdString());
+        const auto&  current_min_taker_vol   = get_orderbook_wrapper()->get_current_min_taker_vol().toStdString();
+        t_float_50   current_min_taker_vol_f = safe_float(current_min_taker_vol);
+        const auto&  base_min_taker_vol      = get_orderbook_wrapper()->get_base_min_taker_vol().toStdString();
+        t_float_50   base_min_taker_vol_f    = safe_float(base_min_taker_vol);
 
         // TODO: Sometimes this ends up returning a higher value than expected.
         // Commenting out as it might be better to not update if this is the case.
@@ -1529,9 +1528,10 @@ namespace atomic_dex
             // SPDLOG_WARN("Spurious min_diff detected - (not) overriding immediately (using get_orderbook_wrapper()->get_current_min_taker_vol())");
             // min_trade_vol = get_orderbook_wrapper()->get_current_min_taker_vol();
         //}
-        if (safe_float(min_taker_vol) < 0.00777)
+        if (min_trade_vol_f < base_min_taker_vol_f)
         {
-            min_trade_vol = "0.00777";
+            min_trade_vol = QString::fromStdString(base_min_taker_vol);
+            min_trade_vol_f = base_min_taker_vol_f;
         }
 
         if (min_trade_vol != m_minimal_trading_amount)
