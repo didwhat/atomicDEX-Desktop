@@ -512,7 +512,7 @@ namespace atomic_dex
                             {
                                 SPDLOG_DEBUG("m_post_clear_forms && this->m_current_trading_mode == TradingModeGadget::Pro");
                                 this->determine_max_volume();
-                                this->set_volume(get_max_volume());
+                                this->update_volume(get_max_volume(), "process_action");
                                 this->set_price(m_cex_price);
                                 this->set_min_trade_vol(wrapper->get_current_min_taker_vol());
                                 m_post_clear_forms = false;
@@ -659,6 +659,7 @@ namespace atomic_dex
             this->determine_total_amount();
             emit priceChanged();
             emit priceReversedChanged();
+            emit cexPriceDiffChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
         }
@@ -678,7 +679,7 @@ namespace atomic_dex
             m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
         {
             SPDLOG_DEBUG("Simple view cancel order, keeping important data");
-            this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
+            this->update_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()), "clear_forms");
             const auto max_taker_vol = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject()["decimal"].toString();
             this->set_max_volume(max_taker_vol);
         }
@@ -687,7 +688,7 @@ namespace atomic_dex
             this->set_max_volume("0");
             m_minimal_trading_amount = "0.0001";
             emit minTradeVolChanged();
-            this->set_volume("0");
+            this->update_volume("0", "clear_forms");
         }
         
         this->set_total_amount("0");
@@ -708,10 +709,9 @@ namespace atomic_dex
     }
 
     void
-    trading_page::set_volume(QString volume)
+    trading_page::update_volume(QString volume, QString trigger)
     {
-        SPDLOG_DEBUG("m_volume is : [{}]", m_volume.toStdString());
-        SPDLOG_DEBUG("volume is : [{}]", volume.toStdString());
+        SPDLOG_DEBUG("[trading_page::update_volume] volume: {}, trigger: {}", volume.toStdString(), trigger.toStdString());
         if (m_volume != volume && !volume.isEmpty())
         {
             if (safe_float(volume.toStdString()) < 0)
@@ -719,13 +719,21 @@ namespace atomic_dex
                 volume = "0";
             }
             m_volume = std::move(volume);
-            SPDLOG_DEBUG("updated volume is : [{}]", m_volume.toStdString());
 
+            if (trigger != "cap_volume")
+            {
+                this->cap_volume("update_volume");
+            }
             this->determine_total_amount();
-            this->cap_volume();
             this->get_orderbook_wrapper()->refresh_best_orders();
             emit volumeChanged();
         }
+    }
+
+    void
+    trading_page::set_volume(QString volume)
+    {
+        update_volume(volume, "order form");
     }
 
     QString
@@ -794,7 +802,7 @@ namespace atomic_dex
                         this->set_max_volume(QString::fromStdString(max_vol_str));
                     }
                     //! Capping it
-                    this->cap_volume();
+                    this->cap_volume("determine_max_volume");
                 }
             }
             else
@@ -852,28 +860,31 @@ namespace atomic_dex
                     new_max_decimal = QString::fromStdString(utils::format_float(res));
                 }
                 this->set_max_volume(new_max_decimal);
-                this->cap_volume();
+                this->cap_volume("determine_max_volume");
             }
         }
     }
 
     void
-    trading_page::cap_volume()
+    trading_page::cap_volume(QString trigger)
     {
         /*
          * cap_volume is called only in MarketMode::Buy, and in Sell mode if preferred order
          * if the current volume text field is > the new max_volume then set volume to max_volume
          */
+        SPDLOG_DEBUG("[trading_page::cap_volume] trigger: {}", trigger.toStdString());
         auto max_volume = this->get_max_volume();
-        auto std_volume = this->get_volume().toStdString();
-        if (!std_volume.empty() && safe_float(std_volume) > safe_float(max_volume.toStdString()))
+        auto std_volume = this->get_volume();
+        if (!std_volume.toStdString().empty() && safe_float(std_volume.toStdString()) > safe_float(max_volume.toStdString()))
         {
             if (!max_volume.isEmpty() && max_volume != "0")
             {
-                SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
-                this->set_volume(max_volume);
+                SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume.toStdString(), max_volume.toStdString());
+                this->update_volume(max_volume, "cap_volume");
+                return;
             }
         }
+        this->update_volume(std_volume, "volume under cap");
     }
 
     TradingError
@@ -1054,12 +1065,12 @@ namespace atomic_dex
             if (this->m_current_trading_mode == TradingModeGadget::Pro)
             {
                 auto available_quantity = m_preferred_order->at("base_max_volume").get<std::string>();
-                this->set_volume(QString::fromStdString(utils::extract_large_float(available_quantity)));
+                this->update_volume(QString::fromStdString(utils::extract_large_float(available_quantity)), "set_preferred_order");
             }
             else if (this->m_current_trading_mode == TradingModeGadget::Simple && m_preferred_order->contains("initial_input_volume"))
             {
                 SPDLOG_DEBUG("From simple view, using initial_input_volume from selection to use.");
-                this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
+                this->update_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()), "set_preferred_order");
             }
             this->get_orderbook_wrapper()->refresh_best_orders();
             this->determine_fees();
@@ -1362,6 +1373,7 @@ namespace atomic_dex
     bool
     trading_page::get_invalid_cex_price() const
     {
+        // SPDLOG_DEBUG("[trading_page::get_invalid_cex_price] m_cex_price: {}", m_cex_price.toStdString());
         return m_cex_price == "0" || m_cex_price == "0.00" || m_cex_price.isEmpty();
     }
 
@@ -1391,6 +1403,7 @@ namespace atomic_dex
     QString
     trading_page::get_cex_price_diff() const
     {
+        SPDLOG_DEBUG("[trading_page::get_cex_price_diff()] m_price: {}", m_price.toStdString());
         if (bool is_invalid = get_invalid_cex_price(); is_invalid || safe_float(m_price.toStdString()) <= 0)
         {
             return "0";
@@ -1554,7 +1567,7 @@ namespace atomic_dex
 
             this->set_price(QString::fromStdString(utils::format_float(target_price)));
             this->determine_max_volume();
-            this->set_volume(get_max_volume());
+            this->update_volume(get_max_volume(), "set_preferred_settings");
             t_float_50 volume     = safe_float(get_volume().toStdString());
             t_float_50 min_volume = volume * min_volume_percent;
             this->set_min_trade_vol(QString::fromStdString(utils::format_float(min_volume)));

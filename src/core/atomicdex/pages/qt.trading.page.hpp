@@ -122,7 +122,7 @@ namespace atomic_dex
         void                       determine_max_volume();
         void                       determine_total_amount();
         void                       determine_cex_rates(QString trigger = "");
-        void                       cap_volume();
+        void                       cap_volume(QString trigger = "");
         [[nodiscard]] t_float_50   get_max_balance_without_dust(const std::optional<QString>& trade_with = std::nullopt) const;
         [[nodiscard]] TradingError generate_fees_error(QVariantMap fees) const;
         void                       set_preferred_settings();
@@ -188,6 +188,7 @@ namespace atomic_dex
         void                          set_min_trade_vol(QString min_trade_vol);
         [[nodiscard]] QString         get_volume() const;
         void                          set_volume(QString volume);
+        void                          update_volume(QString volume, QString trigger);
         [[nodiscard]] QString         get_max_volume() const;
         void                          set_max_volume(QString max_volume);
         [[nodiscard]] QString         get_total_amount() const;
