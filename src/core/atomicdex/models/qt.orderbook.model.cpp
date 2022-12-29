@@ -76,78 +76,78 @@ namespace atomic_dex
             return {};
         }
 
+        const auto& orderbook_row_data    = m_model_data.at(index.row());
         switch (static_cast<OrderbookRoles>(role))
         {
         case PriceRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price);
+            return QString::fromStdString(orderbook_row_data.price);
         case CoinRole:
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto coin = m_model_data.at(index.row()).rel_coin.value();
+                const auto coin = orderbook_row_data.rel_coin.value();
                 return QString::fromStdString(coin);
             }
-            return QString::fromStdString(m_model_data.at(index.row()).coin);
+            return QString::fromStdString(orderbook_row_data.coin);
         }
         case NameAndTicker:
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto  coin         = m_model_data.at(index.row()).rel_coin.value();
+                const auto  coin         = orderbook_row_data.rel_coin.value();
                 const auto& portfolio_pg = m_system_mgr.get_system<portfolio_page>();
                 const auto  cfg          = portfolio_pg.get_global_cfg()->get_coin_info(coin);
                 return QString::fromStdString(coin + cfg.name);
             }
-            return QString::fromStdString(m_model_data.at(index.row()).coin);
+            return QString::fromStdString(orderbook_row_data.coin);
         }
         case PriceDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price_fraction_denom);
+            return QString::fromStdString(orderbook_row_data.price_fraction_denom);
         case PriceNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price_fraction_numer);
+            return QString::fromStdString(orderbook_row_data.price_fraction_numer);
         case TotalRole:
-            return QString::fromStdString(m_model_data.at(index.row()).total);
+            return QString::fromStdString(orderbook_row_data.total);
         case UUIDRole:
-            return QString::fromStdString(m_model_data.at(index.row()).uuid);
+            return QString::fromStdString(orderbook_row_data.uuid);
         case IsMineRole:
-            return m_model_data.at(index.row()).is_mine;
+            return orderbook_row_data.is_mine;
         case PercentDepthRole:
-            return QString::fromStdString(m_model_data.at(index.row()).depth_percent);
+            return QString::fromStdString(orderbook_row_data.depth_percent);
         case BaseMinVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume);
+            return QString::fromStdString(orderbook_row_data.base_min_volume);
         case BaseMinVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume_denom);
+            return QString::fromStdString(orderbook_row_data.base_min_volume_denom);
         case BaseMinVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume_numer);
+            return QString::fromStdString(orderbook_row_data.base_min_volume_numer);
         case BaseMaxVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume);
+            return QString::fromStdString(orderbook_row_data.base_max_volume);
         case BaseMaxVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume_denom);
+            return QString::fromStdString(orderbook_row_data.base_max_volume_denom);
         case BaseMaxVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume_numer);
+            return QString::fromStdString(orderbook_row_data.base_max_volume_numer);
         case RelMinVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume);
         case RelMinVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume_denom);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume_denom);
         case RelMinVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume_numer);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume_numer);
         case RelMaxVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume);
         case RelMaxVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume_denom);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume_denom);
         case RelMaxVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume_numer);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume_numer);
         case MinVolumeRole:
         {
             const bool is_asks = m_current_orderbook_kind == kind::asks;
-            return QString::fromStdString(is_asks ? m_model_data.at(index.row()).rel_min_volume : m_model_data.at(index.row()).base_min_volume);
+            return QString::fromStdString(is_asks ? orderbook_row_data.rel_min_volume : orderbook_row_data.base_min_volume);
         }
         case EnoughFundsToPayMinVolume:
         {
             bool        i_have_enough_funds = true;
-            const auto& order_model_data    = m_model_data.at(index.row());
             const auto& trading_pg          = m_system_mgr.get_system<trading_page>();
             const bool  is_asks             = m_current_orderbook_kind == kind::asks;
-            const auto  min_volume_f        = safe_float(is_asks ? order_model_data.rel_min_volume : order_model_data.base_min_volume);
+            const auto  min_volume_f        = safe_float(is_asks ? orderbook_row_data.rel_min_volume : orderbook_row_data.base_min_volume);
             auto        taker_vol_std =
                 ((is_asks) ? trading_pg.get_orderbook_wrapper()->get_rel_max_taker_vol() : trading_pg.get_orderbook_wrapper()->get_base_max_taker_vol())
                     .toJsonObject()["decimal"]
@@ -168,7 +168,7 @@ namespace atomic_dex
             const auto* market_selector = trading_pg.get_market_pairs_mdl();
             const auto& base            = market_selector->get_left_selected_coin().toStdString();
             const auto& rel             = data(index, CoinRole).toString().toStdString();
-            const auto& price           = m_model_data.at(index.row()).price;
+            const auto& price           = orderbook_row_data.price;
             if (base == rel)
             {
                 return "0";
@@ -190,16 +190,15 @@ namespace atomic_dex
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto& data         = m_model_data.at(index.row());
                 const auto& trading_pg   = m_system_mgr.get_system<trading_page>();
                 t_float_50  volume_f     = safe_float(trading_pg.get_volume().toStdString());
                 const bool  is_buy       = trading_pg.get_market_mode() == MarketMode::Buy;
                 const auto  trading_mode = trading_pg.get_current_trading_mode();
                 if (!is_buy && trading_mode == TradingMode::Simple)
                 {
-                    volume_f = safe_float(data.base_max_volume);
+                    volume_f = safe_float(orderbook_row_data.base_max_volume);
                 }
-                t_float_50 total_amount_f = volume_f * safe_float(data.price);
+                t_float_50 total_amount_f = volume_f * safe_float(orderbook_row_data.price);
                 const auto total_amount   = atomic_dex::utils::format_float(total_amount_f);
                 return QString::fromStdString(total_amount);
             }
@@ -370,6 +369,7 @@ namespace atomic_dex
                 "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}", rowCount(), orderbook.size(), m_current_orderbook_kind);
         }
         this->beginResetModel();
+        std::unique_lock lock(m_orders_mutex);
         m_model_data = orderbook;
         m_orders_id_registry.clear();
         for (auto&& order: m_model_data)
@@ -381,7 +381,7 @@ namespace atomic_dex
         }
         this->endResetModel();
         emit lengthChanged();
-        assert(m_model_data.size() == m_orders_id_registry.size());
+        // assert(m_model_data.size() == m_orders_id_registry.size());
     }
 
     int
