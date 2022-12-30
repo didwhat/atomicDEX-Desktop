@@ -119,7 +119,7 @@ namespace atomic_dex
         bool                                   m_skip_taker{false};
 
         //! Private function
-        void                       determine_max_volume();
+        void                       determine_max_volume(QString trigger = "");
         void                       determine_total_amount();
         void                       determine_cex_rates(QString trigger = "");
         void                       cap_volume(QString trigger = "");
@@ -153,7 +153,7 @@ namespace atomic_dex
 
         //! Trading business
         Q_INVOKABLE void swap_market_pair(); ///< market_selector (button to switch market selector and orderbook)
-        Q_INVOKABLE bool set_pair(bool is_left_side, const QString& changed_ticker);
+        Q_INVOKABLE bool set_pair(bool is_left_side, const QString& changed_ticker, QString trigger);
         Q_INVOKABLE void set_current_orderbook(const QString& base, const QString& rel); ///< market_selector (called and selecting another coin)
 
         Q_INVOKABLE void place_buy_order(const QString& base_nota = "", const QString& base_confs = "");

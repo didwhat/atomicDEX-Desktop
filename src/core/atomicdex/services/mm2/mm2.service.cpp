@@ -2053,14 +2053,12 @@ namespace atomic_dex
     void
     mm2_service::on_refresh_orderbook(const orderbook_refresh& evt)
     {
-        SPDLOG_DEBUG("[mm2_service::on_refresh_orderbook]");
-
+        // SPDLOG_DEBUG("[mm2_service::on_refresh_orderbook]");
         // SPDLOG_INFO("refreshing orderbook pair: [{} / {}]", evt.base, evt.rel);
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
 
         if (this->m_mm2_running)
         {
-            SPDLOG_DEBUG("process_orderbook(true)");
             process_orderbook(true);
         }
     }

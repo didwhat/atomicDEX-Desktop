@@ -361,13 +361,14 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
+    orderbook_model::reset_orderbook(const t_orders_contents& orderbook, QString trigger)
     {
         if (!orderbook.empty())
         {
             SPDLOG_INFO(
                 "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}", rowCount(), orderbook.size(), m_current_orderbook_kind);
         }
+        // SPDLOG_DEBUG("[orderbook_model::reset_orderbook] trigger: {}", trigger.toStdString());
         this->beginResetModel();
         std::unique_lock lock(m_orders_mutex);
         m_model_data = orderbook;
@@ -520,7 +521,7 @@ namespace atomic_dex
     void
     orderbook_model::refresh_orderbook(const t_orders_contents& orderbook, QString trigger)
     {
-        SPDLOG_DEBUG("[orderbook_model::refresh_orderbook] trigger: {}", trigger.toStdString());
+        // SPDLOG_DEBUG("[orderbook_model::refresh_orderbook] trigger: {}", trigger.toStdString());
         auto refresh_functor = [this](const std::vector<mm2::order_contents>& contents)
         {
             std::unique_lock lock(m_orders_mutex);
@@ -609,9 +610,9 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::clear_orderbook()
+    orderbook_model::clear_orderbook(QString trigger)
     {
-        SPDLOG_DEBUG("clear orderbook");
+        // SPDLOG_DEBUG("[orderbook_model::orderbook] trigger: {}", trigger.toStdString());
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();

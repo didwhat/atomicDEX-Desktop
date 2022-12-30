@@ -4,9 +4,12 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 import QtWebEngine 1.10
 
+import App 1.0
+import Dex.Themes 1.0 as Dex
+import AtomicDEX.TradingMode 1.0
+
 import "../Components"
 import "../Constants"
-import App 1.0
 import "../Dashboard"
 import "../Portfolio"
 import "../Wallet"
@@ -19,7 +22,6 @@ import "../Settings" as SettingsPage
 import "../Support" as SupportPage
 import "../Screens"
 import "../Addressbook" as Addressbook
-import Dex.Themes 1.0 as Dex
 
 Item
 {
@@ -88,11 +90,11 @@ Item
         {
             if (API.app.trading_pg.current_trading_mode == TradingMode.Pro)
             {
-                API.app.trading_pg.set_pair(false, api_wallet_page.ticker)
+                API.app.trading_pg.set_pair(false, api_wallet_page.ticker, "dashboard")
             }
             else
             {
-                API.app.trading_pg.set_pair(true, api_wallet_page.ticker)
+                API.app.trading_pg.set_pair(true, api_wallet_page.ticker, "dashboard")
             }
         }
     }

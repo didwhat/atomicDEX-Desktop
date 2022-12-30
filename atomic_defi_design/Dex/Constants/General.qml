@@ -846,7 +846,20 @@ QtObject {
         case TradingError.RightParentChainNotEnoughBalance:
              return qsTr("%1 balance needs to be funded, a non-zero balance is required to pay the gas of %2 transactions").arg(API.app.portfolio_pg.global_cfg_mdl.get_parent_coin(right_ticker)).arg(right_ticker)
         default:
-            return qsTr("Unknown Error") + ": " + error
+            console.log(error)
+            let error_list = error.split(" ")
+            let new_list = []
+            for (var x in error_list) {
+                if (Number.isFinite(parseFloat(error_list[x])))
+                {
+                    new_list.push(parseFloat(error_list[x]).toFixed(8))
+                }
+                else
+                {
+                    new_list.push(x)
+                }
+            }
+            return qsTr("Unknown Error") + ": " + new_list.join(" ")
         }
     }
 

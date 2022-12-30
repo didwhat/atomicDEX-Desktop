@@ -25,7 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
-        SPDLOG_DEBUG("orderbook::adjust_vol");
+
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -82,22 +82,22 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_orderbook(t_orderbook_answer answer)
     {
-        this->m_asks->refresh_orderbook(answer.asks);
-        this->m_bids->refresh_orderbook(answer.bids);
+        this->m_asks->refresh_orderbook(answer.asks, "asks");
+        this->m_bids->refresh_orderbook(answer.bids, "bids");
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_data();
         if (data.empty())
         {
-            m_best_orders->clear_orderbook();
+            m_best_orders->clear_orderbook("refresh_orderbook");
         }
         else if (m_best_orders->rowCount() == 0)
         {
             SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : reset_best_orders");
-            m_best_orders->reset_orderbook(data);
+            m_best_orders->reset_orderbook(data, "refresh_orderbook");
         }
         else
         {
             SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : refresh_best_orders");
-            m_best_orders->refresh_orderbook(data);
+            m_best_orders->refresh_orderbook(data, "refresh_orderbook");
         }
         this->set_both_taker_vol();
     }
@@ -106,11 +106,11 @@ namespace atomic_dex
     qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer)
     {
         SPDLOG_DEBUG("Resetting m_asks Orderbook");
-        this->m_asks->reset_orderbook(answer.asks);
+        this->m_asks->reset_orderbook(answer.asks, "asks");
         SPDLOG_DEBUG("Resetting m_bids Orderbook");
-        this->m_bids->reset_orderbook(answer.bids);
+        this->m_bids->reset_orderbook(answer.bids, "bids");
         SPDLOG_DEBUG("Resetting m_best_orders Orderbook");
-        this->m_best_orders->clear_orderbook();                                               ///< Remove all elements from the model
+        this->m_best_orders->clear_orderbook("reset_orderbook");
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
@@ -124,9 +124,9 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::clear_orderbook()
     {
-        this->m_asks->clear_orderbook();
-        this->m_bids->clear_orderbook();
-        this->m_best_orders->clear_orderbook();
+        this->m_asks->clear_orderbook("asks");
+        this->m_bids->clear_orderbook("bids");
+        this->m_best_orders->clear_orderbook("best_orders");
     }
 
     QVariant
@@ -180,8 +180,7 @@ namespace atomic_dex
         }
         else
         {
-            SPDLOG_INFO("Refreshing bestorders");
-            get_best_orders()->clear_orderbook();
+            get_best_orders()->clear_orderbook("refresh_best_orders");
         }
     }
 
@@ -219,12 +218,11 @@ namespace atomic_dex
             auto right_coin = trading_pg.get_market_pairs_mdl()->get_right_selected_coin();
             if (right_coin == out.value("coin").toString())
             {
-                SPDLOG_DEBUG("qt_orderbook_wrapper::select_best_order -> set_preferred_order because selected order is from the same pair so overwriting");
                 trading_pg.set_preferred_order(out);
             }
             else
             {
-                if (!trading_pg.set_pair(false, QString::fromStdString(is_buy ? order.rel_coin.value() : order.coin)))
+                if (!trading_pg.set_pair(false, QString::fromStdString(is_buy ? order.rel_coin.value() : order.coin), "select_best_order"))
                 {
                     //! If we are not able to set the selected pair reset immediatly
                     SPDLOG_ERROR("Was not able to set rel coin in the orderbook to : {}", is_buy ? order.rel_coin.value() : order.coin);

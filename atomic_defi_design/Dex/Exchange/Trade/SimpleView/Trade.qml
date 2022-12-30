@@ -714,7 +714,8 @@ ClipRRect // Trade Card
 
                     function getAlert()
                     {
-                        console.log("_fromValue.text: " + _fromValue.text)
+                        console.log("[getAlert] _fromValue.text: " + _fromValue.text)
+                        console.log("[getAlert] selectedOrder: " + selectedOrder)
                         var right_ticker = Constants.API.app.trading_pg.market_pairs_mdl.right_selected_coin
                         var base_ticker = Constants.API.app.trading_pg.market_pairs_mdl.base_selected_coin
                         var rel_ticker = Constants.API.app.trading_pg.market_pairs_mdl.rel_selected_coin

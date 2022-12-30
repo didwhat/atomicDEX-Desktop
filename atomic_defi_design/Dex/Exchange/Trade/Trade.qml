@@ -106,7 +106,7 @@ Item
 
     function setPair(is_left_side, changed_ticker, is_swap=false) {
         swap_cooldown.restart()
-        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, is_swap))
+        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, "trade"))
             // triggers chart reload
             app.pairChanged(base_ticker, rel_ticker)
     }
