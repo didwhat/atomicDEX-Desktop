@@ -436,7 +436,7 @@ namespace atomic_dex
                 SPDLOG_DEBUG("[orders_model::update_swap] Processing orderbook (true)");
                 // why are we processing orderbok here? Is it to remove a matched order?
                 auto& mm2 = m_system_manager.get_system<mm2_service>();
-                mm2.process_orderbook(true);
+                mm2.process_orderbook(true, "update_swap");
             }
             update_value(OrdersRoles::MakerPaymentIdRole, contents.maker_payment_id, idx, *this);
             update_value(OrdersRoles::TakerPaymentIdRole, contents.taker_payment_id, idx, *this);
@@ -489,7 +489,7 @@ namespace atomic_dex
         if (m_system_manager.has_system<mm2_service>())
         {
             SPDLOG_DEBUG("Swaps inserted, refreshing orderbook to get new max taker vol");
-            this->m_system_manager.get_system<mm2_service>().process_orderbook(true);
+            this->m_system_manager.get_system<mm2_service>().process_orderbook(true, "common_insert");
         }
         SPDLOG_DEBUG("{} model size: {}", kind, rowCount());
     }

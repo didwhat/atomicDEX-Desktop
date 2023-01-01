@@ -39,7 +39,7 @@ namespace
             // If cur_min_volume in the UI < base_min_vol_threshold override
             if (cur_min_volume_f < base_min_vol_threshold)
             {
-                trading_pg.set_min_trade_vol(cur_taker_vol);
+                trading_pg.update_min_trade_vol(cur_taker_vol);
             }
         }
     }
@@ -80,8 +80,9 @@ namespace atomic_dex
     }
 
     void
-    qt_orderbook_wrapper::refresh_orderbook(t_orderbook_answer answer)
+    qt_orderbook_wrapper::refresh_orderbook(t_orderbook_answer answer, QString trigger)
     {
+        SPDLOG_WARN("[qt_orderbook_wrapper::refresh_orderbook] trigger: {}", trigger.toStdString());
         this->m_asks->refresh_orderbook(answer.asks, "asks");
         this->m_bids->refresh_orderbook(answer.bids, "bids");
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_data();
@@ -91,39 +92,35 @@ namespace atomic_dex
         }
         else if (m_best_orders->rowCount() == 0)
         {
-            SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : reset_best_orders");
             m_best_orders->reset_orderbook(data, "refresh_orderbook");
         }
         else
         {
-            SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : refresh_best_orders");
             m_best_orders->refresh_orderbook(data, "refresh_orderbook");
         }
         this->set_both_taker_vol();
     }
 
     void
-    qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer)
+    qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer, QString trigger)
     {
-        SPDLOG_DEBUG("Resetting m_asks Orderbook");
+        SPDLOG_WARN("[qt_orderbook_wrapper::reset_orderbook] trigger: {}", trigger.toStdString());
         this->m_asks->reset_orderbook(answer.asks, "asks");
-        SPDLOG_DEBUG("Resetting m_bids Orderbook");
         this->m_bids->reset_orderbook(answer.bids, "bids");
-        SPDLOG_DEBUG("Resetting m_best_orders Orderbook");
         this->m_best_orders->clear_orderbook("reset_orderbook");
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
         {
-            SPDLOG_DEBUG("qt_orderbook_wrapper::reset_orderbook -> set_preferred_order because selected best orders have a value");
             m_system_manager.get_system<trading_page>().set_preferred_order(m_selected_best_order->value());
             m_selected_best_order = std::nullopt;
         }
     }
 
     void
-    qt_orderbook_wrapper::clear_orderbook()
+    qt_orderbook_wrapper::clear_orderbook(QString trigger)
     {
+        SPDLOG_WARN("[qt_orderbook_wrapper::clear_orderbook] trigger: {}", trigger.toStdString());
         this->m_asks->clear_orderbook("asks");
         this->m_bids->clear_orderbook("bids");
         this->m_best_orders->clear_orderbook("best_orders");

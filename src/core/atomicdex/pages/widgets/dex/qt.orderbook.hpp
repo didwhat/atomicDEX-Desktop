@@ -47,9 +47,9 @@ namespace atomic_dex
 
       public:
         void                           adjust_min_vol();
-        void                           refresh_orderbook(t_orderbook_answer answer);
-        void                           reset_orderbook(t_orderbook_answer answer);
-        void                           clear_orderbook();
+        void                           refresh_orderbook(t_orderbook_answer answer, QString trigger = "");
+        void                           reset_orderbook(t_orderbook_answer answer, QString trigger = "");
+        void                           clear_orderbook(QString trigger = "");
         [[nodiscard]] orderbook_model* get_asks() const;
         [[nodiscard]] orderbook_model* get_bids() const;
         [[nodiscard]] orderbook_model* get_best_orders() const;

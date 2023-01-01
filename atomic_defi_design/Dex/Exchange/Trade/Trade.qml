@@ -90,12 +90,12 @@ Item
             if (API.app.trading_pg.current_trading_mode == TradingMode.Pro)
             {
                 API.app.trading_pg.set_current_orderbook(General.default_base,
-                                                     General.default_rel)
+                                                     General.default_rel, "trade Opened")
             }
             else
             {
                 API.app.trading_pg.set_current_orderbook(General.default_rel,
-                                                     General.default_base)
+                                                     General.default_base, "trade Opened")
             }
             General.initialized_orderbook_pair = true
         }
@@ -106,7 +106,7 @@ Item
 
     function setPair(is_left_side, changed_ticker, is_swap=false) {
         swap_cooldown.restart()
-        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, "trade"))
+        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, "trade setPair"))
             // triggers chart reload
             app.pairChanged(base_ticker, rel_ticker)
     }

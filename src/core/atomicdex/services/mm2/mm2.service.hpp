@@ -212,7 +212,7 @@ namespace atomic_dex
        //! Refresh the current orderbook (internally call process_orderbook)
        void fetch_current_orderbook_thread(bool is_a_reset = false);
 
-       void process_orderbook(bool is_a_reset = false);
+       void process_orderbook(bool is_a_reset = false, QString trigger = "");
 
        //! Last 50 transactions maximum
        [[nodiscard]] t_transactions get_tx_history(t_mm2_ec& ec) const;
