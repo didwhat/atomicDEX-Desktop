@@ -1270,7 +1270,6 @@ namespace atomic_dex
         const bool        has_preferred_order      = m_preferred_order.has_value();
         const bool        is_selected_min_max =
             has_preferred_order && m_preferred_order->at("base_min_volume").get<std::string>() == m_preferred_order->at("base_max_volume").get<std::string>();
-        SPDLOG_DEBUG("rel_min_taker_vol: {}", rel_min_taker_vol);
         
         if (left_cfg.has_parent_fees_ticker && left_cfg.ticker != "QTUM")
         {
