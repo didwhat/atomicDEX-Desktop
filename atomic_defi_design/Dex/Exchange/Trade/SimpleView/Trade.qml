@@ -7,6 +7,7 @@ import QtQuick.Controls 2.15
 import Qaterial 1.0 as Qaterial
 
 //! Project Imports
+import AtomicDEX.TradingMode 1.0
 import AtomicDEX.TradingError 1.0
 import AtomicDEX.SelectedOrderStatus 1.0
 import "../../../Components"
@@ -37,8 +38,12 @@ ClipRRect // Trade Card
     onSelectedOrderChanged:
     {
         if (typeof selectedOrder !== 'undefined' && selectedOrder.from_best_order) Constants.API.app.trading_pg.orderbook.select_best_order(selectedOrder.uuid)
-        else if (typeof selectedOrder !== 'undefined') Constants.API.app.trading_pg.preffered_order = selectedOrder
-        else Constants.API.app.trading_pg.reset_order()
+        else if (typeof selectedOrder !== 'undefined') Constants.API.app.trading_pg.preferred_order = selectedOrder
+        else if (API.app.trading_pg.current_trading_mode == TradingMode.Simple)
+        {
+            console.log("Resetting order for simple view")
+            Constants.API.app.trading_pg.reset_order()
+        }
         Constants.API.app.trading_pg.determine_fees()
     }
 
@@ -709,7 +714,8 @@ ClipRRect // Trade Card
 
                     function getAlert()
                     {
-                        console.log("_fromValue.text: " + _fromValue.text)
+                        console.log("[getAlert] _fromValue.text: " + _fromValue.text)
+                        console.log("[getAlert] selectedOrder: " + selectedOrder)
                         var right_ticker = Constants.API.app.trading_pg.market_pairs_mdl.right_selected_coin
                         var base_ticker = Constants.API.app.trading_pg.market_pairs_mdl.base_selected_coin
                         var rel_ticker = Constants.API.app.trading_pg.market_pairs_mdl.rel_selected_coin

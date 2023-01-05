@@ -24,9 +24,26 @@ ColumnLayout
 
     spacing: 35
 
+    function refresh_cex_price_diff() {
+        comparison_indicator.anchors.horizontalCenterOffset = 0.5 * parent.width * Math.min(Math.max(parseFloat(cexPriceDiff) / lineScale, -1), 1)
+        price_diff_text.color = parseFloat(cexPriceDiff) <= 0 ? Dex.CurrentTheme.okColor : Dex.CurrentTheme.noColor
+        price_diff_text.text_value = (parseFloat(cexPriceDiff) > 0 ? qsTr("Expensive") : qsTr("Expedient")) + ":&nbsp;&nbsp;&nbsp;&nbsp;" + qsTr("%1 compared to CEX", "PRICE_DIFF%").arg("<b>" + General.formatPercent(General.limitDigits(cexPriceDiff)) + "</b>")
+    }
+
+    Connections {
+        target: API.app.trading_pg
+        function onCexPriceDiffChanged() {
+            refresh_cex_price_diff()
+        }
+    }
+
+    Component.onCompleted: {
+        refresh_cex_price_diff()
+    }
+
     RowLayout
     {
-    Layout.fillWidth: true
+        Layout.fillWidth: true
 
         ColumnLayout
         {
@@ -37,7 +54,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 horizontalAlignment: invalid_cex_price ? Text.AlignHCenter : Text.AlignLeft
-                text_value: qsTr("Exchange rate") + (preffered_order.price !== undefined ? (" (" + qsTr("Selected") + ")") : "")
+                text_value: qsTr("Exchange rate") + (preferred_order.price !== undefined ? (" (" + qsTr("Selected") + ")") : "")
                 font.pixelSize: fontSize
             }
 
@@ -115,6 +132,7 @@ ColumnLayout
 
                 AnimatedRectangle
                 {
+                    id: comparison_indicator
                     width: 4
                     height: parent.height * 2
                     anchors.verticalCenter: parent.verticalCenter

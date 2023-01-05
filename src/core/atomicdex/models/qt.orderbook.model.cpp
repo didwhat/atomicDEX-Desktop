@@ -76,78 +76,78 @@ namespace atomic_dex
             return {};
         }
 
+        const auto& orderbook_row_data    = m_model_data.at(index.row());
         switch (static_cast<OrderbookRoles>(role))
         {
         case PriceRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price);
+            return QString::fromStdString(orderbook_row_data.price);
         case CoinRole:
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto coin = m_model_data.at(index.row()).rel_coin.value();
+                const auto coin = orderbook_row_data.rel_coin.value();
                 return QString::fromStdString(coin);
             }
-            return QString::fromStdString(m_model_data.at(index.row()).coin);
+            return QString::fromStdString(orderbook_row_data.coin);
         }
         case NameAndTicker:
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto  coin         = m_model_data.at(index.row()).rel_coin.value();
+                const auto  coin         = orderbook_row_data.rel_coin.value();
                 const auto& portfolio_pg = m_system_mgr.get_system<portfolio_page>();
                 const auto  cfg          = portfolio_pg.get_global_cfg()->get_coin_info(coin);
                 return QString::fromStdString(coin + cfg.name);
             }
-            return QString::fromStdString(m_model_data.at(index.row()).coin);
+            return QString::fromStdString(orderbook_row_data.coin);
         }
         case PriceDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price_fraction_denom);
+            return QString::fromStdString(orderbook_row_data.price_fraction_denom);
         case PriceNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).price_fraction_numer);
+            return QString::fromStdString(orderbook_row_data.price_fraction_numer);
         case TotalRole:
-            return QString::fromStdString(m_model_data.at(index.row()).total);
+            return QString::fromStdString(orderbook_row_data.total);
         case UUIDRole:
-            return QString::fromStdString(m_model_data.at(index.row()).uuid);
+            return QString::fromStdString(orderbook_row_data.uuid);
         case IsMineRole:
-            return m_model_data.at(index.row()).is_mine;
+            return orderbook_row_data.is_mine;
         case PercentDepthRole:
-            return QString::fromStdString(m_model_data.at(index.row()).depth_percent);
+            return QString::fromStdString(orderbook_row_data.depth_percent);
         case BaseMinVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume);
+            return QString::fromStdString(orderbook_row_data.base_min_volume);
         case BaseMinVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume_denom);
+            return QString::fromStdString(orderbook_row_data.base_min_volume_denom);
         case BaseMinVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_min_volume_numer);
+            return QString::fromStdString(orderbook_row_data.base_min_volume_numer);
         case BaseMaxVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume);
+            return QString::fromStdString(orderbook_row_data.base_max_volume);
         case BaseMaxVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume_denom);
+            return QString::fromStdString(orderbook_row_data.base_max_volume_denom);
         case BaseMaxVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).base_max_volume_numer);
+            return QString::fromStdString(orderbook_row_data.base_max_volume_numer);
         case RelMinVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume);
         case RelMinVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume_denom);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume_denom);
         case RelMinVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_min_volume_numer);
+            return QString::fromStdString(orderbook_row_data.rel_min_volume_numer);
         case RelMaxVolumeRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume);
         case RelMaxVolumeDenomRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume_denom);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume_denom);
         case RelMaxVolumeNumerRole:
-            return QString::fromStdString(m_model_data.at(index.row()).rel_max_volume_numer);
+            return QString::fromStdString(orderbook_row_data.rel_max_volume_numer);
         case MinVolumeRole:
         {
             const bool is_asks = m_current_orderbook_kind == kind::asks;
-            return QString::fromStdString(is_asks ? m_model_data.at(index.row()).rel_min_volume : m_model_data.at(index.row()).base_min_volume);
+            return QString::fromStdString(is_asks ? orderbook_row_data.rel_min_volume : orderbook_row_data.base_min_volume);
         }
         case EnoughFundsToPayMinVolume:
         {
             bool        i_have_enough_funds = true;
-            const auto& order_model_data    = m_model_data.at(index.row());
             const auto& trading_pg          = m_system_mgr.get_system<trading_page>();
             const bool  is_asks             = m_current_orderbook_kind == kind::asks;
-            const auto  min_volume_f        = safe_float(is_asks ? order_model_data.rel_min_volume : order_model_data.base_min_volume);
+            const auto  min_volume_f        = safe_float(is_asks ? orderbook_row_data.rel_min_volume : orderbook_row_data.base_min_volume);
             auto        taker_vol_std =
                 ((is_asks) ? trading_pg.get_orderbook_wrapper()->get_rel_max_taker_vol() : trading_pg.get_orderbook_wrapper()->get_base_max_taker_vol())
                     .toJsonObject()["decimal"]
@@ -168,7 +168,7 @@ namespace atomic_dex
             const auto* market_selector = trading_pg.get_market_pairs_mdl();
             const auto& base            = market_selector->get_left_selected_coin().toStdString();
             const auto& rel             = data(index, CoinRole).toString().toStdString();
-            const auto& price           = m_model_data.at(index.row()).price;
+            const auto& price           = orderbook_row_data.price;
             if (base == rel)
             {
                 return "0";
@@ -190,16 +190,15 @@ namespace atomic_dex
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                const auto& data         = m_model_data.at(index.row());
                 const auto& trading_pg   = m_system_mgr.get_system<trading_page>();
                 t_float_50  volume_f     = safe_float(trading_pg.get_volume().toStdString());
                 const bool  is_buy       = trading_pg.get_market_mode() == MarketMode::Buy;
                 const auto  trading_mode = trading_pg.get_current_trading_mode();
                 if (!is_buy && trading_mode == TradingMode::Simple)
                 {
-                    volume_f = safe_float(data.base_max_volume);
+                    volume_f = safe_float(orderbook_row_data.base_max_volume);
                 }
-                t_float_50 total_amount_f = volume_f * safe_float(data.price);
+                t_float_50 total_amount_f = volume_f * safe_float(orderbook_row_data.price);
                 const auto total_amount   = atomic_dex::utils::format_float(total_amount_f);
                 return QString::fromStdString(total_amount);
             }
@@ -362,14 +361,16 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
+    orderbook_model::reset_orderbook(const t_orders_contents& orderbook, QString trigger)
     {
         if (!orderbook.empty())
         {
             SPDLOG_INFO(
                 "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}", rowCount(), orderbook.size(), m_current_orderbook_kind);
         }
+        // SPDLOG_DEBUG("[orderbook_model::reset_orderbook] trigger: {}", trigger.toStdString());
         this->beginResetModel();
+        std::unique_lock lock(m_orders_mutex);
         m_model_data = orderbook;
         m_orders_id_registry.clear();
         for (auto&& order: m_model_data)
@@ -381,7 +382,7 @@ namespace atomic_dex
         }
         this->endResetModel();
         emit lengthChanged();
-        assert(m_model_data.size() == m_orders_id_registry.size());
+        // assert(m_model_data.size() == m_orders_id_registry.size());
     }
 
     int
@@ -518,18 +519,22 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::refresh_orderbook(const t_orders_contents& orderbook)
+    orderbook_model::refresh_orderbook(const t_orders_contents& orderbook, QString trigger)
     {
+        // SPDLOG_DEBUG("[orderbook_model::refresh_orderbook] trigger: {}", trigger.toStdString());
         auto refresh_functor = [this](const std::vector<mm2::order_contents>& contents)
         {
+            std::unique_lock lock(m_orders_mutex);
             for (auto&& current_order: contents)
             {
                 if (this->m_orders_id_registry.find(current_order.uuid) != this->m_orders_id_registry.end())
                 {
+                    // SPDLOG_DEBUG("Updating order: {}", current_order.uuid);
                     this->update_order(current_order);
                 }
                 else
                 {
+                    // SPDLOG_DEBUG("Initializating order: {}", current_order.uuid);
                     this->initialize_order(current_order);
                 }
             }
@@ -538,10 +543,19 @@ namespace atomic_dex
             std::unordered_set<std::string> to_remove;
             for (auto&& id: this->m_orders_id_registry)
             {
-                bool res = std::none_of(begin(contents), end(contents), [id](auto&& contents) { return contents.uuid == id; });
+                // SPDLOG_DEBUG("m_orders_id_registry ID: {}", id);
+                bool res = std::none_of(
+                    begin(contents),
+                    end(contents),
+                    [id](auto&& current_order) {
+                        // SPDLOG_DEBUG("current_order.uuid: {}", current_order.uuid);
+                        return current_order.uuid == id;
+                    }
+                );
                 //! Need to remove the row
                 if (res)
                 {
+                    // SPDLOG_DEBUG("Deleting order: {}", id);
                     auto res_list = this->match(index(0, 0), UUIDRole, QString::fromStdString(id));
                     if (not res_list.empty())
                     {
@@ -573,15 +587,15 @@ namespace atomic_dex
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
             {
                 auto&      trading_pg      = m_system_mgr.get_system<trading_page>();
-                const auto preffered_order = trading_pg.get_preferred_order();
-                if (!preffered_order.empty())
+                const auto preferred_order = trading_pg.get_preferred_order();
+                if (!preferred_order.empty())
                 {
-                    const auto selected_order_uuid = preffered_order.value("uuid", "").toString().toStdString();
+                    const auto selected_order_uuid = preferred_order.value("uuid", "").toString().toStdString();
                     if (selected_order_uuid == uuid_to_be_removed)
                     {
                         SPDLOG_WARN(
                             "The selected order uuid: {} is removed from the orderbook model, checking if a better order is available", uuid_to_be_removed);
-                        check_for_better_order(trading_pg, preffered_order, selected_order_uuid);
+                        check_for_better_order(trading_pg, preferred_order, selected_order_uuid);
                     }
                 }
             }
@@ -596,9 +610,9 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::clear_orderbook()
+    orderbook_model::clear_orderbook(QString trigger)
     {
-        // SPDLOG_INFO("clear orderbook");
+        // SPDLOG_DEBUG("[orderbook_model::orderbook] trigger: {}", trigger.toStdString());
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();

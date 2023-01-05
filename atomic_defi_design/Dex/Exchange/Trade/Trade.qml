@@ -43,20 +43,14 @@ Item
     signal prepareMultiOrder
     property bool multi_order_values_are_valid: true
 
+    readonly property string backend_volume: API.app.trading_pg.volume
     readonly property string non_null_price: backend_price === '' ? '0' : backend_price
     readonly property string non_null_volume: backend_volume === '' ? '0' : backend_volume
     readonly property bool price_is_empty: parseFloat(non_null_price) <= 0
 
     readonly property string backend_price: API.app.trading_pg.price
-    function setPrice(v) {
-        API.app.trading_pg.price = v
-    }
     readonly property int last_trading_error: API.app.trading_pg.last_trading_error
     readonly property string max_volume: API.app.trading_pg.max_volume
-    readonly property string backend_volume: API.app.trading_pg.volume
-    function setVolume(v) {
-        API.app.trading_pg.volume = v
-    }
 
     property bool sell_mode: API.app.trading_pg.market_mode.toString(
                                  ) === "Sell"
@@ -79,7 +73,7 @@ Item
                 && exchange.current_page === idx_exchange_trade
     }
 
-    readonly property var preffered_order: API.app.trading_pg.preffered_order
+    readonly property var preferred_order: API.app.trading_pg.preferred_order
 
 
 
@@ -96,12 +90,12 @@ Item
             if (API.app.trading_pg.current_trading_mode == TradingMode.Pro)
             {
                 API.app.trading_pg.set_current_orderbook(General.default_base,
-                                                     General.default_rel)
+                                                     General.default_rel, "trade Opened")
             }
             else
             {
                 API.app.trading_pg.set_current_orderbook(General.default_rel,
-                                                     General.default_base)
+                                                     General.default_base, "trade Opened")
             }
             General.initialized_orderbook_pair = true
         }
@@ -112,7 +106,7 @@ Item
 
     function setPair(is_left_side, changed_ticker, is_swap=false) {
         swap_cooldown.restart()
-        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, is_swap))
+        if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, "trade setPair"))
             // triggers chart reload
             app.pairChanged(base_ticker, rel_ticker)
     }
@@ -145,7 +139,6 @@ Item
             API.app.trading_pg.place_sell_order(nota, confs)
         else
             API.app.trading_pg.place_buy_order(nota, confs)
-
         orderPlaced()
     }
 

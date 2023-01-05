@@ -21,6 +21,7 @@
 #include <QVariantMap>
 
 //! STD
+#include <shared_mutex>
 #include <unordered_set>
 
 //! Deps
@@ -53,14 +54,14 @@ namespace atomic_dex
             PriceRole = Qt::UserRole + 1, // 257
             CoinRole,
             TotalRole,
-            UUIDRole,
+            UUIDRole,                     // 260
             IsMineRole,
             PriceDenomRole,
             PriceNumerRole,
             PercentDepthRole,
             MinVolumeRole,
             EnoughFundsToPayMinVolume,
-            CEXRatesRole,
+            CEXRatesRole,                 // 267
             SendRole,
             PriceFiatRole,
             HaveCEXIDRole,
@@ -88,9 +89,9 @@ namespace atomic_dex
         bool                                 setData(const QModelIndex& index, const QVariant& value, int role) final;
         bool                                 removeRows(int row, int count, const QModelIndex& parent) override;
 
-        void                                 reset_orderbook(const t_orders_contents& orderbook);
-        void                                 refresh_orderbook(const t_orders_contents& orderbook);
-        void                                 clear_orderbook();
+        void                                 reset_orderbook(const t_orders_contents& orderbook, QString trigger);
+        void                                 refresh_orderbook(const t_orders_contents& orderbook, QString trigger);
+        void                                 clear_orderbook(QString trigger);
         [[nodiscard]] int                    get_length() const;
         [[nodiscard]] orderbook_proxy_model* get_orderbook_proxy() const;
         [[nodiscard]] t_order_contents       get_order_content(const QModelIndex& index) const;
@@ -112,6 +113,7 @@ namespace atomic_dex
         ag::ecs::system_manager&        m_system_mgr;
         t_orders_contents               m_model_data;
         std::unordered_set<std::string> m_orders_id_registry;
+        mutable std::shared_mutex       m_orders_mutex;
         orderbook_proxy_model*          m_model_proxy;
     };
 

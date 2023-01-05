@@ -25,6 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
+
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -38,7 +39,7 @@ namespace
             // If cur_min_volume in the UI < base_min_vol_threshold override
             if (cur_min_volume_f < base_min_vol_threshold)
             {
-                trading_pg.set_min_trade_vol(cur_taker_vol);
+                trading_pg.update_min_trade_vol(cur_taker_vol);
             }
         }
     }
@@ -79,50 +80,50 @@ namespace atomic_dex
     }
 
     void
-    qt_orderbook_wrapper::refresh_orderbook(t_orderbook_answer answer)
+    qt_orderbook_wrapper::refresh_orderbook(t_orderbook_answer answer, QString trigger)
     {
-        this->m_asks->refresh_orderbook(answer.asks);
-        this->m_bids->refresh_orderbook(answer.bids);
+        SPDLOG_WARN("[qt_orderbook_wrapper::refresh_orderbook] trigger: {}", trigger.toStdString());
+        this->m_asks->refresh_orderbook(answer.asks, "asks");
+        this->m_bids->refresh_orderbook(answer.bids, "bids");
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_data();
         if (data.empty())
         {
-            m_best_orders->clear_orderbook();
+            m_best_orders->clear_orderbook("refresh_orderbook");
         }
         else if (m_best_orders->rowCount() == 0)
         {
-            // SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : reset_best_orders");
-            m_best_orders->reset_orderbook(data);
+            m_best_orders->reset_orderbook(data, "refresh_orderbook");
         }
         else
         {
-            // SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook] : refresh_best_orders");
-            m_best_orders->refresh_orderbook(data);
+            m_best_orders->refresh_orderbook(data, "refresh_orderbook");
         }
         this->set_both_taker_vol();
     }
 
     void
-    qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer)
+    qt_orderbook_wrapper::reset_orderbook(t_orderbook_answer answer, QString trigger)
     {
-        this->m_asks->reset_orderbook(answer.asks);
-        this->m_bids->reset_orderbook(answer.bids);
+        SPDLOG_WARN("[qt_orderbook_wrapper::reset_orderbook] trigger: {}", trigger.toStdString());
+        this->m_asks->reset_orderbook(answer.asks, "asks");
+        this->m_bids->reset_orderbook(answer.bids, "bids");
+        this->m_best_orders->clear_orderbook("reset_orderbook");
+        this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
         this->set_both_taker_vol();
         if (m_selected_best_order->has_value())
         {
-            SPDLOG_INFO("selected best orders have a value - set preffered order");
             m_system_manager.get_system<trading_page>().set_preferred_order(m_selected_best_order->value());
             m_selected_best_order = std::nullopt;
         }
-        m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
-        this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
     }
 
     void
-    qt_orderbook_wrapper::clear_orderbook()
+    qt_orderbook_wrapper::clear_orderbook(QString trigger)
     {
-        this->m_asks->clear_orderbook();
-        this->m_bids->clear_orderbook();
-        this->m_best_orders->clear_orderbook();
+        SPDLOG_WARN("[qt_orderbook_wrapper::clear_orderbook] trigger: {}", trigger.toStdString());
+        this->m_asks->clear_orderbook("asks");
+        this->m_bids->clear_orderbook("bids");
+        this->m_best_orders->clear_orderbook("best_orders");
     }
 
     QVariant
@@ -176,7 +177,7 @@ namespace atomic_dex
         }
         else
         {
-            get_best_orders()->clear_orderbook();
+            get_best_orders()->clear_orderbook("refresh_best_orders");
         }
     }
 
@@ -214,12 +215,11 @@ namespace atomic_dex
             auto right_coin = trading_pg.get_market_pairs_mdl()->get_right_selected_coin();
             if (right_coin == out.value("coin").toString())
             {
-                SPDLOG_INFO("Selected order is from the same pair, overriding preffered_order");
                 trading_pg.set_preferred_order(out);
             }
             else
             {
-                if (!trading_pg.set_pair(false, QString::fromStdString(is_buy ? order.rel_coin.value() : order.coin)))
+                if (!trading_pg.set_pair(false, QString::fromStdString(is_buy ? order.rel_coin.value() : order.coin), "select_best_order"))
                 {
                     //! If we are not able to set the selected pair reset immediatly
                     SPDLOG_ERROR("Was not able to set rel coin in the orderbook to : {}", is_buy ? order.rel_coin.value() : order.coin);
@@ -251,11 +251,11 @@ namespace atomic_dex
     {
         QString    cur_taker_vol   = get_base_min_taker_vol();
         auto&      trading_pg      = m_system_manager.get_system<trading_page>();
-        auto       preffered_order = trading_pg.get_raw_preferred_order();
+        auto       preferred_order = trading_pg.get_raw_preferred_order();
         t_float_50 price_f         = safe_float(trading_pg.get_price().toStdString());
-        if (preffered_order.has_value())
+        if (preferred_order.has_value())
         {
-            price_f = safe_float(preffered_order->at("price").get<std::string>());
+            price_f = safe_float(preferred_order->at("price").get<std::string>());
         }
         // if (trading_pg.)
         if (price_f <= 0)
@@ -271,9 +271,9 @@ namespace atomic_dex
         // t_float_50 cur_min_volume_f       = safe_float(trading_pg.get_min_trade_vol().toStdString());
         cur_taker_vol = QString::fromStdString(utils::format_float(base_min_vol_threshold));
 
-        if (preffered_order.has_value())
+        if (preferred_order.has_value())
         {
-            cur_taker_vol = QString::fromStdString(preffered_order->at("base_min_volume").get<std::string>());
+            cur_taker_vol = QString::fromStdString(preferred_order->at("base_min_volume").get<std::string>());
             // SPDLOG_INFO("Overriding min_volume with the one from orderbook: {}", cur_taker_vol.toStdString());
         }
 

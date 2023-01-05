@@ -55,7 +55,7 @@ namespace atomic_dex
         Q_PROPERTY(QString base_amount READ get_base_amount NOTIFY baseAmountChanged)
         Q_PROPERTY(QString rel_amount READ get_rel_amount NOTIFY relAmountChanged)
         Q_PROPERTY(QVariantMap fees READ get_fees WRITE set_fees NOTIFY feesChanged)
-        Q_PROPERTY(QVariantMap preffered_order READ get_preferred_order WRITE set_preferred_order NOTIFY prefferedOrderChanged)
+        Q_PROPERTY(QVariantMap preferred_order READ get_preferred_order WRITE set_preferred_order NOTIFY preferredOrderChanged)
         Q_PROPERTY(SelectedOrderStatus selected_order_status READ get_selected_order_status WRITE set_selected_order_status NOTIFY selectedOrderStatusChanged)
         Q_PROPERTY(QString price_reversed READ get_price_reversed NOTIFY priceReversedChanged)
         Q_PROPERTY(QString cex_price READ get_cex_price NOTIFY cexPriceChanged)
@@ -63,7 +63,6 @@ namespace atomic_dex
         Q_PROPERTY(QString cex_price_diff READ get_cex_price_diff NOTIFY cexPriceDiffChanged)
         Q_PROPERTY(QString min_trade_vol READ get_min_trade_vol WRITE set_min_trade_vol NOTIFY minTradeVolChanged)
         Q_PROPERTY(bool invalid_cex_price READ get_invalid_cex_price NOTIFY invalidCexPriceChanged)
-        Q_PROPERTY(bool skip_taker READ get_skip_taker WRITE set_skip_taker NOTIFY skipTakerChanged)
 
 
         //! Private enum
@@ -116,17 +115,16 @@ namespace atomic_dex
         QString                                m_minimal_trading_amount{"0.0001"};
         std::optional<nlohmann::json>          m_preferred_order;
         boost::synchronized_value<QVariantMap> m_fees;
-        bool                                   m_skip_taker{false};
 
         //! Private function
-        void                       determine_max_volume();
+        void                       determine_max_volume(QString trigger = "");
         void                       determine_total_amount();
-        void                       determine_cex_rates();
-        void                       cap_volume();
+        void                       determine_cex_rates(QString trigger = "");
+        void                       cap_volume(QString trigger = "");
         [[nodiscard]] t_float_50   get_max_balance_without_dust(const std::optional<QString>& trade_with = std::nullopt) const;
         [[nodiscard]] TradingError generate_fees_error(QVariantMap fees) const;
         void                       set_preferred_settings();
-        static QString                    calculate_total_amount(QString price, QString volume) ;
+        static QString             calculate_total_amount(QString price, QString volume);
 
       public:
         //! Constructor
@@ -139,7 +137,7 @@ namespace atomic_dex
         void update() final;
 
         //! Public API
-        void process_action();
+        void process_trading_actions();
         void connect_signals();
         void disconnect_signals();
         void clear_models() const;
@@ -149,12 +147,12 @@ namespace atomic_dex
         Q_INVOKABLE void     on_gui_enter_dex();
         Q_INVOKABLE void     on_gui_leave_dex();
         Q_INVOKABLE QVariant get_raw_mm2_coin_cfg(const QString& ticker) const;
-        Q_INVOKABLE void     clear_forms(QString from);
+        Q_INVOKABLE void     clear_forms(QString trigger);
 
         //! Trading business
-        Q_INVOKABLE void swap_market_pair(); ///< market_selector (button to switch market selector and orderbook)
-        Q_INVOKABLE bool set_pair(bool is_left_side, const QString& changed_ticker);
-        Q_INVOKABLE void set_current_orderbook(const QString& base, const QString& rel); ///< market_selector (called and selecting another coin)
+        Q_INVOKABLE void swap_market_pair();
+        Q_INVOKABLE bool set_pair(bool is_left_side, const QString& changed_ticker, QString trigger);
+        Q_INVOKABLE void set_current_orderbook(const QString& base, const QString& rel, QString trigger);
 
         Q_INVOKABLE void place_buy_order(const QString& base_nota = "", const QString& base_confs = "");
         Q_INVOKABLE void place_sell_order(const QString& rel_nota = "", const QString& rel_confs = "");
@@ -162,7 +160,7 @@ namespace atomic_dex
         Q_INVOKABLE void reset_order();
 
         Q_INVOKABLE void determine_fees();
-        Q_INVOKABLE void determine_error_cases();
+        Q_INVOKABLE void determine_error_cases(QString trigger);
         Q_INVOKABLE void reset_fees();
 
         //! Properties
@@ -173,42 +171,43 @@ namespace atomic_dex
         void                                set_buy_sell_rpc_busy(bool status);
 
         //! Trading Logic
-        [[nodiscard]] MarketMode          get_market_mode() const;
-        void                              set_market_mode(MarketMode market_mode);
-        [[nodiscard]] TradingError        get_trading_error() const;
-        void                              set_trading_error(TradingError trading_error);
-        [[nodiscard]] TradingMode         get_current_trading_mode() const;
-        void                              set_current_trading_mode(TradingMode trading_mode);
-        [[nodiscard]] SelectedOrderStatus get_selected_order_status() const;
-        void                              set_selected_order_status(SelectedOrderStatus order_status);
-        [[nodiscard]] QString             get_price_reversed() const;
-        [[nodiscard]] QString             get_price() const;
-        void                              set_price(QString price);
-        [[nodiscard]] QString         get_min_trade_vol() const;
-        void                          set_min_trade_vol(QString min_trade_vol);
-        [[nodiscard]] QString         get_volume() const;
-        void                          set_volume(QString volume);
-        [[nodiscard]] QString         get_max_volume() const;
-        void                          set_max_volume(QString max_volume);
-        [[nodiscard]] QString         get_total_amount() const;
-        void                          set_total_amount(QString total_amount);
-        [[nodiscard]] QString         get_base_amount() const;
-        [[nodiscard]] QString         get_rel_amount() const;
-        [[nodiscard]] QString         get_cex_price() const;
-        [[nodiscard]] QString         get_cex_price_reversed() const;
-        [[nodiscard]] QString         get_cex_price_diff() const;
-        [[nodiscard]] bool            get_invalid_cex_price() const;
-        [[nodiscard]] QVariantMap     get_preferred_order() const;
-        void                          set_preferred_order(const QVariantMap& price_object);
-        std::optional<nlohmann::json> get_raw_preferred_order() const;
-        [[nodiscard]] QVariantMap     get_fees() const;
-        void                          set_fees(const QVariantMap& fees);
-        [[nodiscard]] bool            get_skip_taker() const;
-        void                          set_skip_taker(bool skip_taker);
-        [[nodiscard]] bool            is_preimage_busy() const;
-        void                          set_preimage_busy(bool status);
-        [[nodiscard]] QVariant        get_buy_sell_last_rpc_data() const;
-        void                          set_buy_sell_last_rpc_data(const QVariant& rpc_data);
+        [[nodiscard]] MarketMode            get_market_mode() const;
+        void                                set_market_mode(MarketMode market_mode);
+        [[nodiscard]] TradingError          get_trading_error() const;
+        void                                set_trading_error(TradingError trading_error);
+        [[nodiscard]] TradingMode           get_current_trading_mode() const;
+        void                                set_current_trading_mode(TradingMode trading_mode);
+        [[nodiscard]] SelectedOrderStatus   get_selected_order_status() const;
+        void                                set_selected_order_status(SelectedOrderStatus order_status);
+        [[nodiscard]] QString               get_price_reversed() const;
+        [[nodiscard]] QString               get_price() const;
+        void                                set_price(QString price);
+        void                                update_price(QString price, QString trigger);
+        [[nodiscard]] QString               get_min_trade_vol() const;
+        void                                set_min_trade_vol(QString min_trade_vol, QString trigger = "");
+        void                                update_min_trade_vol(QString min_trade_vol);
+        [[nodiscard]] QString               get_volume() const;
+        void                                set_volume(QString volume);
+        void                                update_volume(QString volume, QString trigger);
+        [[nodiscard]] QString               get_max_volume() const;
+        void                                set_max_volume(QString max_volume);
+        [[nodiscard]] QString               get_total_amount() const;
+        void                                set_total_amount(QString total_amount);
+        [[nodiscard]] QString               get_base_amount() const;
+        [[nodiscard]] QString               get_rel_amount() const;
+        [[nodiscard]] QString               get_cex_price() const;
+        [[nodiscard]] QString               get_cex_price_reversed() const;
+        [[nodiscard]] QString               get_cex_price_diff() const;
+        [[nodiscard]] bool                  get_invalid_cex_price() const;
+        [[nodiscard]] QVariantMap           get_preferred_order() const;
+        void                                set_preferred_order(const QVariantMap& price_object);
+        std::optional<nlohmann::json>       get_raw_preferred_order() const;
+        [[nodiscard]] QVariantMap           get_fees() const;
+        void                                set_fees(const QVariantMap& fees);
+        [[nodiscard]] bool                  is_preimage_busy() const;
+        void                                set_preimage_busy(bool status);
+        [[nodiscard]] QVariant              get_buy_sell_last_rpc_data() const;
+        void                                set_buy_sell_last_rpc_data(const QVariant& rpc_data);
 
         //! Events Callbacks
         void on_process_orderbook_finished_event(const process_orderbook_finished& evt);
@@ -229,7 +228,7 @@ namespace atomic_dex
         void maxVolumeChanged();
         void tradingErrorChanged();
         void tradingModeChanged();
-        void prefferedOrderChanged();
+        void preferredOrderChanged();
         void totalAmountChanged();
         void baseAmountChanged();
         void relAmountChanged();

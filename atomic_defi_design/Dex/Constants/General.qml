@@ -575,6 +575,30 @@ QtObject {
         })
     }
 
+    function setPrice(v) {
+
+        API.app.trading_pg.price = v
+    }
+
+    function setMinimumAmount(value) { API.app.trading_pg.min_trade_vol = value }
+
+    function getVolumeShortcutLabel(pct) {
+        return formatDouble(API.app.trading_pg.max_volume) * pct < formatDouble(API.app.trading_pg.min_trade_vol)
+    }
+
+    function setVolume(vol) {
+        vol = General.formatDouble(vol)
+        let min_vol = General.formatDouble(API.app.trading_pg.min_trade_vol)
+        if (min_vol > vol && vol != 0)
+        {
+            API.app.trading_pg.volume = String(min_vol)
+        }
+        else
+        {
+            API.app.trading_pg.volume = String(vol)
+        }
+    }
+
     function getMinTradeAmount() {
         return formatDouble(API.app.trading_pg.min_trade_vol, 8, false).toString()
     }
@@ -827,7 +851,20 @@ QtObject {
         case TradingError.RightParentChainNotEnoughBalance:
              return qsTr("%1 balance needs to be funded, a non-zero balance is required to pay the gas of %2 transactions").arg(API.app.portfolio_pg.global_cfg_mdl.get_parent_coin(right_ticker)).arg(right_ticker)
         default:
-            return qsTr("Unknown Error") + ": " + error
+            console.log(error)
+            let error_list = error.split(" ")
+            let new_list = []
+            for (var x in error_list) {
+                if (Number.isFinite(parseFloat(error_list[x])))
+                {
+                    new_list.push(parseFloat(error_list[x]).toFixed(8))
+                }
+                else
+                {
+                    new_list.push(x)
+                }
+            }
+            return qsTr("Unknown Error") + ": " + new_list.join(" ")
         }
     }
 

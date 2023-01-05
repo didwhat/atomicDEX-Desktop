@@ -3,6 +3,7 @@ import QtQuick 2.12
 import App 1.0
 import Dex.Themes 1.0 as Dex
 import AtomicDEX.MarketMode 1.0 as Dex
+import "../../../Constants"
 import "../../../Components"
 
 Rectangle

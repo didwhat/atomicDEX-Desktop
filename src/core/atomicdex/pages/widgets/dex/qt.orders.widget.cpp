@@ -41,6 +41,7 @@ namespace atomic_dex
     void
     qt_orders_widget::common_cancel_all_orders(bool by_coin, const QString& ticker)
     {
+        SPDLOG_INFO("[qt_orders_widget::common_cancel_all_orders]");
         nlohmann::json batch          = nlohmann::json::array();
         nlohmann::json cancel_request = mm2::template_request("cancel_all_orders");
         if (by_coin && not ticker.isEmpty())
@@ -65,7 +66,7 @@ namespace atomic_dex
             .then([this]([[maybe_unused]] web::http::http_response resp) {
                 auto& mm2_system = m_system_mgr.get_system<mm2_service>();
                 mm2_system.batch_fetch_orders_and_swap();
-                mm2_system.process_orderbook(false);
+                mm2_system.process_orderbook(false, "common_cancel_all_orders");
             })
             .then(&handle_exception_pplx_task);
     }
@@ -77,7 +78,7 @@ namespace atomic_dex
     void
     qt_orders_widget::cancel_order(const QStringList& orders_id)
     {
-        SPDLOG_INFO("cancel order");
+        SPDLOG_DEBUG("[qt_orders_widget::cancel_order]");
         nlohmann::json batch = nlohmann::json::array();
         for (auto&& order_id: orders_id)
         {
@@ -94,7 +95,7 @@ namespace atomic_dex
             .then([this]([[maybe_unused]] web::http::http_response resp) {
                 auto& mm2_system = m_system_mgr.get_system<mm2_service>();
                 mm2_system.batch_fetch_orders_and_swap();
-                mm2_system.process_orderbook(false);
+                mm2_system.process_orderbook(false, "cancel_order");
             })
             .then(&handle_exception_pplx_task);
     }

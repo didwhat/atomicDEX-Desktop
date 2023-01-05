@@ -22,6 +22,13 @@ RowLayout
     property alias  left_btn: _left_btn
     property alias  middle_btn: _middle_btn
     property alias  right_btn: _right_btn
+    property alias  left_rect: _left_rect
+    property alias  middle_rect: _middle_rect
+    property alias  right_rect: _right_rect
+
+    property alias  left_btn_mousearea: _left_btn_mousearea
+    property alias  middle_btn_mousearea: _middle_btn_mousearea
+    property alias  right_btn_mousearea: _right_btn_mousearea
     property int    pixel_size: 12
     property int    btn_width: 33
     spacing: 2
@@ -30,12 +37,14 @@ RowLayout
 
     Item
     {
+        id: _left_btn
+        visible: middle_label != qsTr("Min")
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
+            id: _left_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
@@ -54,7 +63,7 @@ RowLayout
         DexTooltip
         {
             id: _left_tooltip
-            visible: _left_btn.containsMouse && left_tooltip_text != ""
+            visible: _left_btn_mousearea.containsMouse && left_tooltip_text != ""
             
             contentItem: FloatingBackground
             {
@@ -82,7 +91,7 @@ RowLayout
 
         DefaultMouseArea
         {
-            id: _left_btn
+            id: _left_btn_mousearea
             anchors.fill: parent
             hoverEnabled: true
         }
@@ -90,24 +99,17 @@ RowLayout
 
     Item
     {
-
+        id: _middle_btn
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
+            id: _middle_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
             color: Dex.CurrentTheme.tradeMarketModeSelectorNotSelectedBackgroundColor
-
-            DefaultMouseArea
-            {
-                id: _middle_btn
-                anchors.fill: parent
-                hoverEnabled: true
-            }
 
             DefaultText
             {
@@ -121,7 +123,7 @@ RowLayout
             DexTooltip
             {
                 id: _middle_tooltip
-                visible: _middle_btn.containsMouse && middle_tooltip_text != ""
+                visible: _middle_btn_mousearea.containsMouse && middle_tooltip_text != ""
 
                 contentItem: FloatingBackground
                 {
@@ -146,19 +148,25 @@ RowLayout
                     color: "transparent"
                 }
             }
+
+            DefaultMouseArea
+            {
+                id: _middle_btn_mousearea
+                anchors.fill: parent
+                hoverEnabled: true
+            }
         }
     }
 
     Item
     {
-
+        id: _right_btn
         width: btn_width
         height: parent.height
 
-        // Background when market mode is different
         DefaultRectangle
         {
-            id: right_rect
+            id: _right_rect
             anchors.centerIn: parent
             width: parent.width
             height: parent.height
@@ -177,7 +185,7 @@ RowLayout
         DexTooltip
         {
             id: _right_tooltip
-            visible: _right_btn.containsMouse && right_tooltip_text != ""
+            visible: _right_btn_mousearea.containsMouse && right_tooltip_text != ""
 
 
             contentItem: FloatingBackground
@@ -206,7 +214,7 @@ RowLayout
 
         DefaultMouseArea
         {
-            id: _right_btn
+            id: _right_btn_mousearea
             anchors.fill: parent
             hoverEnabled: true
         }
