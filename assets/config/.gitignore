@@ -1,1 +1,19 @@
 *-coins.json
+"CDS": {
+    "coin": "CDS-BEP20",
+    "name": "Crypto Development Services",
+    "coinpaprika_id": "cds-crypto-development-services",
+    "coingecko_id": "crypto-development-services",
+    "nomics_id": "cds5-crypto-development-services",
+    "nodes": [
+      "http://bsc1.cipig.net:8655/",
+      "http://bsc2.cipig.net:8655/",
+      "http://bsc3.cipig.net:8655/"
+    ],
+    "explorer_url": [
+      "https://bscscan.com/"
+    ],
+    "type": "BEP-20",
+    "active": false,
+    "currently_enabled": false
+  },
